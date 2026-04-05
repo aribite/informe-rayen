@@ -3,261 +3,61 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Asistente Informes RAYEN</title>
+<title>Asistente Social RAYEN</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --bg: #f0ede8;
-    --surface: #ffffff;
-    --surface2: #f7f5f2;
-    --border: #e2ddd8;
-    --accent: #2d6a4f;
-    --accent2: #40916c;
-    --text: #1a1a1a;
-    --text2: #666;
-    --text3: #999;
-    --danger: #c0392b;
-    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    --bg: #f0ede8; --surface: #ffffff; --surface2: #f7f5f2;
+    --border: #e2ddd8; --accent: #2d6a4f; --accent2: #40916c;
+    --text: #1a1a1a; --text2: #666; --text3: #999;
+    --danger: #c0392b; --shadow: 0 2px 12px rgba(0,0,0,0.08);
   }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 24px 16px;
-  }
-
-  header {
-    width: 100%;
-    max-width: 720px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 28px;
-  }
-
-  .logo {
-    width: 40px; height: 40px;
-    background: var(--accent);
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    color: white;
-    font-size: 18px;
-    font-weight: 600;
-    flex-shrink: 0;
-  }
-
-  header h1 {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--text);
-    letter-spacing: -0.3px;
-  }
-
-  header p {
-    font-size: 12px;
-    color: var(--text3);
-    margin-top: 1px;
-  }
-
-  .card {
-    background: var(--surface);
-    border-radius: 16px;
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow);
-    width: 100%;
-    max-width: 720px;
-    overflow: hidden;
-  }
-
-  .card-section {
-    padding: 24px;
-    border-bottom: 1px solid var(--border);
-  }
-
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 24px 16px; }
+  header { width: 100%; max-width: 760px; display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+  .logo { width: 40px; height: 40px; background: var(--accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; font-weight: 600; flex-shrink: 0; }
+  header h1 { font-size: 18px; font-weight: 600; color: var(--text); letter-spacing: -0.3px; }
+  header p { font-size: 12px; color: var(--text3); margin-top: 1px; }
+  .card { background: var(--surface); border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); width: 100%; max-width: 760px; overflow: hidden; }
+  .card-section { padding: 24px; border-bottom: 1px solid var(--border); }
   .card-section:last-child { border-bottom: none; }
-
-  .section-label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    color: var(--text3);
-    margin-bottom: 16px;
-  }
-
-  .field-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-  }
-
+  .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; color: var(--text3); margin-bottom: 16px; }
+  .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .field { display: flex; flex-direction: column; gap: 6px; }
   .field.span2 { grid-column: span 2; }
-
-  label {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--text2);
-  }
-
-  input, select, textarea {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    color: var(--text);
-    background: var(--surface2);
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    padding: 10px 12px;
-    width: 100%;
-    transition: border-color 0.15s, box-shadow 0.15s;
-    outline: none;
-    resize: none;
-  }
-
-  input:focus, select:focus, textarea:focus {
-    border-color: var(--accent2);
-    box-shadow: 0 0 0 3px rgba(64,145,108,0.12);
-    background: white;
-  }
-
-  textarea { min-height: 90px; line-height: 1.5; }
-
-  .btn-generate {
-    width: 100%;
-    padding: 14px;
-    background: var(--accent);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
-    letter-spacing: -0.2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-  }
-
-  .btn-generate:hover { background: var(--accent2); }
-  .btn-generate:active { transform: scale(0.99); }
-  .btn-generate:disabled { background: #aaa; cursor: not-allowed; }
-
-  .spinner {
-    width: 18px; height: 18px;
-    border: 2.5px solid rgba(255,255,255,0.3);
-    border-top-color: white;
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-    display: none;
-  }
-
+  label { font-size: 12px; font-weight: 500; color: var(--text2); }
+  input, select, textarea { font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); background: var(--surface2); border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 12px; width: 100%; transition: border-color 0.15s, box-shadow 0.15s; outline: none; resize: none; }
+  input:focus, select:focus, textarea:focus { border-color: var(--accent2); box-shadow: 0 0 0 3px rgba(64,145,108,0.12); background: white; }
+  textarea { min-height: 100px; line-height: 1.5; }
+  .tipo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 0; }
+  .tipo-btn { padding: 10px 8px; background: var(--surface2); border: 1.5px solid var(--border); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: var(--text2); cursor: pointer; transition: all 0.15s; text-align: center; line-height: 1.3; }
+  .tipo-btn:hover { border-color: var(--accent2); color: var(--accent); }
+  .tipo-btn.active { background: rgba(45,106,79,0.08); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+  .btn-primary { width: 100%; padding: 14px; background: var(--accent); color: white; border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.1s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .btn-primary:hover { background: var(--accent2); }
+  .btn-primary:active { transform: scale(0.99); }
+  .btn-primary:disabled { background: #aaa; cursor: not-allowed; }
+  .spinner { width: 18px; height: 18px; border: 2.5px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
   @keyframes spin { to { transform: rotate(360deg); } }
-
   .result-area { display: none; }
-
-  .result-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 14px;
-  }
-
-  .result-badge {
-    display: flex; align-items: center; gap: 6px;
-    font-size: 12px; font-weight: 600;
-    color: var(--accent);
-    background: rgba(45,106,79,0.08);
-    padding: 4px 10px;
-    border-radius: 20px;
-  }
-
-  .result-badge::before {
-    content: '';
-    width: 7px; height: 7px;
-    background: var(--accent);
-    border-radius: 50%;
-  }
-
-  .btn-copy {
-    padding: 8px 16px;
-    background: transparent;
-    border: 1.5px solid var(--accent);
-    color: var(--accent);
-    border-radius: 8px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.15s;
-    display: flex; align-items: center; gap: 6px;
-  }
-
-  .btn-copy:hover { background: var(--accent); color: white; }
-  .btn-copy.copied { background: var(--accent); color: white; }
-
-  .result-text {
-    font-family: 'DM Mono', monospace;
-    font-size: 13px;
-    line-height: 1.7;
-    color: var(--text);
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 18px;
-    white-space: pre-wrap;
-    word-break: break-word;
-    min-height: 80px;
-  }
-
-  .error-msg {
-    display: none;
-    color: var(--danger);
-    font-size: 13px;
-    margin-top: 10px;
-    padding: 10px 14px;
-    background: rgba(192,57,43,0.06);
-    border-radius: 8px;
-    border-left: 3px solid var(--danger);
-  }
-
-  .api-row {
-    display: flex; gap: 10px; align-items: flex-end;
-  }
-
+  .result-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .result-badge { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--accent); background: rgba(45,106,79,0.08); padding: 4px 10px; border-radius: 20px; }
+  .result-badge::before { content: ''; width: 7px; height: 7px; background: var(--accent); border-radius: 50%; }
+  .btn-copy { padding: 8px 16px; background: transparent; border: 1.5px solid var(--accent); color: var(--accent); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.15s; }
+  .btn-copy:hover, .btn-copy.copied { background: var(--accent); color: white; }
+  .result-text { font-family: 'DM Mono', monospace; font-size: 13px; line-height: 1.7; color: var(--text); background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 18px; white-space: pre-wrap; word-break: break-word; min-height: 80px; }
+  .error-msg { display: none; color: var(--danger); font-size: 13px; margin-top: 10px; padding: 10px 14px; background: rgba(192,57,43,0.06); border-radius: 8px; border-left: 3px solid var(--danger); }
+  .api-row { display: flex; gap: 10px; align-items: flex-end; }
   .api-row .field { flex: 1; }
-
-  .api-toggle {
-    padding: 10px 14px;
-    background: var(--surface2);
-    border: 1.5px solid var(--border);
-    border-radius: 8px;
-    font-size: 12px;
-    color: var(--text2);
-    cursor: pointer;
-    white-space: nowrap;
-    height: 40px;
-    display: flex; align-items: center;
-    transition: all 0.15s;
-  }
-
+  .api-toggle { padding: 10px 14px; background: var(--surface2); border: 1.5px solid var(--border); border-radius: 8px; font-size: 12px; color: var(--text2); cursor: pointer; white-space: nowrap; height: 40px; display: flex; align-items: center; transition: all 0.15s; }
   .api-toggle:hover { border-color: var(--accent); color: var(--accent); }
-
-  .footer-note {
-    font-size: 11px;
-    color: var(--text3);
-    text-align: center;
-    margin-top: 16px;
-  }
+  .api-saved { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--accent); background: rgba(45,106,79,0.08); padding: 12px 14px; border-radius: 8px; }
+  .api-saved span { flex: 1; font-weight: 500; }
+  .btn-change { font-size: 12px; color: var(--text3); background: none; border: none; cursor: pointer; text-decoration: underline; padding: 0; }
+  .btn-change:hover { color: var(--danger); }
+  .dynamic-fields { display: none; }
+  .dynamic-fields.visible { display: block; }
+  .footer-note { font-size: 11px; color: var(--text3); text-align: center; margin-top: 16px; }
 </style>
 </head>
 <body>
@@ -265,8 +65,8 @@
 <header>
   <div class="logo">TS</div>
   <div>
-    <h1>Asistente de Informes RAYEN</h1>
-    <p>Generación automática de informes clínicos</p>
+    <h1>Asistente Social – CESFAM Dr. Alejandro del Río</h1>
+    <p>Generación automática de registros clínicos y sociales</p>
   </div>
 </header>
 
@@ -275,62 +75,167 @@
   <!-- API Key -->
   <div class="card-section">
     <div class="section-label">Configuración</div>
-    <div class="api-row">
-      <div class="field">
-        <label>API Key de Anthropic</label>
-        <input type="password" id="apiKey" placeholder="sk-ant-..." autocomplete="off">
+    <div id="apiInputArea">
+      <div class="api-row">
+        <div class="field">
+          <label>API Key de Anthropic</label>
+          <input type="password" id="apiKey" placeholder="sk-ant-..." autocomplete="off">
+        </div>
+        <button class="api-toggle" onclick="toggleKey()">Mostrar</button>
       </div>
-      <button class="api-toggle" onclick="toggleKey()">Mostrar</button>
+      <button class="btn-primary" style="margin-top:12px; padding:11px;" onclick="guardarKey()">Guardar clave</button>
+    </div>
+    <div id="apiSavedArea" style="display:none;">
+      <div class="api-saved">
+        <span>✓ API Key guardada — lista para usar</span>
+        <button class="btn-change" onclick="cambiarKey()">Cambiar</button>
+      </div>
     </div>
   </div>
 
-  <!-- Datos del paciente -->
+  <!-- Tipo de registro -->
   <div class="card-section">
-    <div class="section-label">Datos del Paciente</div>
+    <div class="section-label">Tipo de Registro</div>
+    <div class="tipo-grid">
+      <button class="tipo-btn" onclick="seleccionarTipo('vdi')">🏠 Visita Domiciliaria<br>(VDI)</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('consulta')">📋 Consulta Social</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('ecicep')">🧠 Ingreso ECICEP</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('tribunal')">⚖️ Informe Tribunal<br>de Familia</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('prlac')">👴 FUD PRLAC</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('referencia')">📄 Referencia Social</button>
+    </div>
+  </div>
+
+  <!-- Campos comunes -->
+  <div class="card-section" id="camposComunes" style="display:none;">
+    <div class="section-label" id="labelCampos">Datos del Caso</div>
     <div class="field-grid">
       <div class="field">
-        <label>Nombre completo</label>
-        <input type="text" id="nombre" placeholder="Nombre Apellido">
-      </div>
-      <div class="field">
-        <label>RUT</label>
-        <input type="text" id="rut" placeholder="12.345.678-9">
+        <label>Nombre del usuario/paciente</label>
+        <input type="text" id="nombre" placeholder="Nombre completo">
       </div>
       <div class="field">
         <label>Edad</label>
-        <input type="text" id="edad" placeholder="Ej: 34 años">
-      </div>
-      <div class="field">
-        <label>Tipo de consulta</label>
-        <select id="tipo">
-          <option value="">Seleccionar...</option>
-          <option>Primera consulta</option>
-          <option>Control</option>
-          <option>Urgencia social</option>
-          <option>Seguimiento</option>
-          <option>Interconsulta</option>
-        </select>
+        <input type="text" id="edad" placeholder="Ej: 45 años">
       </div>
       <div class="field span2">
-        <label>Motivo de consulta</label>
-        <textarea id="motivo" placeholder="¿Por qué viene hoy? Describa brevemente..."></textarea>
+        <label>Composición familiar / Con quién vive</label>
+        <input type="text" id="familia" placeholder="Ej: vive con su madre y dos hijos menores">
       </div>
       <div class="field span2">
-        <label>Observaciones / Antecedentes relevantes</label>
-        <textarea id="observaciones" placeholder="Situación familiar, antecedentes, contexto social..."></textarea>
+        <label>Situación habitacional</label>
+        <input type="text" id="vivienda" placeholder="Ej: vivienda arrendada, 2 piezas, con hacinamiento">
       </div>
       <div class="field span2">
-        <label>Intervención realizada</label>
-        <textarea id="intervencion" placeholder="¿Qué se hizo en la consulta? Orientaciones, derivaciones, acuerdos..."></textarea>
+        <label>Situación económica</label>
+        <input type="text" id="economia" placeholder="Ej: PGU + trabajo informal, ingresos precarios">
+      </div>
+      <div class="field span2">
+        <label>Situación de salud / Diagnósticos relevantes</label>
+        <textarea id="salud" placeholder="Ej: HTA, DM2, diagnóstico reciente de depresión..."></textarea>
+      </div>
+      <div class="field span2">
+        <label>Motivo principal / Antecedentes del caso</label>
+        <textarea id="motivo" placeholder="Describe el motivo de la visita, consulta o derivación..."></textarea>
+      </div>
+      <div class="field span2">
+        <label>Red de apoyo</label>
+        <input type="text" id="red" placeholder="Ej: escasa, solo tía ocasional / buena red familiar">
       </div>
     </div>
+
+    <!-- Campos dinámicos según tipo -->
+    <div id="camposVDI" class="dynamic-fields" style="margin-top:14px;">
+      <div class="field-grid">
+        <div class="field span2">
+          <label>Intervención realizada en terreno</label>
+          <textarea id="vdiIntervencion" placeholder="Qué se hizo, orientaciones, acuerdos, observaciones..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div id="camposECICEP" class="dynamic-fields" style="margin-top:14px;">
+      <div class="field-grid">
+        <div class="field span2">
+          <label>Sintomatología (cognitiva, emocional, física, conductual)</label>
+          <textarea id="sintomas" placeholder="Ej: rumiación, ánimo bajo, insomnio, aislamiento..."></textarea>
+        </div>
+        <div class="field">
+          <label>Etapa motivacional</label>
+          <select id="etapaMotivacional">
+            <option value="">Seleccionar...</option>
+            <option>Precontemplativa</option>
+            <option>Contemplativa</option>
+            <option>Preparación</option>
+            <option>Acción</option>
+            <option>Mantención</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Suicidabilidad</label>
+          <input type="text" id="suicidabilidad" placeholder="Ideación (-) Intentos (-) Autolesiones (-)">
+        </div>
+        <div class="field span2">
+          <label>Hábitos (tabaco, OH, drogas)</label>
+          <input type="text" id="habitos" placeholder="Ej: Tabaco (-) OH ocasional Drogas (-)">
+        </div>
+      </div>
+    </div>
+
+    <div id="camposTribunal" class="dynamic-fields" style="margin-top:14px;">
+      <div class="field-grid">
+        <div class="field span2">
+          <label>Adulto/a responsable del NNA</label>
+          <input type="text" id="adultoResponsable" placeholder="Nombre, parentesco, descripción del rol protector">
+        </div>
+        <div class="field span2">
+          <label>Situación educativa del NNA</label>
+          <textarea id="educacion" placeholder="Colegio, rendimiento, asistencia..."></textarea>
+        </div>
+        <div class="field span2">
+          <label>Solicitud al Tribunal</label>
+          <textarea id="solicitudTribunal" placeholder="Ej: prórroga de cuidado proteccional, evaluación cuidado personal definitivo..."></textarea>
+        </div>
+        <div class="field">
+          <label>RUN del adulto responsable</label>
+          <input type="text" id="runAdulto" placeholder="12.345.678-9">
+        </div>
+        <div class="field">
+          <label>Dirección del domicilio</label>
+          <input type="text" id="direccion" placeholder="Calle, número, comuna">
+        </div>
+      </div>
+    </div>
+
+    <div id="camposPRLAC" class="dynamic-fields" style="margin-top:14px;">
+      <div class="field-grid">
+        <div class="field span2">
+          <label>Nivel de dependencia / Funcionalidad</label>
+          <textarea id="dependencia" placeholder="Ej: usa bastón, requiere apoyo en AVD, postración parcial..."></textarea>
+        </div>
+        <div class="field span2">
+          <label>Cuidador/a principal</label>
+          <input type="text" id="cuidador" placeholder="Nombre, parentesco, nivel de sobrecarga">
+        </div>
+      </div>
+    </div>
+
+    <div id="camposReferencia" class="dynamic-fields" style="margin-top:14px;">
+      <div class="field-grid">
+        <div class="field span2">
+          <label>Tipo de ayuda solicitada</label>
+          <input type="text" id="ayudaSolicitada" placeholder="Ej: alimentos, vale de gas, pañales, materiales construcción">
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <!-- Botón -->
-  <div class="card-section">
-    <button class="btn-generate" id="btnGenerar" onclick="generarInforme()">
+  <!-- Botón generar -->
+  <div class="card-section" id="seccionBoton" style="display:none;">
+    <button class="btn-primary" id="btnGenerar" onclick="generarRegistro()">
       <div class="spinner" id="spinner"></div>
-      <span id="btnTexto">Generar Informe</span>
+      <span id="btnTexto">Generar Registro</span>
     </button>
     <div class="error-msg" id="errorMsg"></div>
   </div>
@@ -338,124 +243,250 @@
   <!-- Resultado -->
   <div class="card-section result-area" id="resultArea">
     <div class="result-header">
-      <div class="result-badge">Informe generado</div>
-      <button class="btn-copy" id="btnCopy" onclick="copiarTexto()">
-        📋 Copiar para RAYEN
-      </button>
+      <div class="result-badge">Registro generado</div>
+      <button class="btn-copy" id="btnCopy" onclick="copiarTexto()">📋 Copiar para RAYEN</button>
     </div>
     <div class="result-text" id="resultText"></div>
   </div>
 
 </div>
 
-<p class="footer-note">Los datos ingresados no se almacenan. Uso exclusivo interno CESFAM.</p>
+<p class="footer-note">Los datos ingresados no se almacenan. Uso exclusivo interno CESFAM Dr. Alejandro del Río.</p>
 
 <script>
-  function toggleKey() {
-    const input = document.getElementById('apiKey');
-    const btn = event.target;
-    if (input.type === 'password') {
-      input.type = 'text';
-      btn.textContent = 'Ocultar';
-    } else {
-      input.type = 'password';
-      btn.textContent = 'Mostrar';
-    }
+let tipoSeleccionado = '';
+
+const PROMPTS = {
+  vdi: `Eres una trabajadora social de APS chilena llamada María Angélica Gálvez, del CESFAM Dr. Alejandro del Río. Redactas Visitas Domiciliarias Integrales (VDI) para el sistema RAYEN.
+
+ESTILO OBLIGATORIO:
+- Siempre iniciar con "Se realiza VDI, atiende..."
+- Prosa continua, breve, técnica, sin viñetas
+- Estructura: Objetivo / Síntesis / Plan de acción
+- Síntesis: 2-3 párrafos máximo
+- Plan de acción: 3-4 puntos concretos con verbos como mantener, derivar, gestionar, reforzar, coordinar, monitorear
+- Expresiones frecuentes: "Refiere que...", "Señala que...", "Actualmente...", "En lo económico...", "Se mantiene...", "Se orienta respecto a..."
+- Tono: técnico, directo, operativo, claro. NO emocional, NO académico
+- Nunca usar listas dentro de la síntesis
+
+EJEMPLOS DE ESTILO:
+"Se realiza VDI, atiende usuaria. Refiere que la convivencia con su madre se mantiene en tensión..."
+"Se realiza VDI, atiende abuela. Refiere que Kevin presenta mayor desregulación del sueño..."
+"Se realiza VDI, atiende esposo en compañía de hijo. Usuaria con antecedentes crónicos..."`,
+
+  consulta: `Eres una trabajadora social de APS chilena llamada María Angélica Gálvez, del CESFAM Dr. Alejandro del Río. Redactas Consultas Sociales para el sistema RAYEN.
+
+ESTILO OBLIGATORIO:
+- Estructura: Objetivo / Síntesis / Plan de acción
+- Inicio típico: "Acude usuaria para orientación social respecto a..."
+- Prosa continua, sin viñetas dentro de la síntesis
+- Integrar en UN solo párrafo: motivo, familia, vivienda, economía, salud
+- Plan de acción: máx 3-4 acciones con "Se orienta / Se deriva / Se acuerda"
+- Tono técnico-directo, sin lenguaje emocional
+- Breve pero completo
+
+FRASES TIPO:
+"Acude usuaria para orientación social respecto a..."
+"Refiere encontrarse en situación de..."
+"Grupo familiar compuesto por..."
+"Se identifica situación de vulnerabilidad asociada a..."`,
+
+  ecicep: `Eres una trabajadora social de APS chilena llamada María Angélica Gálvez, del CESFAM Dr. Alejandro del Río. Redactas ingresos ECICEP para salud mental.
+
+ESTRUCTURA OBLIGATORIA (respetar orden):
+1. MC (Motivo de Consulta): 1 frase breve
+2. Identificación: edad, ocupación, situación familiar, con quién vive
+3. Comorbilidades: solo diagnósticos relevantes, lista corta
+4. Historia del problema: origen, evolución, tratamientos previos, estado actual (1-2 párrafos)
+5. Sintomatología: Cognitiva / Emocional / Física / Conductual (frases breves)
+6. Etapa motivacional: una palabra
+7. RECURSOS + Factores de riesgo + Factores protectores
+8. ANTECEDENTES FAMILIARES: prosa breve
+9. FUNCIONALIDAD: Apetito / Sueño / Actividad física
+10. HÁBITOS: Tabaco / OH / Drogas
+11. SUICIDABILIDAD: Ideación / Intentos / Autolesiones
+12. PLAN CONSENSUADO: problema, objetivo, acuerdos (máx 3-4)
+13. PLAN TÉCNICO: intervención, derivaciones, seguimiento
+
+ESTILO: técnico, clínico, breve. Usar abreviaturas: SM, tto, OH, APS. NO informe psicológico largo.`,
+
+  tribunal: `Eres una trabajadora social de APS chilena llamada María Angélica Gálvez, del CESFAM Dr. Alejandro del Río. Redactas informes sociales para Tribunal de Familia.
+
+ESTRUCTURA OBLIGATORIA:
+Encabezado (CESFAM Dr. Alejandro del Río, TS. María Angélica Gálvez, fecha, dirigido a Tribunal)
+I. Datos del usuario
+II. Adultos responsables
+III. Antecedentes generales (con subtítulos: Dinámica familiar, Situación educativa, Situación de salud, Condiciones habitacionales, Seguimiento de programas)
+IV. Solicitud
+V. Causa judicial (si aplica)
+
+ESTILO:
+- "Se informa que...", "Se constata que...", "Se observa que...", "La adulta responsable refiere..."
+- Frases medianas, sin lenguaje jurídico excesivo
+- Solicitud: "Se sugiere respetuosamente a su Usía evaluar..."
+- Destacar siempre: figura protectora, estabilidad del niño, redes activas
+- Justificar egreso si aplica con cumplimiento de objetivos`,
+
+  prlac: `Eres una trabajadora social de APS chilena llamada María Angélica Gálvez, del CESFAM Dr. Alejandro del Río. Redactas Fichas de Derivación FUD para el Programa PRLAC.
+
+ESTRUCTURA OBLIGATORIA (motivo de derivación en prosa, 4-6 párrafos):
+Párrafo 1: Contexto general (edad, con quién vive, vivienda, red familiar)
+Párrafo 2: Condición de salud + evento gatillante (diagnósticos, hospitalización, deterioro)
+Párrafo 3: Funcionalidad y dependencia (movilidad, AVD, cambios recientes)
+Párrafo 4: Red de apoyo y cuidador (quién cuida, sobrecarga, falta de red)
+Párrafo 5: Condición socioeconómica (PGU, pensiones, limitaciones)
+Párrafo 6 (OBLIGATORIO): "Se solicita evaluación para eventual incorporación al Programa Red Local de Apoyos y Cuidados, considerando..."
+
+INCLUIR AL MENOS 3 DE: dependencia funcional, riesgo caídas, sobrecarga cuidador, escasa red, enfermedad crónica, deterioro reciente, limitación económica.
+
+ESTILO: técnico, tercera persona, sin juicios, sin adjetivos emocionales.`,
+
+  referencia: `Eres una trabajadora social de APS chilena llamada María Angélica Gálvez, del CESFAM Dr. Alejandro del Río. Redactas Referencias Sociales para gestión municipal.
+
+ESTRUCTURA OBLIGATORIA:
+Breve síntesis social: [prosa continua, sin viñetas, incluyendo: motivo, familia, vivienda, economía, salud, factores de riesgo, red de apoyo]
+Solicitud: [Siempre iniciar con "En virtud de los antecedentes expuestos..." + tipo de ayuda explícita + justificación concreta]
+
+ESTILO:
+- Inicio: "Usuaria acude por orientación social..." o "Acude a control para orientación social..."
+- Prosa continua, técnica, breve pero completa
+- Económicamente: "subsiste principalmente con..."
+- Solicitud siempre explícita: alimentos, vale de gas, pañales, materiales construcción, apoyo emergencia
+- Legible en menos de 1 minuto pero completa para municipio`
+};
+
+window.onload = function() {
+  const savedKey = localStorage.getItem('rayen_api_key');
+  if (savedKey) mostrarKeyGuardada();
+}
+
+function guardarKey() {
+  const key = document.getElementById('apiKey').value.trim();
+  if (!key || !key.startsWith('sk-ant-')) { alert('Por favor ingresa una API Key válida (empieza con sk-ant-)'); return; }
+  localStorage.setItem('rayen_api_key', key);
+  mostrarKeyGuardada();
+}
+
+function mostrarKeyGuardada() {
+  document.getElementById('apiInputArea').style.display = 'none';
+  document.getElementById('apiSavedArea').style.display = 'block';
+}
+
+function cambiarKey() {
+  localStorage.removeItem('rayen_api_key');
+  document.getElementById('apiKey').value = '';
+  document.getElementById('apiInputArea').style.display = 'block';
+  document.getElementById('apiSavedArea').style.display = 'none';
+}
+
+function toggleKey() {
+  const input = document.getElementById('apiKey');
+  if (input.type === 'password') { input.type = 'text'; event.target.textContent = 'Ocultar'; }
+  else { input.type = 'password'; event.target.textContent = 'Mostrar'; }
+}
+
+function seleccionarTipo(tipo) {
+  tipoSeleccionado = tipo;
+  document.querySelectorAll('.tipo-btn').forEach(b => b.classList.remove('active'));
+  event.target.closest('.tipo-btn').classList.add('active');
+  document.getElementById('camposComunes').style.display = 'block';
+  document.getElementById('seccionBoton').style.display = 'block';
+  ['camposVDI','camposECICEP','camposTribunal','camposPRLAC','camposReferencia'].forEach(id => {
+    document.getElementById(id).classList.remove('visible');
+  });
+  const mapas = { vdi: 'camposVDI', ecicep: 'camposECICEP', tribunal: 'camposTribunal', prlac: 'camposPRLAC', referencia: 'camposReferencia' };
+  if (mapas[tipo]) document.getElementById(mapas[tipo]).classList.add('visible');
+  document.getElementById('camposComunes').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+async function generarRegistro() {
+  const apiKey = localStorage.getItem('rayen_api_key');
+  const errorMsg = document.getElementById('errorMsg');
+  errorMsg.style.display = 'none';
+
+  if (!apiKey) { errorMsg.textContent = 'Por favor guarda tu API Key primero.'; errorMsg.style.display = 'block'; return; }
+  if (!tipoSeleccionado) { errorMsg.textContent = 'Por favor selecciona un tipo de registro.'; errorMsg.style.display = 'block'; return; }
+
+  const nombre = document.getElementById('nombre').value.trim();
+  const edad = document.getElementById('edad').value.trim();
+  const familia = document.getElementById('familia').value.trim();
+  const vivienda = document.getElementById('vivienda').value.trim();
+  const economia = document.getElementById('economia').value.trim();
+  const salud = document.getElementById('salud').value.trim();
+  const motivo = document.getElementById('motivo').value.trim();
+  const red = document.getElementById('red').value.trim();
+
+  if (!nombre || !motivo) { errorMsg.textContent = 'Por favor completa al menos el nombre y el motivo.'; errorMsg.style.display = 'block'; return; }
+
+  let datosExtra = '';
+  if (tipoSeleccionado === 'vdi') {
+    datosExtra = `Intervención realizada: ${document.getElementById('vdiIntervencion').value}`;
+  } else if (tipoSeleccionado === 'ecicep') {
+    datosExtra = `Sintomatología: ${document.getElementById('sintomas').value}\nEtapa motivacional: ${document.getElementById('etapaMotivacional').value}\nSuicidabilidad: ${document.getElementById('suicidabilidad').value}\nHábitos: ${document.getElementById('habitos').value}`;
+  } else if (tipoSeleccionado === 'tribunal') {
+    datosExtra = `Adulto responsable: ${document.getElementById('adultoResponsable').value}\nSituación educativa: ${document.getElementById('educacion').value}\nSolicitud al tribunal: ${document.getElementById('solicitudTribunal').value}\nRUN adulto: ${document.getElementById('runAdulto').value}\nDirección: ${document.getElementById('direccion').value}`;
+  } else if (tipoSeleccionado === 'prlac') {
+    datosExtra = `Dependencia/Funcionalidad: ${document.getElementById('dependencia').value}\nCuidador principal: ${document.getElementById('cuidador').value}`;
+  } else if (tipoSeleccionado === 'referencia') {
+    datosExtra = `Ayuda solicitada: ${document.getElementById('ayudaSolicitada').value}`;
   }
 
-  async function generarInforme() {
-    const apiKey = document.getElementById('apiKey').value.trim();
-    const nombre = document.getElementById('nombre').value.trim();
-    const rut = document.getElementById('rut').value.trim();
-    const edad = document.getElementById('edad').value.trim();
-    const tipo = document.getElementById('tipo').value;
-    const motivo = document.getElementById('motivo').value.trim();
-    const observaciones = document.getElementById('observaciones').value.trim();
-    const intervencion = document.getElementById('intervencion').value.trim();
-
-    const errorMsg = document.getElementById('errorMsg');
-    errorMsg.style.display = 'none';
-
-    if (!apiKey) {
-      errorMsg.textContent = 'Por favor ingresa tu API Key de Anthropic.';
-      errorMsg.style.display = 'block';
-      return;
-    }
-
-    if (!nombre || !motivo) {
-      errorMsg.textContent = 'Por favor completa al menos el nombre y el motivo de consulta.';
-      errorMsg.style.display = 'block';
-      return;
-    }
-
-    const btn = document.getElementById('btnGenerar');
-    const spinner = document.getElementById('spinner');
-    const btnTexto = document.getElementById('btnTexto');
-    btn.disabled = true;
-    spinner.style.display = 'block';
-    btnTexto.textContent = 'Generando...';
-
-    const prompt = `Eres una trabajadora social de un CESFAM chileno. Redacta un informe de atención para el sistema RAYEN con los siguientes datos:
+  const userPrompt = `Genera el registro con estos datos:
 
 Nombre: ${nombre}
-RUT: ${rut || 'No registrado'}
-Edad: ${edad || 'No registrado'}
-Tipo de consulta: ${tipo || 'Consulta'}
-Motivo de consulta: ${motivo}
-Observaciones y antecedentes: ${observaciones || 'Sin antecedentes adicionales'}
-Intervención realizada: ${intervencion || 'Se realiza atención y orientación'}
+Edad: ${edad}
+Composición familiar: ${familia}
+Vivienda: ${vivienda}
+Economía: ${economia}
+Salud/Diagnósticos: ${salud}
+Motivo/Antecedentes: ${motivo}
+Red de apoyo: ${red}
+${datosExtra}
 
-Redacta el informe en primera persona, con lenguaje técnico-social formal, usando el formato estándar de RAYEN para trabajo social en atención primaria de salud chilena. Incluye: fecha de atención, identificación del usuario, motivo de consulta, antecedentes relevantes, intervención realizada y plan de seguimiento si corresponde.`;
+Genera el registro completo en el estilo indicado. Solo entrega el texto del registro, sin explicaciones adicionales.`;
 
-    try {
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apiKey,
-          'anthropic-version': '2023-06-01',
-          'anthropic-dangerous-direct-browser-access': 'true'
-        },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 1000,
-          messages: [{ role: 'user', content: prompt }]
-        })
-      });
+  const btn = document.getElementById('btnGenerar');
+  const spinner = document.getElementById('spinner');
+  const btnTexto = document.getElementById('btnTexto');
+  btn.disabled = true; spinner.style.display = 'block'; btnTexto.textContent = 'Generando...';
 
-      const data = await response.json();
-
-      if (data.error) {
-        throw new Error(data.error.message || 'Error al conectar con Claude');
-      }
-
-      const texto = data.content[0].text;
-      document.getElementById('resultText').textContent = texto;
-      document.getElementById('resultArea').style.display = 'block';
-      document.getElementById('resultArea').scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-    } catch (err) {
-      errorMsg.textContent = 'Error: ' + (err.message || 'No se pudo conectar. Verifica tu API Key.');
-      errorMsg.style.display = 'block';
-    } finally {
-      btn.disabled = false;
-      spinner.style.display = 'none';
-      btnTexto.textContent = 'Generar Informe';
-    }
-  }
-
-  function copiarTexto() {
-    const texto = document.getElementById('resultText').textContent;
-    navigator.clipboard.writeText(texto).then(() => {
-      const btn = document.getElementById('btnCopy');
-      btn.textContent = '✓ Copiado';
-      btn.classList.add('copied');
-      setTimeout(() => {
-        btn.textContent = '📋 Copiar para RAYEN';
-        btn.classList.remove('copied');
-      }, 2000);
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1500,
+        system: PROMPTS[tipoSeleccionado],
+        messages: [{ role: 'user', content: userPrompt }]
+      })
     });
+
+    const data = await response.json();
+    if (data.error) throw new Error(data.error.message || 'Error al conectar');
+
+    const texto = data.content[0].text;
+    document.getElementById('resultText').textContent = texto;
+    document.getElementById('resultArea').style.display = 'block';
+    document.getElementById('resultArea').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  } catch (err) {
+    errorMsg.textContent = 'Error: ' + (err.message || 'No se pudo conectar. Verifica tu API Key.');
+    errorMsg.style.display = 'block';
+  } finally {
+    btn.disabled = false; spinner.style.display = 'none'; btnTexto.textContent = 'Generar Registro';
   }
+}
+
+function copiarTexto() {
+  const texto = document.getElementById('resultText').textContent;
+  navigator.clipboard.writeText(texto).then(() => {
+    const btn = document.getElementById('btnCopy');
+    btn.textContent = '✓ Copiado';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '📋 Copiar para RAYEN'; btn.classList.remove('copied'); }, 2000);
+  });
+}
 </script>
 </body>
 </html>
