@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Asistente Social RAYEN</title>
+<title>Asistente Social RAYEN – CESFAM Dr. Alejandro del Río</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --bg: #f0ede8; --surface: #ffffff; --surface2: #f7f5f2;
+    --bg: #f0ede8; --surface: #fff; --surface2: #f7f5f2;
     --border: #e2ddd8; --accent: #2d6a4f; --accent2: #40916c;
     --text: #1a1a1a; --text2: #666; --text3: #999;
     --danger: #c0392b; --shadow: 0 2px 12px rgba(0,0,0,0.08);
@@ -29,8 +29,8 @@
   input, select, textarea { font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); background: var(--surface2); border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 12px; width: 100%; transition: border-color 0.15s, box-shadow 0.15s; outline: none; resize: none; }
   input:focus, select:focus, textarea:focus { border-color: var(--accent2); box-shadow: 0 0 0 3px rgba(64,145,108,0.12); background: white; }
   textarea { min-height: 100px; line-height: 1.5; }
-  .tipo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 0; }
-  .tipo-btn { padding: 10px 8px; background: var(--surface2); border: 1.5px solid var(--border); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: var(--text2); cursor: pointer; transition: all 0.15s; text-align: center; line-height: 1.3; }
+  .tipo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .tipo-btn { padding: 12px 8px; background: var(--surface2); border: 1.5px solid var(--border); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: var(--text2); cursor: pointer; transition: all 0.15s; text-align: center; line-height: 1.4; }
   .tipo-btn:hover { border-color: var(--accent2); color: var(--accent); }
   .tipo-btn.active { background: rgba(45,106,79,0.08); border-color: var(--accent); color: var(--accent); font-weight: 600; }
   .btn-primary { width: 100%; padding: 14px; background: var(--accent); color: white; border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.1s; display: flex; align-items: center; justify-content: center; gap: 8px; }
@@ -55,8 +55,9 @@
   .api-saved span { flex: 1; font-weight: 500; }
   .btn-change { font-size: 12px; color: var(--text3); background: none; border: none; cursor: pointer; text-decoration: underline; padding: 0; }
   .btn-change:hover { color: var(--danger); }
-  .dynamic-fields { display: none; }
+  .dynamic-fields { display: none; margin-top: 14px; }
   .dynamic-fields.visible { display: block; }
+  .hint { font-size: 11px; color: var(--text3); margin-top: 6px; font-style: italic; }
   .footer-note { font-size: 11px; color: var(--text3); text-align: center; margin-top: 16px; }
 </style>
 </head>
@@ -66,7 +67,7 @@
   <div class="logo">TS</div>
   <div>
     <h1>Asistente Social – CESFAM Dr. Alejandro del Río</h1>
-    <p>Generación automática de registros clínicos y sociales</p>
+    <p>Generación automática de registros clínicos y sociales • María Angélica Gálvez</p>
   </div>
 </header>
 
@@ -97,141 +98,71 @@
   <div class="card-section">
     <div class="section-label">Tipo de Registro</div>
     <div class="tipo-grid">
-      <button class="tipo-btn" onclick="seleccionarTipo('vdi')">🏠 Visita Domiciliaria<br>(VDI)</button>
-      <button class="tipo-btn" onclick="seleccionarTipo('consulta')">📋 Consulta Social</button>
-      <button class="tipo-btn" onclick="seleccionarTipo('ecicep')">🧠 Ingreso ECICEP</button>
-      <button class="tipo-btn" onclick="seleccionarTipo('tribunal')">⚖️ Informe Tribunal<br>de Familia</button>
-      <button class="tipo-btn" onclick="seleccionarTipo('prlac')">👴 FUD PRLAC</button>
-      <button class="tipo-btn" onclick="seleccionarTipo('referencia')">📄 Referencia Social</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('vdi', this)">🏠 Visita Domiciliaria<br>(VDI)</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('consulta', this)">📋 Consulta Social</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('ecicep', this)">🧠 Ingreso ECICEP</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('tribunal', this)">⚖️ Informe Tribunal<br>de Familia</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('prlac', this)">👴 FUD PRLAC</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('referencia', this)">📄 Referencia Social</button>
     </div>
   </div>
 
-  <!-- Campos comunes -->
-  <div class="card-section" id="camposComunes" style="display:none;">
+  <!-- Campos -->
+  <div class="card-section" id="camposSection" style="display:none;">
     <div class="section-label" id="labelCampos">Datos del Caso</div>
-    <div class="field-grid">
-      <div class="field">
-        <label>Nombre del usuario/paciente</label>
-        <input type="text" id="nombre" placeholder="Nombre completo">
-      </div>
-      <div class="field">
-        <label>Edad</label>
-        <input type="text" id="edad" placeholder="Ej: 45 años">
-      </div>
-      <div class="field span2">
-        <label>Composición familiar / Con quién vive</label>
-        <input type="text" id="familia" placeholder="Ej: vive con su madre y dos hijos menores">
-      </div>
-      <div class="field span2">
-        <label>Situación habitacional</label>
-        <input type="text" id="vivienda" placeholder="Ej: vivienda arrendada, 2 piezas, con hacinamiento">
-      </div>
-      <div class="field span2">
-        <label>Situación económica</label>
-        <input type="text" id="economia" placeholder="Ej: PGU + trabajo informal, ingresos precarios">
-      </div>
-      <div class="field span2">
-        <label>Situación de salud / Diagnósticos relevantes</label>
-        <textarea id="salud" placeholder="Ej: HTA, DM2, diagnóstico reciente de depresión..."></textarea>
-      </div>
-      <div class="field span2">
-        <label>Motivo principal / Antecedentes del caso</label>
-        <textarea id="motivo" placeholder="Describe el motivo de la visita, consulta o derivación..."></textarea>
-      </div>
-      <div class="field span2">
-        <label>Red de apoyo</label>
-        <input type="text" id="red" placeholder="Ej: escasa, solo tía ocasional / buena red familiar">
-      </div>
+
+    <!-- Campo universal: notas en bruto -->
+    <div class="field" style="margin-bottom:14px;">
+      <label>📝 Notas en bruto / Información del caso</label>
+      <textarea id="notasBruto" style="min-height:140px;" placeholder="Escribe aquí como si fuera un punteo rápido durante la atención. No importa el orden ni la redacción. Ejemplos:
+- Usuaria 45 años, cesante desde dic, vive con madre e hijo 7 años hiperactivo
+- Ansiedad, no duerme bien, crisis de pánico en el pasado
+- Separada 2 años, demanda pensión alimentos en curso
+- Conflicto con madre, trato desigual según ella
+- Interés en retomar trabajo, cocina repostería
+- Derivar IPG ansiedad, orientar subsidio arriendo"></textarea>
+      <p class="hint">Puedes escribir mezclado, abreviado o desordenado. La IA lo organiza y redacta.</p>
     </div>
 
-    <!-- Campos dinámicos según tipo -->
-    <div id="camposVDI" class="dynamic-fields" style="margin-top:14px;">
+    <!-- Campos adicionales según tipo -->
+    <div id="camposECICEP" class="dynamic-fields">
       <div class="field-grid">
         <div class="field span2">
-          <label>Intervención realizada en terreno</label>
-          <textarea id="vdiIntervencion" placeholder="Qué se hizo, orientaciones, acuerdos, observaciones..."></textarea>
-        </div>
-      </div>
-    </div>
-
-    <div id="camposECICEP" class="dynamic-fields" style="margin-top:14px;">
-      <div class="field-grid">
-        <div class="field span2">
-          <label>Sintomatología (cognitiva, emocional, física, conductual)</label>
-          <textarea id="sintomas" placeholder="Ej: rumiación, ánimo bajo, insomnio, aislamiento..."></textarea>
-        </div>
-        <div class="field">
           <label>Etapa motivacional</label>
           <select id="etapaMotivacional">
-            <option value="">Seleccionar...</option>
+            <option value="">Seleccionar (opcional)...</option>
             <option>Precontemplativa</option>
             <option>Contemplativa</option>
             <option>Preparación</option>
+            <option>Disposición a la acción</option>
             <option>Acción</option>
             <option>Mantención</option>
           </select>
         </div>
-        <div class="field">
-          <label>Suicidabilidad</label>
-          <input type="text" id="suicidabilidad" placeholder="Ideación (-) Intentos (-) Autolesiones (-)">
-        </div>
+      </div>
+    </div>
+
+    <div id="camposTribunal" class="dynamic-fields">
+      <div class="field-grid">
         <div class="field span2">
-          <label>Hábitos (tabaco, OH, drogas)</label>
-          <input type="text" id="habitos" placeholder="Ej: Tabaco (-) OH ocasional Drogas (-)">
+          <label>Solicitud al Tribunal (¿qué se pide?)</label>
+          <input type="text" id="solicitudTribunal" placeholder="Ej: prórroga cuidado proteccional, evaluación cuidado personal definitivo...">
         </div>
       </div>
     </div>
 
-    <div id="camposTribunal" class="dynamic-fields" style="margin-top:14px;">
+    <div id="camposReferencia" class="dynamic-fields">
       <div class="field-grid">
         <div class="field span2">
-          <label>Adulto/a responsable del NNA</label>
-          <input type="text" id="adultoResponsable" placeholder="Nombre, parentesco, descripción del rol protector">
-        </div>
-        <div class="field span2">
-          <label>Situación educativa del NNA</label>
-          <textarea id="educacion" placeholder="Colegio, rendimiento, asistencia..."></textarea>
-        </div>
-        <div class="field span2">
-          <label>Solicitud al Tribunal</label>
-          <textarea id="solicitudTribunal" placeholder="Ej: prórroga de cuidado proteccional, evaluación cuidado personal definitivo..."></textarea>
-        </div>
-        <div class="field">
-          <label>RUN del adulto responsable</label>
-          <input type="text" id="runAdulto" placeholder="12.345.678-9">
-        </div>
-        <div class="field">
-          <label>Dirección del domicilio</label>
-          <input type="text" id="direccion" placeholder="Calle, número, comuna">
-        </div>
-      </div>
-    </div>
-
-    <div id="camposPRLAC" class="dynamic-fields" style="margin-top:14px;">
-      <div class="field-grid">
-        <div class="field span2">
-          <label>Nivel de dependencia / Funcionalidad</label>
-          <textarea id="dependencia" placeholder="Ej: usa bastón, requiere apoyo en AVD, postración parcial..."></textarea>
-        </div>
-        <div class="field span2">
-          <label>Cuidador/a principal</label>
-          <input type="text" id="cuidador" placeholder="Nombre, parentesco, nivel de sobrecarga">
-        </div>
-      </div>
-    </div>
-
-    <div id="camposReferencia" class="dynamic-fields" style="margin-top:14px;">
-      <div class="field-grid">
-        <div class="field span2">
-          <label>Tipo de ayuda solicitada</label>
-          <input type="text" id="ayudaSolicitada" placeholder="Ej: alimentos, vale de gas, pañales, materiales construcción">
+          <label>Ayuda solicitada al municipio</label>
+          <input type="text" id="ayudaSolicitada" placeholder="Ej: alimentos, vale de gas, pañales, materiales construcción...">
         </div>
       </div>
     </div>
 
   </div>
 
-  <!-- Botón generar -->
+  <!-- Botón -->
   <div class="card-section" id="seccionBoton" style="display:none;">
     <button class="btn-primary" id="btnGenerar" onclick="generarRegistro()">
       <div class="spinner" id="spinner"></div>
@@ -256,67 +187,148 @@
 <script>
 let tipoSeleccionado = '';
 
-const PROMPTS = {
-  vdi: `Eres una trabajadora social de APS chilena llamada María Angélica Gálvez, del CESFAM Dr. Alejandro del Río. Redactas Visitas Domiciliarias Integrales (VDI) para el sistema RAYEN.
+const SYSTEM_BASE = `Eres María Angélica Gálvez, Trabajadora Social del CESFAM Dr. Alejandro del Río, APS Chile.
 
-ESTILO OBLIGATORIO:
-- Siempre iniciar con "Se realiza VDI, atiende..."
-- Prosa continua, breve, técnica, sin viñetas
-- Estructura: Objetivo / Síntesis / Plan de acción
-- Síntesis: 2-3 párrafos máximo
-- Plan de acción: 3-4 puntos concretos con verbos como mantener, derivar, gestionar, reforzar, coordinar, monitorear
-- Expresiones frecuentes: "Refiere que...", "Señala que...", "Actualmente...", "En lo económico...", "Se mantiene...", "Se orienta respecto a..."
-- Tono: técnico, directo, operativo, claro. NO emocional, NO académico
-- Nunca usar listas dentro de la síntesis
-
-EJEMPLOS DE ESTILO:
-"Se realiza VDI, atiende usuaria. Refiere que la convivencia con su madre se mantiene en tensión..."
-"Se realiza VDI, atiende abuela. Refiere que Kevin presenta mayor desregulación del sueño..."
-"Se realiza VDI, atiende esposo en compañía de hijo. Usuaria con antecedentes crónicos..."`,
-
-  consulta: `Eres una trabajadora social de APS chilena llamada María Angélica Gálvez, del CESFAM Dr. Alejandro del Río. Redactas Consultas Sociales para el sistema RAYEN.
-
-ESTILO OBLIGATORIO:
-- Estructura: Objetivo / Síntesis / Plan de acción
-- Inicio típico: "Acude usuaria para orientación social respecto a..."
+IDENTIDAD DE ESTILO:
+- Redacción técnica, directa, breve pero completa
 - Prosa continua, sin viñetas dentro de la síntesis
-- Integrar en UN solo párrafo: motivo, familia, vivienda, economía, salud
-- Plan de acción: máx 3-4 acciones con "Se orienta / Se deriva / Se acuerda"
-- Tono técnico-directo, sin lenguaje emocional
-- Breve pero completo
+- Lenguaje operativo, no emocional ni académico
+- Tercera persona siempre
+- Abreviaturas clínicas: SM, tto, OH, VIF, NNA, IPG, APS, IS, ASI, etc.
+- Alta densidad de información en pocas palabras
+
+REGLAS ABSOLUTAS:
+- NUNCA inventar datos
+- NUNCA repetir información
+- NUNCA usar lenguaje emocional ("muy mal", "terrible")
+- NUNCA hacer listas dentro de la síntesis
+- SIEMPRE terminar con acción futura o seguimiento
+- Recibir notas en bruto y transformarlas en registro final pulido`;
+
+const PROMPTS = {
+
+vdi: `${SYSTEM_BASE}
+
+TIPO DE REGISTRO: Visita Domiciliaria Integral (VDI) para RAYEN
+
+ESTRUCTURA OBLIGATORIA:
+Nombre del usuario
+
+Objetivo de la visita:
+[frase breve y concreta]
+
+Síntesis:
+[prosa en 2-3 párrafos. SIEMPRE iniciar con "Se realiza VDI, atiende...". Incluir: motivo, situación actual, familia, salud, economía, vivienda, red de apoyo. Todo integrado, sin subtítulos]
+
+Plan de acción:
+– [acción concreta con verbo: mantener, derivar, gestionar, reforzar, coordinar, monitorear, verificar]
+– [acción]
+– [acción]
+
+EXPRESIONES TÍPICAS: "Se realiza VDI, atiende...", "Refiere que...", "Señala que...", "Actualmente...", "En lo económico...", "Se mantiene...", "Se orienta respecto a...", "Se acuerda..."
+
+EJEMPLOS DE TONO CORRECTO:
+"Se realiza VDI, atiende usuaria. Refiere que la convivencia con su madre se mantiene en tensión, aunque la ve menos en el domicilio por inicio de práctica profesional."
+"Se realiza VDI, atiende abuela. Refiere que Kevin presenta mayor desregulación del sueño, quedándose dormido en ocasiones a las 8:00 hrs."
+"Vivienda de un piso, con tres habitaciones. Comparte pieza con sus hijos. Condiciones básicas de habitabilidad."`,
+
+consulta: `${SYSTEM_BASE}
+
+TIPO DE REGISTRO: Consulta Social para RAYEN
+
+ESTRUCTURA OBLIGATORIA:
+Objetivo:
+[frase breve con el motivo]
+
+Síntesis:
+[UN párrafo en prosa que integre: motivo, familia, vivienda, economía, salud, problema principal. INICIO TÍPICO: "Acude usuaria para orientación social..."]
+
+Plan de acción:
+– Se orienta / Se deriva / Se acuerda [acción concreta]
+– [máx 3-4 acciones]
 
 FRASES TIPO:
 "Acude usuaria para orientación social respecto a..."
 "Refiere encontrarse en situación de..."
 "Grupo familiar compuesto por..."
-"Se identifica situación de vulnerabilidad asociada a..."`,
+"Se identifica situación de vulnerabilidad asociada a..."
+"Económicamente subsiste principalmente con..."`,
 
-  ecicep: `Eres una trabajadora social de APS chilena llamada María Angélica Gálvez, del CESFAM Dr. Alejandro del Río. Redactas ingresos ECICEP para salud mental.
+ecicep: `${SYSTEM_BASE}
 
-ESTRUCTURA OBLIGATORIA (respetar orden):
-1. MC (Motivo de Consulta): 1 frase breve
-2. Identificación: edad, ocupación, situación familiar, con quién vive
-3. Comorbilidades: solo diagnósticos relevantes, lista corta
-4. Historia del problema: origen, evolución, tratamientos previos, estado actual (1-2 párrafos)
-5. Sintomatología: Cognitiva / Emocional / Física / Conductual (frases breves)
-6. Etapa motivacional: una palabra
-7. RECURSOS + Factores de riesgo + Factores protectores
-8. ANTECEDENTES FAMILIARES: prosa breve
-9. FUNCIONALIDAD: Apetito / Sueño / Actividad física
-10. HÁBITOS: Tabaco / OH / Drogas
-11. SUICIDABILIDAD: Ideación / Intentos / Autolesiones
-12. PLAN CONSENSUADO: problema, objetivo, acuerdos (máx 3-4)
-13. PLAN TÉCNICO: intervención, derivaciones, seguimiento
+TIPO DE REGISTRO: Ingreso ECICEP para Salud Mental
 
-ESTILO: técnico, clínico, breve. Usar abreviaturas: SM, tto, OH, APS. NO informe psicológico largo.`,
+FORMATO EXACTO OBLIGATORIO (respetar este orden y estructura):
 
-  tribunal: `Eres una trabajadora social de APS chilena llamada María Angélica Gálvez, del CESFAM Dr. Alejandro del Río. Redactas informes sociales para Tribunal de Familia.
+INGRESO ECICEP
+MC: [1 frase breve]
+
+Identificación: [edad/etapa, ocupación, situación laboral, rol en hogar, estado civil]
+
+Comorbilidades: [diagnósticos médicos o (-)]
+
+Historia del problema: [1-2 párrafos. Origen del malestar, evolución, tratamientos previos, estado actual. DIRECTO Y CLÍNICO]
+
+Sintomatología:
+Cognitiva: [frase breve]
+Emocional: [frase breve]
+Física: [frase breve]
+Conductual: [frase breve]
+
+Etapa motivacional: [una palabra/frase]
+
+RECURSOS: [motivaciones, vínculos positivos]
+Factores de riesgo: [lista breve]
+Factores protectores: [lista breve]
+
+ANTECEDENTES FAMILIARES
+[prosa breve: con quién vive, nombres, edades, dinámica, conflictos relevantes]
+
+FUNCIONALIDAD
+Apetito: [estado]
+Sueño: [descripción concreta: hora de acostarse, conciliación, despertares]
+Actividad física: [estado]
+
+HÁBITOS
+Tabaco ([+/-] detalle). OH ([+/-]). Drogas ([+/-]).
+
+SUICIDABILIDAD
+Ideación ([+/-]). Intentos ([+/-]). Autolesiones ([+/-]).
+
+II. PLAN CONSENSUADO
+Problema priorizado: [1 solo problema concreto]
+Etapa motivacional: [repetir]
+Objetivo: [SMART: claro, medible, con tiempo]
+Opciones ofrecidas: [psicoterapia, IPG, médico SM, etc.]
+Acuerdos:
+– Usuaria se compromete a [acción específica + frecuencia/plazo]
+– [acuerdo 2]
+– [acuerdo 3, máx 4]
+
+III. PLAN TÉCNICO
+[prosa breve: intervención realizada, derivaciones, seguimiento]
+
+EJEMPLO REAL DE CALIDAD:
+MC: Derivada desde tamizaje de SM por ánimo bajo.
+Identificación: Adulta, dueña de casa, 4° medio. Vive con su hija y nieta en casa propia.
+Comorbilidades: HTA. DM2.
+Historia del problema: Refiere ánimo bajo posterior a separación conyugal en 2025, con descompensación en diciembre con llanto frecuente y ansiedad. Presentó aislamiento y autolesiones leves. Actualmente en tratamiento psicológico y psiquiátrico en extrasistema con buena adherencia, refiere mayor estabilidad emocional y proyecciones personales.`,
+
+tribunal: `${SYSTEM_BASE}
+
+TIPO DE REGISTRO: Informe Social para Tribunal de Familia
 
 ESTRUCTURA OBLIGATORIA:
-Encabezado (CESFAM Dr. Alejandro del Río, TS. María Angélica Gálvez, fecha, dirigido a Tribunal)
+[Encabezado: CESFAM Dr. Alejandro del Río / TS. María Angélica Gálvez / Fecha / Dirigido a Tribunal]
+
 I. Datos del usuario
 II. Adultos responsables
-III. Antecedentes generales (con subtítulos: Dinámica familiar, Situación educativa, Situación de salud, Condiciones habitacionales, Seguimiento de programas)
+III. Antecedentes generales
+   Dinámica familiar y cuidado
+   Situación educativa
+   Situación de salud
+   Condiciones habitacionales y económicas
+   Seguimiento de programas
 IV. Solicitud
 V. Causa judicial (si aplica)
 
@@ -324,35 +336,45 @@ ESTILO:
 - "Se informa que...", "Se constata que...", "Se observa que...", "La adulta responsable refiere..."
 - Frases medianas, sin lenguaje jurídico excesivo
 - Solicitud: "Se sugiere respetuosamente a su Usía evaluar..."
-- Destacar siempre: figura protectora, estabilidad del niño, redes activas
-- Justificar egreso si aplica con cumplimiento de objetivos`,
+- SIEMPRE destacar: figura protectora, estabilidad del niño, redes activas
 
-  prlac: `Eres una trabajadora social de APS chilena llamada María Angélica Gálvez, del CESFAM Dr. Alejandro del Río. Redactas Fichas de Derivación FUD para el Programa PRLAC.
+EJEMPLO DE SOLICITUD:
+"En consideración de los antecedentes expuestos, se sugiere respetuosamente a su Usía evaluar la prórroga de la medida de cuidado proteccional en favor de doña [nombre], RUN [RUN], domiciliada en [dirección], quien ha asumido de manera sostenida el cuidado del niño, constituyéndose como figura protectora."`,
 
-ESTRUCTURA OBLIGATORIA (motivo de derivación en prosa, 4-6 párrafos):
+prlac: `${SYSTEM_BASE}
+
+TIPO DE REGISTRO: Ficha FUD para Programa PRLAC
+
+SECCIÓN CLAVE - MOTIVO DE DERIVACIÓN (4-6 párrafos en prosa):
+
 Párrafo 1: Contexto general (edad, con quién vive, vivienda, red familiar)
 Párrafo 2: Condición de salud + evento gatillante (diagnósticos, hospitalización, deterioro)
 Párrafo 3: Funcionalidad y dependencia (movilidad, AVD, cambios recientes)
 Párrafo 4: Red de apoyo y cuidador (quién cuida, sobrecarga, falta de red)
 Párrafo 5: Condición socioeconómica (PGU, pensiones, limitaciones)
-Párrafo 6 (OBLIGATORIO): "Se solicita evaluación para eventual incorporación al Programa Red Local de Apoyos y Cuidados, considerando..."
+Párrafo 6 OBLIGATORIO: "Se solicita evaluación para eventual incorporación al Programa Red Local de Apoyos y Cuidados, considerando [condición de dependencia + sobrecarga + escasa red + limitación económica]."
 
-INCLUIR AL MENOS 3 DE: dependencia funcional, riesgo caídas, sobrecarga cuidador, escasa red, enfermedad crónica, deterioro reciente, limitación económica.
+INCLUIR AL MENOS 3 DE: dependencia funcional, riesgo caídas, sobrecarga cuidador, escasa red, enfermedad crónica, deterioro reciente, limitación económica.`,
 
-ESTILO: técnico, tercera persona, sin juicios, sin adjetivos emocionales.`,
+referencia: `${SYSTEM_BASE}
 
-  referencia: `Eres una trabajadora social de APS chilena llamada María Angélica Gálvez, del CESFAM Dr. Alejandro del Río. Redactas Referencias Sociales para gestión municipal.
+TIPO DE REGISTRO: Referencia Social para gestión municipal
 
 ESTRUCTURA OBLIGATORIA:
-Breve síntesis social: [prosa continua, sin viñetas, incluyendo: motivo, familia, vivienda, economía, salud, factores de riesgo, red de apoyo]
-Solicitud: [Siempre iniciar con "En virtud de los antecedentes expuestos..." + tipo de ayuda explícita + justificación concreta]
+Breve síntesis social:
+[prosa continua, sin viñetas. Incluir: motivo, familia, vivienda, economía, salud, factores de riesgo, red de apoyo. INICIO: "Usuaria acude por orientación social..." o "Sra. [nombre] acude por orientación social..."]
 
-ESTILO:
-- Inicio: "Usuaria acude por orientación social..." o "Acude a control para orientación social..."
-- Prosa continua, técnica, breve pero completa
-- Económicamente: "subsiste principalmente con..."
-- Solicitud siempre explícita: alimentos, vale de gas, pañales, materiales construcción, apoyo emergencia
-- Legible en menos de 1 minuto pero completa para municipio`
+Solicitud:
+[SIEMPRE iniciar con "En virtud de los antecedentes expuestos..." + tipo de ayuda EXPLÍCITA (alimentos, vale de gas, pañales, materiales, apoyo emergencia) + justificación concreta]
+
+REGLA: Legible en menos de 1 minuto. Completa para que el municipio entienda por qué otorgar la ayuda.
+
+FRASES TIPO:
+"Económicamente subsiste principalmente con..."
+"Se identifica situación de vulnerabilidad socioeconómica..."
+"Escasa red de apoyo..."
+"Alta carga de cuidados..."`
+
 };
 
 window.onload = function() {
@@ -362,7 +384,7 @@ window.onload = function() {
 
 function guardarKey() {
   const key = document.getElementById('apiKey').value.trim();
-  if (!key || !key.startsWith('sk-ant-')) { alert('Por favor ingresa una API Key válida (empieza con sk-ant-)'); return; }
+  if (!key || !key.startsWith('sk-ant-')) { alert('API Key inválida. Debe comenzar con sk-ant-'); return; }
   localStorage.setItem('rayen_api_key', key);
   mostrarKeyGuardada();
 }
@@ -385,18 +407,28 @@ function toggleKey() {
   else { input.type = 'password'; event.target.textContent = 'Mostrar'; }
 }
 
-function seleccionarTipo(tipo) {
+function seleccionarTipo(tipo, btn) {
   tipoSeleccionado = tipo;
   document.querySelectorAll('.tipo-btn').forEach(b => b.classList.remove('active'));
-  event.target.closest('.tipo-btn').classList.add('active');
-  document.getElementById('camposComunes').style.display = 'block';
+  btn.classList.add('active');
+  document.getElementById('camposSection').style.display = 'block';
   document.getElementById('seccionBoton').style.display = 'block';
-  ['camposVDI','camposECICEP','camposTribunal','camposPRLAC','camposReferencia'].forEach(id => {
+  ['camposECICEP','camposTribunal','camposReferencia'].forEach(id => {
     document.getElementById(id).classList.remove('visible');
   });
-  const mapas = { vdi: 'camposVDI', ecicep: 'camposECICEP', tribunal: 'camposTribunal', prlac: 'camposPRLAC', referencia: 'camposReferencia' };
+  const mapas = { ecicep: 'camposECICEP', tribunal: 'camposTribunal', referencia: 'camposReferencia' };
   if (mapas[tipo]) document.getElementById(mapas[tipo]).classList.add('visible');
-  document.getElementById('camposComunes').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  const placeholders = {
+    vdi: 'Ej: Visita a usuaria 68a, HTA DM, postrada tras ITU, esposo cuidador 72a sin apoyo, PGU solo ingreso, vivienda propia buen estado, hija visita esporádica, refiere agotamiento del esposo...',
+    consulta: 'Ej: Acude hombre 45a por orientación, accidente laboral hace 1 año, fractura expuesta tobillo, movilidad reducida, esposa e hijos piden jubilación invalidez, AFP tramitado...',
+    ecicep: 'Ej: Mujer 34a cesante desde dic, ansiedad y ánimo bajo, crisis de pánico anteriores, vive con madre y hermanos convivencia tensa, hijo 7a hiperactivo, separada 2 años, duelo hija neonata hace 10 años...',
+    tribunal: 'Ej: Niño 8a al cuidado de tía materna hace 2 años tras fallecimiento de madre, buen rendimiento escolar, controles al día, tía rol protector estable, vivienda adecuada, ingreso AFT próximo...',
+    prlac: 'Ej: AM 78a, ACV 2019 secuela motora, usa andador, vive con hija única 50a trabajadora de casa particular, sin apoyo municipal, PGU única fuente ingreso, hija sobrecargada...',
+    referencia: 'Ej: Madre soltera 2 hijos menores 4 y 7a, uno con TEA 60% discapacidad, cesante, deuda arriendo 3 meses, sin red apoyo, abuelos con alzheimer en el hogar...'
+  };
+  document.getElementById('notasBruto').placeholder = placeholders[tipo] || 'Escribe las notas del caso aquí...';
+  document.getElementById('camposSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 async function generarRegistro() {
@@ -405,45 +437,28 @@ async function generarRegistro() {
   errorMsg.style.display = 'none';
 
   if (!apiKey) { errorMsg.textContent = 'Por favor guarda tu API Key primero.'; errorMsg.style.display = 'block'; return; }
-  if (!tipoSeleccionado) { errorMsg.textContent = 'Por favor selecciona un tipo de registro.'; errorMsg.style.display = 'block'; return; }
+  if (!tipoSeleccionado) { errorMsg.textContent = 'Selecciona un tipo de registro.'; errorMsg.style.display = 'block'; return; }
 
-  const nombre = document.getElementById('nombre').value.trim();
-  const edad = document.getElementById('edad').value.trim();
-  const familia = document.getElementById('familia').value.trim();
-  const vivienda = document.getElementById('vivienda').value.trim();
-  const economia = document.getElementById('economia').value.trim();
-  const salud = document.getElementById('salud').value.trim();
-  const motivo = document.getElementById('motivo').value.trim();
-  const red = document.getElementById('red').value.trim();
+  const notas = document.getElementById('notasBruto').value.trim();
+  if (!notas || notas.length < 20) { errorMsg.textContent = 'Por favor ingresa información del caso (mínimo unas pocas líneas).'; errorMsg.style.display = 'block'; return; }
 
-  if (!nombre || !motivo) { errorMsg.textContent = 'Por favor completa al menos el nombre y el motivo.'; errorMsg.style.display = 'block'; return; }
-
-  let datosExtra = '';
-  if (tipoSeleccionado === 'vdi') {
-    datosExtra = `Intervención realizada: ${document.getElementById('vdiIntervencion').value}`;
-  } else if (tipoSeleccionado === 'ecicep') {
-    datosExtra = `Sintomatología: ${document.getElementById('sintomas').value}\nEtapa motivacional: ${document.getElementById('etapaMotivacional').value}\nSuicidabilidad: ${document.getElementById('suicidabilidad').value}\nHábitos: ${document.getElementById('habitos').value}`;
+  let extras = '';
+  if (tipoSeleccionado === 'ecicep') {
+    const etapa = document.getElementById('etapaMotivacional').value;
+    if (etapa) extras = `\nEtapa motivacional indicada: ${etapa}`;
   } else if (tipoSeleccionado === 'tribunal') {
-    datosExtra = `Adulto responsable: ${document.getElementById('adultoResponsable').value}\nSituación educativa: ${document.getElementById('educacion').value}\nSolicitud al tribunal: ${document.getElementById('solicitudTribunal').value}\nRUN adulto: ${document.getElementById('runAdulto').value}\nDirección: ${document.getElementById('direccion').value}`;
-  } else if (tipoSeleccionado === 'prlac') {
-    datosExtra = `Dependencia/Funcionalidad: ${document.getElementById('dependencia').value}\nCuidador principal: ${document.getElementById('cuidador').value}`;
+    const sol = document.getElementById('solicitudTribunal').value.trim();
+    if (sol) extras = `\nSolicitud al tribunal: ${sol}`;
   } else if (tipoSeleccionado === 'referencia') {
-    datosExtra = `Ayuda solicitada: ${document.getElementById('ayudaSolicitada').value}`;
+    const ayuda = document.getElementById('ayudaSolicitada').value.trim();
+    if (ayuda) extras = `\nAyuda solicitada: ${ayuda}`;
   }
 
-  const userPrompt = `Genera el registro con estos datos:
+  const userPrompt = `Transforma estas notas en bruto en el registro final para RAYEN:
 
-Nombre: ${nombre}
-Edad: ${edad}
-Composición familiar: ${familia}
-Vivienda: ${vivienda}
-Economía: ${economia}
-Salud/Diagnósticos: ${salud}
-Motivo/Antecedentes: ${motivo}
-Red de apoyo: ${red}
-${datosExtra}
+${notas}${extras}
 
-Genera el registro completo en el estilo indicado. Solo entrega el texto del registro, sin explicaciones adicionales.`;
+Redacta el registro completo en el estilo y formato indicado. Solo entrega el texto del registro, sin explicaciones ni comentarios adicionales.`;
 
   const btn = document.getElementById('btnGenerar');
   const spinner = document.getElementById('spinner');
@@ -453,10 +468,15 @@ Genera el registro completo en el estilo indicado. Solo entrega el texto del reg
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
-        max_tokens: 1500,
+        max_tokens: 2000,
         system: PROMPTS[tipoSeleccionado],
         messages: [{ role: 'user', content: userPrompt }]
       })
