@@ -26,11 +26,18 @@
   .field { display: flex; flex-direction: column; gap: 6px; }
   .field.span2 { grid-column: span 2; }
   label { font-size: 12px; font-weight: 500; color: var(--text2); }
-  input, select, textarea { font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); background: var(--surface2); border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 12px; width: 100%; transition: border-color 0.15s, box-shadow 0.15s; outline: none; resize: none; }
-  input:focus, select:focus, textarea:focus { border-color: var(--accent2); box-shadow: 0 0 0 3px rgba(64,145,108,0.12); background: white; }
-  textarea { min-height: 100px; line-height: 1.5; }
-  .tipo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .tipo-btn { padding: 12px 8px; background: var(--surface2); border: 1.5px solid var(--border); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: var(--text2); cursor: pointer; transition: all 0.15s; text-align: center; line-height: 1.4; }
+  input[type=text], input[type=password], select, textarea {
+    font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text);
+    background: var(--surface2); border: 1.5px solid var(--border);
+    border-radius: 8px; padding: 10px 12px; width: 100%;
+    transition: border-color 0.15s, box-shadow 0.15s; outline: none; resize: none;
+  }
+  input[type=text]:focus, input[type=password]:focus, select:focus, textarea:focus {
+    border-color: var(--accent2); box-shadow: 0 0 0 3px rgba(64,145,108,0.12); background: white;
+  }
+  textarea { min-height: 80px; line-height: 1.5; }
+  .tipo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .tipo-btn { padding: 12px 8px; background: var(--surface2); border: 1.5px solid var(--border); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; color: var(--text2); cursor: pointer; transition: all 0.15s; text-align: center; line-height: 1.4; }
   .tipo-btn:hover { border-color: var(--accent2); color: var(--accent); }
   .tipo-btn.active { background: rgba(45,106,79,0.08); border-color: var(--accent); color: var(--accent); font-weight: 600; }
   .btn-primary { width: 100%; padding: 14px; background: var(--accent); color: white; border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.1s; display: flex; align-items: center; justify-content: center; gap: 8px; }
@@ -57,8 +64,31 @@
   .btn-change:hover { color: var(--danger); }
   .dynamic-fields { display: none; margin-top: 14px; }
   .dynamic-fields.visible { display: block; }
-  .hint { font-size: 11px; color: var(--text3); margin-top: 6px; font-style: italic; }
+  .hint { font-size: 11px; color: var(--text3); margin-top: 4px; font-style: italic; }
   .footer-note { font-size: 11px; color: var(--text3); text-align: center; margin-top: 16px; }
+
+  /* Planilla styles */
+  .planilla-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .planilla-field { display: flex; flex-direction: column; gap: 5px; }
+  .planilla-field.span2 { grid-column: span 2; }
+  .planilla-label { font-size: 11px; font-weight: 600; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; }
+  .planilla-input { background: var(--surface2); border: 1.5px solid var(--border); border-radius: 8px; padding: 9px 12px; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text); width: 100%; outline: none; transition: border-color 0.15s; }
+  .planilla-input:focus { border-color: var(--accent2); background: white; }
+  textarea.planilla-input { min-height: 65px; resize: none; line-height: 1.5; }
+  .radio-group { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+  .radio-group label { display: flex; align-items: center; gap: 5px; font-size: 13px; color: var(--text); font-weight: 400; cursor: pointer; }
+  .radio-group input[type=radio], .radio-group input[type=checkbox] { accent-color: var(--accent); width: 15px; height: 15px; cursor: pointer; }
+  .toggle-group { display: flex; gap: 8px; }
+  .toggle-btn { padding: 6px 14px; border: 1.5px solid var(--border); border-radius: 20px; background: var(--surface2); font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.15s; color: var(--text2); }
+  .toggle-btn.pos { border-color: var(--accent); background: rgba(45,106,79,0.1); color: var(--accent); }
+  .toggle-btn.neg { border-color: var(--danger); background: rgba(192,57,43,0.07); color: var(--danger); }
+  .planilla-divider { grid-column: span 2; border: none; border-top: 1px solid var(--border); margin: 4px 0; }
+  .planilla-section-title { grid-column: span 2; font-size: 11px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.8px; margin-top: 6px; }
+  .check-group { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
+  .check-group label { display: flex; align-items: center; gap: 5px; font-size: 13px; color: var(--text); cursor: pointer; font-weight: 400; }
+  .suici-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 4px; }
+  .suici-item { display: flex; flex-direction: column; gap: 5px; }
+  .suici-item .planilla-label { font-size: 11px; }
 </style>
 </head>
 <body>
@@ -94,72 +124,220 @@
     </div>
   </div>
 
-  <!-- Tipo de registro -->
+  <!-- Tipo -->
   <div class="card-section">
     <div class="section-label">Tipo de Registro</div>
     <div class="tipo-grid">
-      <button class="tipo-btn" onclick="seleccionarTipo('vdi', this)">🏠 Visita Domiciliaria<br>(VDI)</button>
-      <button class="tipo-btn" onclick="seleccionarTipo('consulta', this)">📋 Consulta Social</button>
-      <button class="tipo-btn" onclick="seleccionarTipo('ecicep', this)">🧠 Ingreso ECICEP</button>
-      <button class="tipo-btn" onclick="seleccionarTipo('tribunal', this)">⚖️ Informe Tribunal<br>de Familia</button>
-      <button class="tipo-btn" onclick="seleccionarTipo('prlac', this)">👴 FUD PRLAC</button>
-      <button class="tipo-btn" onclick="seleccionarTipo('referencia', this)">📄 Referencia Social</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('vdi', this)">🏠 Visita<br>Domiciliaria (VDI)</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('consulta', this)">📋 Consulta<br>Social</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('ecicep', this)">🧠 Ingreso<br>ECICEP</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('ecicep_planilla', this)">📝 ECICEP<br>Planilla</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('tribunal', this)">⚖️ Informe<br>Tribunal</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('prlac', this)">👴 FUD<br>PRLAC</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('referencia', this)">📄 Referencia<br>Social</button>
     </div>
   </div>
 
-  <!-- Campos -->
+  <!-- Campos normales -->
   <div class="card-section" id="camposSection" style="display:none;">
-    <div class="section-label" id="labelCampos">Datos del Caso</div>
-
-    <!-- Campo universal: notas en bruto -->
+    <div class="section-label">Datos del Caso</div>
     <div class="field" style="margin-bottom:14px;">
       <label>📝 Notas en bruto / Información del caso</label>
-      <textarea id="notasBruto" style="min-height:140px;" placeholder="Escribe aquí como si fuera un punteo rápido durante la atención. No importa el orden ni la redacción. Ejemplos:
-- Usuaria 45 años, cesante desde dic, vive con madre e hijo 7 años hiperactivo
-- Ansiedad, no duerme bien, crisis de pánico en el pasado
-- Separada 2 años, demanda pensión alimentos en curso
-- Conflicto con madre, trato desigual según ella
-- Interés en retomar trabajo, cocina repostería
-- Derivar IPG ansiedad, orientar subsidio arriendo"></textarea>
+      <textarea id="notasBruto" style="min-height:140px;" placeholder="Escribe aquí las notas del caso..."></textarea>
       <p class="hint">Puedes escribir mezclado, abreviado o desordenado. La IA lo organiza y redacta.</p>
     </div>
-
-    <!-- Campos adicionales según tipo -->
     <div id="camposECICEP" class="dynamic-fields">
-      <div class="field-grid">
-        <div class="field span2">
-          <label>Etapa motivacional</label>
-          <select id="etapaMotivacional">
-            <option value="">Seleccionar (opcional)...</option>
-            <option>Precontemplativa</option>
-            <option>Contemplativa</option>
-            <option>Preparación</option>
-            <option>Disposición a la acción</option>
-            <option>Acción</option>
-            <option>Mantención</option>
-          </select>
-        </div>
+      <div class="field">
+        <label>Etapa motivacional</label>
+        <select id="etapaMotivacional">
+          <option value="">Seleccionar (opcional)...</option>
+          <option>Precontemplativa</option>
+          <option>Contemplativa</option>
+          <option>Preparación</option>
+          <option>Disposición a la acción</option>
+          <option>Acción</option>
+          <option>Mantención</option>
+        </select>
       </div>
     </div>
-
     <div id="camposTribunal" class="dynamic-fields">
-      <div class="field-grid">
-        <div class="field span2">
-          <label>Solicitud al Tribunal (¿qué se pide?)</label>
-          <input type="text" id="solicitudTribunal" placeholder="Ej: prórroga cuidado proteccional, evaluación cuidado personal definitivo...">
-        </div>
+      <div class="field">
+        <label>Solicitud al Tribunal</label>
+        <input type="text" id="solicitudTribunal" placeholder="Ej: prórroga cuidado proteccional...">
       </div>
     </div>
-
     <div id="camposReferencia" class="dynamic-fields">
-      <div class="field-grid">
-        <div class="field span2">
-          <label>Ayuda solicitada al municipio</label>
-          <input type="text" id="ayudaSolicitada" placeholder="Ej: alimentos, vale de gas, pañales, materiales construcción...">
-        </div>
+      <div class="field">
+        <label>Ayuda solicitada al municipio</label>
+        <input type="text" id="ayudaSolicitada" placeholder="Ej: alimentos, vale de gas, pañales...">
       </div>
     </div>
+  </div>
 
+  <!-- ECICEP Planilla -->
+  <div class="card-section" id="planillaSection" style="display:none;">
+    <div class="section-label">Planilla ECICEP</div>
+    <div class="planilla-grid">
+
+      <div class="planilla-section-title">Antecedentes Generales</div>
+
+      <div class="planilla-field span2">
+        <div class="planilla-label">Con quién vive</div>
+        <textarea class="planilla-input" id="p_convive" placeholder="Ej: esposo, hijos, vive sola..."></textarea>
+      </div>
+
+      <div class="planilla-field span2">
+        <div class="planilla-label">Enfermedades / Comorbilidades</div>
+        <input type="text" class="planilla-input" id="p_enfermedades" placeholder="Ej: HTA, DM2, artrosis...">
+      </div>
+
+      <div class="planilla-field span2">
+        <div class="planilla-label">Motivo de consulta</div>
+        <textarea class="planilla-input" id="p_motivo" placeholder="¿Por qué consulta hoy?"></textarea>
+      </div>
+
+      <div class="planilla-field span2">
+        <div class="planilla-label">Estado de ánimo</div>
+        <textarea class="planilla-input" id="p_animo" placeholder="Ej: bajoneada, ansiosa, lábil, estable..."></textarea>
+      </div>
+
+      <div class="planilla-field">
+        <div class="planilla-label">Ciclo vital</div>
+        <div class="radio-group">
+          <label><input type="radio" name="ciclo" value="Niño/a"> Niño/a</label>
+          <label><input type="radio" name="ciclo" value="Adolescente"> Adolescente</label>
+          <label><input type="radio" name="ciclo" value="Adulto/a"> Adulto/a</label>
+          <label><input type="radio" name="ciclo" value="Adulto/a mayor"> Adulto/a mayor</label>
+        </div>
+      </div>
+
+      <div class="planilla-field">
+        <div class="planilla-label">Ocupación</div>
+        <input type="text" class="planilla-input" id="p_ocupacion" placeholder="Ej: dueña de casa, cesante, jubilada...">
+      </div>
+
+      <div class="planilla-field span2">
+        <div class="planilla-label">Red de apoyo</div>
+        <input type="text" class="planilla-input" id="p_red" placeholder="Ej: escasa, hija, amistades, ninguna...">
+      </div>
+
+      <div class="planilla-field span2">
+        <div class="planilla-label">Dinámica familiar</div>
+        <textarea class="planilla-input" id="p_dinamica" placeholder="Ej: convivencia tensa, buena relación, conflictos..."></textarea>
+      </div>
+
+      <hr class="planilla-divider">
+      <div class="planilla-section-title">Derivación</div>
+
+      <div class="planilla-field">
+        <div class="planilla-label">Tamizaje</div>
+        <div class="radio-group">
+          <label><input type="radio" name="tamizaje" value="Sí, derivada desde tamizaje"> Sí</label>
+          <label><input type="radio" name="tamizaje" value="No"> No</label>
+        </div>
+      </div>
+
+      <div class="planilla-field">
+        <div class="planilla-label">Si no, ¿cuál es la derivación?</div>
+        <input type="text" class="planilla-input" id="p_deriva" placeholder="Ej: médico, matrona, psicólogo...">
+      </div>
+
+      <hr class="planilla-divider">
+      <div class="planilla-section-title">Contexto Social</div>
+
+      <div class="planilla-field">
+        <div class="planilla-label">Escolaridad</div>
+        <input type="text" class="planilla-input" id="p_escolaridad" placeholder="Ej: 4° medio, básica incompleta...">
+      </div>
+
+      <div class="planilla-field">
+        <div class="planilla-label">Situación habitacional</div>
+        <input type="text" class="planilla-input" id="p_vivienda" placeholder="Ej: casa propia, arriendo, allegada...">
+      </div>
+
+      <hr class="planilla-divider">
+      <div class="planilla-section-title">Funcionalidad</div>
+
+      <div class="planilla-field">
+        <div class="planilla-label">Actividad física</div>
+        <input type="text" class="planilla-input" id="p_actividad" placeholder="Ej: caminatas, ninguna, gimnasio...">
+      </div>
+
+      <div class="planilla-field">
+        <div class="planilla-label">Alimentación</div>
+        <input type="text" class="planilla-input" id="p_alimentacion" placeholder="Ej: normal, apetito disminuido, ansiosa...">
+      </div>
+
+      <div class="planilla-field">
+        <div class="planilla-label">Participación comunitaria</div>
+        <div class="radio-group">
+          <label><input type="radio" name="comunidad" value="Sí"> Sí</label>
+          <label><input type="radio" name="comunidad" value="No"> No</label>
+        </div>
+      </div>
+
+      <div class="planilla-field">
+        <div class="planilla-label">¿Dónde participa?</div>
+        <input type="text" class="planilla-input" id="p_comunidad_donde" placeholder="Ej: iglesia, club AM, taller...">
+      </div>
+
+      <div class="planilla-field span2">
+        <div class="planilla-label">Patrón de sueño</div>
+        <input type="text" class="planilla-input" id="p_sueno" placeholder="Ej: se acuesta 23:00, despertares nocturnos, insomnio...">
+      </div>
+
+      <hr class="planilla-divider">
+      <div class="planilla-section-title">Hábitos</div>
+
+      <div class="planilla-field span2">
+        <div class="planilla-label">Seleccionar hábitos presentes</div>
+        <div class="check-group">
+          <label><input type="checkbox" id="h_tabaco"> Tabaco</label>
+          <label><input type="checkbox" id="h_alcohol"> Alcohol</label>
+          <label><input type="checkbox" id="h_drogas"> Drogas</label>
+          <label><input type="checkbox" id="h_otro"> Otro:</label>
+          <input type="text" class="planilla-input" id="h_otro_txt" style="width:140px; min-height:unset; padding:6px 10px;" placeholder="especificar">
+        </div>
+      </div>
+
+      <hr class="planilla-divider">
+      <div class="planilla-section-title">Suicidabilidad</div>
+
+      <div class="planilla-field span2">
+        <div class="suici-row">
+          <div class="suici-item">
+            <div class="planilla-label">Ideación</div>
+            <div class="toggle-group">
+              <button class="toggle-btn" onclick="toggleSuici(this, 'ideacion', '+')" id="s_ideacion_pos">+</button>
+              <button class="toggle-btn" onclick="toggleSuici(this, 'ideacion', '-')" id="s_ideacion_neg">−</button>
+            </div>
+          </div>
+          <div class="suici-item">
+            <div class="planilla-label">Intento</div>
+            <div class="toggle-group">
+              <button class="toggle-btn" onclick="toggleSuici(this, 'intento', '+')" id="s_intento_pos">+</button>
+              <button class="toggle-btn" onclick="toggleSuici(this, 'intento', '-')" id="s_intento_neg">−</button>
+            </div>
+          </div>
+          <div class="suici-item">
+            <div class="planilla-label">Autolesiones</div>
+            <div class="toggle-group">
+              <button class="toggle-btn" onclick="toggleSuici(this, 'autolesion', '+')" id="s_autolesion_pos">+</button>
+              <button class="toggle-btn" onclick="toggleSuici(this, 'autolesion', '-')" id="s_autolesion_neg">−</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="planilla-divider">
+      <div class="planilla-section-title">Información adicional</div>
+
+      <div class="planilla-field span2">
+        <div class="planilla-label">Notas en bruto (info extra, derivaciones, observaciones)</div>
+        <textarea class="planilla-input" id="p_notas" style="min-height:90px;" placeholder="Cualquier dato adicional, gestiones pendientes, derivaciones, contexto relevante..."></textarea>
+      </div>
+
+    </div>
   </div>
 
   <!-- Botón -->
@@ -186,250 +364,166 @@
 
 <script>
 let tipoSeleccionado = '';
+const suiciValues = { ideacion: '', intento: '', autolesion: '' };
+
+function toggleSuici(btn, campo, valor) {
+  const posBtn = document.getElementById('s_' + campo + '_pos');
+  const negBtn = document.getElementById('s_' + campo + '_neg');
+  posBtn.classList.remove('pos'); negBtn.classList.remove('neg');
+  if (suiciValues[campo] === valor) {
+    suiciValues[campo] = '';
+  } else {
+    suiciValues[campo] = valor;
+    if (valor === '+') posBtn.classList.add('pos');
+    else negBtn.classList.add('neg');
+  }
+}
 
 const SYSTEM_BASE = `Eres María Angélica Gálvez, Trabajadora Social del CESFAM Dr. Alejandro del Río, APS Chile.
-
-IDENTIDAD DE ESTILO:
-- Redacción técnica, directa, breve pero completa
-- Prosa continua, sin viñetas dentro de la síntesis
-- Lenguaje operativo, no emocional ni académico
-- Tercera persona siempre
-- Abreviaturas clínicas: SM, tto, OH, VIF, NNA, IPG, APS, IS, ASI, etc.
-- Alta densidad de información en pocas palabras
-
-REGLAS ABSOLUTAS:
-- NUNCA inventar datos
-- NUNCA repetir información
-- NUNCA usar lenguaje emocional ("muy mal", "terrible")
-- NUNCA hacer listas dentro de la síntesis
-- SIEMPRE terminar con acción futura o seguimiento
-- Recibir notas en bruto y transformarlas en registro final pulido`;
+Redacción técnica, directa, breve pero completa. Prosa continua. Lenguaje operativo.
+Tercera persona siempre. Abreviaturas: SM, tto, OH, VIF, NNA, IPG, APS, IS, ASI.
+NUNCA inventar datos. NUNCA repetir información. NUNCA cambiar datos clínicos o diagnósticos.
+SIEMPRE terminar con acción futura o seguimiento.`;
 
 const PROMPTS = {
-
 vdi: `${SYSTEM_BASE}
-
-TIPO DE REGISTRO: Visita Domiciliaria Integral (VDI) para RAYEN
-
-ESTRUCTURA OBLIGATORIA:
+TIPO: Visita Domiciliaria Integral (VDI)
+ESTRUCTURA:
 Nombre del usuario
-
-Objetivo de la visita:
-[frase breve y concreta]
-
-Síntesis:
-[prosa en 2-3 párrafos. SIEMPRE iniciar con "Se realiza VDI, atiende...". Incluir: motivo, situación actual, familia, salud, economía, vivienda, red de apoyo. Todo integrado, sin subtítulos]
-
+Objetivo de la visita: [frase breve]
+Síntesis: [2-3 párrafos. Iniciar con "Se realiza VDI, atiende...". Integrar: motivo, situación actual, familia, salud, economía, vivienda, red de apoyo]
 Plan de acción:
-– [acción concreta con verbo: mantener, derivar, gestionar, reforzar, coordinar, monitorear, verificar]
+– [verbo + acción concreta]
 – [acción]
 – [acción]
-
-EXPRESIONES TÍPICAS: "Se realiza VDI, atiende...", "Refiere que...", "Señala que...", "Actualmente...", "En lo económico...", "Se mantiene...", "Se orienta respecto a...", "Se acuerda..."
-
-EJEMPLOS DE TONO CORRECTO:
-"Se realiza VDI, atiende usuaria. Refiere que la convivencia con su madre se mantiene en tensión, aunque la ve menos en el domicilio por inicio de práctica profesional."
-"Se realiza VDI, atiende abuela. Refiere que Kevin presenta mayor desregulación del sueño, quedándose dormido en ocasiones a las 8:00 hrs."
-"Vivienda de un piso, con tres habitaciones. Comparte pieza con sus hijos. Condiciones básicas de habitabilidad."`,
+EXPRESIONES: "Refiere que...", "Señala que...", "Actualmente...", "En lo económico...", "Se orienta respecto a...", "Se acuerda..."`,
 
 consulta: `${SYSTEM_BASE}
-
-TIPO DE REGISTRO: Consulta Social para RAYEN
-
-ESTRUCTURA OBLIGATORIA:
-Objetivo:
-[frase breve con el motivo]
-
-Síntesis:
-[UN párrafo en prosa que integre: motivo, familia, vivienda, economía, salud, problema principal. INICIO TÍPICO: "Acude usuaria para orientación social..."]
-
+TIPO: Consulta Social
+ESTRUCTURA:
+Objetivo: [frase breve]
+Síntesis: [1 párrafo en prosa integrando: motivo, familia, vivienda, economía, salud. Iniciar con "Acude usuaria/usuario para orientación social..."]
 Plan de acción:
 – Se orienta / Se deriva / Se acuerda [acción concreta]
-– [máx 3-4 acciones]
-
-FRASES TIPO:
-"Acude usuaria para orientación social respecto a..."
-"Refiere encontrarse en situación de..."
-"Grupo familiar compuesto por..."
-"Se identifica situación de vulnerabilidad asociada a..."
-"Económicamente subsiste principalmente con..."`,
+– [máx 3-4 acciones]`,
 
 ecicep: `${SYSTEM_BASE}
+TIPO: Ingreso ECICEP
 
-TIPO DE REGISTRO: Ingreso ECICEP para Salud Mental
-
-FORMATO EXACTO OBLIGATORIO (respetar este orden y estructura):
-
+FORMATO EXACTO:
 INGRESO ECICEP
-MC: [1 frase breve y directa]
-
-Identificación: [edad/etapa vital, ocupación actual, situación laboral, rol en hogar, estado civil. TODO EN UNA LÍNEA]
-
-Comorbilidades: [diagnósticos médicos relevantes o (-)]
-
-Historia del problema: [1-2 párrafos en prosa natural, tono APS. Incluir: motivo del malestar, síntomas principales, contexto, antecedentes relevantes, estado actual. NATURAL Y FLUIDO, no clínico ni extenso. Integrar información relevante sin repetir datos de identificación]
-
+MC: [1 frase breve]
+Identificación: [edad/etapa, ocupación, situación laboral, rol en hogar, estado civil — en una línea]
+Comorbilidades: [diagnósticos o (-)]
+Historia del problema: [1-2 párrafos. Natural, fluido, tono APS. NO clínico ni extenso. Incluir: malestar, contexto, antecedentes, estado actual]
 Sintomatología:
-Cognitiva: [frase breve y concreta]
-Emocional: [frase breve y concreta]
-Física: [frase breve — incluir dolor, cansancio, síntomas somáticos si aplica]
+Cognitiva: [frase breve]
+Emocional: [frase breve]
+Física: [incluir dolor, cansancio, síntomas somáticos]
 Conductual: [frase breve]
-
-Etapa motivacional: [una palabra o frase corta — debe ser coherente con el comportamiento del usuario]
-
-RECURSOS: [motivaciones concretas, vínculos positivos, fortalezas]
-Factores de riesgo: [breve, solo lo relevante]
-Factores protectores: [breve, solo lo relevante]
-
+Etapa motivacional: [coherente con comportamiento del usuario]
+RECURSOS: [motivaciones, vínculos]
+Factores de riesgo: [breve]
+Factores protectores: [breve]
 ANTECEDENTES FAMILIARES
-[prosa organizada y clara: con quién vive, nombres, edades, ocupaciones, dinámica familiar, conflictos si los hay. Sin repetir lo dicho en identificación]
-
+[prosa organizada: quién vive, nombres, edades, dinámica]
 FUNCIONALIDAD
 Apetito: [estado]
-Sueño: [SIEMPRE con horario concreto: hora de acostarse, hora de conciliación, despertares, calidad]
+Sueño: [horario concreto: acostarse, conciliación, despertares]
 Actividad física: [tipo, frecuencia]
-
-HÁBITOS
-Tabaco ([+/-] detalle si +). OH ([+/-] detalle si +). Drogas ([+/-]).
-
+H�BITOS
+Tabaco ([+/-]). OH ([+/-]). Drogas ([+/-]).
 SUICIDABILIDAD
 Ideación ([+/-]). Intentos ([+/-]). Autolesiones ([+/-]).
 
 II. PLAN CONSENSUADO
-Problema priorizado: [1 sola problemática, la más relevante del caso]
-Etapa motivacional: [debe coincidir con la declarada arriba]
-Objetivo: [SMART obligatorio: quién + qué + cómo + en cuánto tiempo. Ej: "Que usuario mantenga bienestar emocional y participación social durante los próximos 2 meses a través de actividad física y autocuidado."]
-Opciones ofrecidas: [listar lo que se ofreció: IPG específico, psicoterapia, médico SM, orientación social, etc.]
+Problema priorizado: [1 problema concreto]
+Etapa motivacional: [coincidir con la declarada]
+Objetivo: [SMART: quién + qué + cómo + tiempo. Ej: "Que usuaria mantenga estabilidad emocional durante el próximo mes a través de autocuidado y adherencia a tratamiento."]
+Opciones ofrecidas: [listar opciones presentadas]
 Acuerdos: Se acuerda consensuadamente con [usuario/a]:
 – [Usuaria/Usuario] [QUÉ acción concreta] [CÓMO] [CUÁNDO — frecuencia o plazo específico].
-– [acuerdo 2 con misma estructura]
-– [acuerdo 3 con misma estructura]
-– [acuerdo 4 si aplica — máximo 4]
+– [acuerdo 2]
+– [acuerdo 3, máx 4]
 
 III. PLAN TÉCNICO
-Indicaciones: [qué se hizo en la sesión: consejería, psicoeducación, contención, orientación]
-Derivaciones: [a quién/qué programa — nombre específico si es IPG]
-Seguimiento: [próximo control + profesional + mes aproximado]
+Indicaciones: [qué se hizo: consejería, psicoeducación, contención, orientación]
+Derivaciones: [nombre específico del programa o profesional]
+Seguimiento: [próximo control + profesional + mes aproximado]`,
 
-EJEMPLO MODELO FUSIONADO (mejor versión posible — usar como estándar):
+ecicep_planilla: `${SYSTEM_BASE}
+TIPO: Ingreso ECICEP generado desde planilla de datos
 
+Usa los datos entregados para generar el INGRESO ECICEP completo en el formato estándar.
+NUNCA inventar datos. Si un campo está vacío, omitirlo o usar (-).
+
+FORMATO EXACTO IGUAL AL ECICEP NORMAL:
 INGRESO ECICEP
-MC: Derivado desde tamizaje de salud mental.
-
-Identificación: Adulto mayor, jubilado, oficio mecánico. Casado hace 50 años, dueño de casa.
-
-Comorbilidades: DM2. HTA. Artrosis de rodilla.
-
-Historia del problema: Refiere ánimo inestable con episodios de tristeza, llanto fácil, baja energía y desmotivación, asociados al proceso de envejecimiento. Señala que algunos días se levanta más cansado y se siente más nostálgico. Identifica estrés en el hogar por dinámica familiar extensa. Mantiene buena relación con su esposa y participa activamente en el Club de AM, donde realiza ejercicio y forma parte de la directiva. No presenta antecedentes de atenciones de urgencia ni hospitalizaciones por SM.
-
+MC: [derivar desde los datos de tamizaje/derivación + motivo de consulta]
+Identificación: [ciclo vital, ocupación, estado civil, situación laboral]
+Comorbilidades: [enfermedades registradas o (-)]
+Historia del problema: [construir desde: motivo consulta + estado de ánimo + dinámica familiar + contexto]
 Sintomatología:
-Cognitiva: pensamientos nostálgicos asociados a etapa vital.
-Emocional: ánimo bajo fluctuante, labilidad emocional, llanto ocasional.
-Física: cansancio ocasional y dolor asociado a artrosis.
-Conductual: mantiene participación social y actividades comunitarias.
-
-Etapa motivacional: Contemplativa.
-
-RECURSOS: Participación activa en Club de AM con rol en directiva. Red de apoyo familiar presente. Matrimonio estable.
-Factores de riesgo: proceso de envejecimiento, estrés por convivencia familiar extensa, alteración del sueño.
-Factores protectores: relación estable con esposa, participación social activa, actividad física regular.
-
+Cognitiva: [inferir desde estado de ánimo y notas]
+Emocional: [desde estado de ánimo]
+Física: [desde enfermedades + sueño + alimentación]
+Conductual: [desde actividad física + participación + hábitos]
+Etapa motivacional: [inferir desde datos]
+RECURSOS: [desde red de apoyo + participación comunitaria]
+Factores de riesgo: [desde hábitos + dinámica + situación]
+Factores protectores: [desde red + recursos]
 ANTECEDENTES FAMILIARES
-Convive con su esposa Sonia (66, PGU), con quien mantiene relación estable y respetuosa. Residen en casa propia junto a sus hijas Paola (47, comerciante independiente) y Sonia (42, profesora diferencial con trabajo esporádico), yerno (54, trabajador formal en muebles) y nietos de 10 y 9 años. Nietas mayores ya independizadas (28, psicóloga; 23, enfermera).
-
+[desde "con quién vive" + dinámica familiar]
 FUNCIONALIDAD
-Apetito: conservado.
-Sueño: conciliación adecuada, se acuesta aprox. 22:00 hrs; presenta despertares frecuentes alrededor de las 03:00 hrs con dificultad para retomar el sueño. Refiere siestas diurnas.
-Actividad física: ejercicios semanales en Club de AM, los días miércoles.
-
-HÁBITOS
-Tabaco (-). OH (+) ocasional, vino en eventos familiares. Drogas (-).
-
+Apetito: [desde alimentación]
+Sueño: [desde patrón de sueño]
+Actividad física: [desde actividad física]
+H�BITOS
+Tabaco ([según selección]). OH ([según selección]). Drogas ([según selección]).
 SUICIDABILIDAD
-Ideación (-). Intentos (-). Autolesiones (-).
+Ideación ([según selección]). Intentos ([según selección]). Autolesiones ([según selección]).
 
 II. PLAN CONSENSUADO
-Problema priorizado: ánimo bajo y labilidad emocional en contexto de proceso de envejecimiento.
-Etapa motivacional: Contemplativa.
-Objetivo: Que usuario mantenga y fortalezca su bienestar emocional y participación social durante los próximos 2 meses, a través de actividad física regular y estrategias de autocuidado.
-Opciones ofrecidas: IPG Personas Mayores, consejería individual, estrategias de higiene del sueño y autocuidado.
-Acuerdos: Se acuerda consensuadamente con usuario:
-– Usuario mantendrá participación en Club de AM asistiendo al menos 1 vez por semana durante el próximo mes.
-– Usuario realizará actividad física (ejercicios o caminatas de 30 minutos) al menos 2 veces por semana durante el próximo mes.
-– Usuario implementará rutina de higiene del sueño desde esta semana, reduciendo uso de pantallas 30 minutos antes de acostarse y manteniendo horario fijo de sueño.
-– Usuario acepta derivación a IPG Personas Mayores en próximo ciclo disponible.
+Problema priorizado: [1 problema principal identificado]
+Etapa motivacional: [coincidir]
+Objetivo: [SMART con tiempo determinado]
+Opciones ofrecidas: [según derivaciones en notas]
+Acuerdos: Se acuerda consensuadamente con [usuario/a]:
+– [QUIÉN + QUÉ + CÓMO + CUÁNDO]
+– [acuerdo 2]
+– [acuerdo 3, máx 4]
 
 III. PLAN TÉCNICO
-Indicaciones: Se realiza consejería breve con enfoque en proceso de envejecimiento, autocuidado e higiene del sueño.
-Derivaciones: IPG Personas Mayores.
-Seguimiento: Control con T. Social en 1 mes para evaluar adherencia a acuerdos.`,
+Indicaciones: [según intervención]
+Derivaciones: [según notas]
+Seguimiento: [próximo control + profesional + mes]`,
 
 tribunal: `${SYSTEM_BASE}
-
-TIPO DE REGISTRO: Informe Social para Tribunal de Familia
-
-ESTRUCTURA OBLIGATORIA:
-[Encabezado: CESFAM Dr. Alejandro del Río / TS. María Angélica Gálvez / Fecha / Dirigido a Tribunal]
-
-I. Datos del usuario
-II. Adultos responsables
-III. Antecedentes generales
-   Dinámica familiar y cuidado
-   Situación educativa
-   Situación de salud
-   Condiciones habitacionales y económicas
-   Seguimiento de programas
-IV. Solicitud
-V. Causa judicial (si aplica)
-
-ESTILO:
-- "Se informa que...", "Se constata que...", "Se observa que...", "La adulta responsable refiere..."
-- Frases medianas, sin lenguaje jurídico excesivo
-- Solicitud: "Se sugiere respetuosamente a su Usía evaluar..."
-- SIEMPRE destacar: figura protectora, estabilidad del niño, redes activas
-
-EJEMPLO DE SOLICITUD:
-"En consideración de los antecedentes expuestos, se sugiere respetuosamente a su Usía evaluar la prórroga de la medida de cuidado proteccional en favor de doña [nombre], RUN [RUN], domiciliada en [dirección], quien ha asumido de manera sostenida el cuidado del niño, constituyéndose como figura protectora."`,
+TIPO: Informe Social para Tribunal de Familia
+ESTRUCTURA: Encabezado / I. Datos usuario / II. Adultos responsables / III. Antecedentes (dinámica, educación, salud, habitacional, programas) / IV. Solicitud / V. Causa judicial
+ESTILO: "Se informa que...", "Se constata que...", "Se observa que..."
+Solicitud: "Se sugiere respetuosamente a su Usía evaluar..."
+SIEMPRE destacar figura protectora, estabilidad del niño, redes activas.`,
 
 prlac: `${SYSTEM_BASE}
-
-TIPO DE REGISTRO: Ficha FUD para Programa PRLAC
-
-SECCIÓN CLAVE - MOTIVO DE DERIVACIÓN (4-6 párrafos en prosa):
-
-Párrafo 1: Contexto general (edad, con quién vive, vivienda, red familiar)
-Párrafo 2: Condición de salud + evento gatillante (diagnósticos, hospitalización, deterioro)
-Párrafo 3: Funcionalidad y dependencia (movilidad, AVD, cambios recientes)
-Párrafo 4: Red de apoyo y cuidador (quién cuida, sobrecarga, falta de red)
-Párrafo 5: Condición socioeconómica (PGU, pensiones, limitaciones)
-Párrafo 6 OBLIGATORIO: "Se solicita evaluación para eventual incorporación al Programa Red Local de Apoyos y Cuidados, considerando [condición de dependencia + sobrecarga + escasa red + limitación económica]."
-
-INCLUIR AL MENOS 3 DE: dependencia funcional, riesgo caídas, sobrecarga cuidador, escasa red, enfermedad crónica, deterioro reciente, limitación económica.`,
+TIPO: Ficha FUD PRLAC
+4-6 párrafos en prosa:
+1. Contexto general (edad, con quién vive, vivienda, red)
+2. Condición de salud + evento gatillante
+3. Funcionalidad y dependencia
+4. Red de apoyo y cuidador (sobrecarga)
+5. Condición socioeconómica
+6. OBLIGATORIO: "Se solicita evaluación para eventual incorporación al Programa Red Local de Apoyos y Cuidados, considerando..."`,
 
 referencia: `${SYSTEM_BASE}
-
-TIPO DE REGISTRO: Referencia Social para gestión municipal
-
-ESTRUCTURA OBLIGATORIA:
-Breve síntesis social:
-[prosa continua, sin viñetas. Incluir: motivo, familia, vivienda, economía, salud, factores de riesgo, red de apoyo. INICIO: "Usuaria acude por orientación social..." o "Sra. [nombre] acude por orientación social..."]
-
-Solicitud:
-[SIEMPRE iniciar con "En virtud de los antecedentes expuestos..." + tipo de ayuda EXPLÍCITA (alimentos, vale de gas, pañales, materiales, apoyo emergencia) + justificación concreta]
-
-REGLA: Legible en menos de 1 minuto. Completa para que el municipio entienda por qué otorgar la ayuda.
-
-FRASES TIPO:
-"Económicamente subsiste principalmente con..."
-"Se identifica situación de vulnerabilidad socioeconómica..."
-"Escasa red de apoyo..."
-"Alta carga de cuidados..."`
-
+TIPO: Referencia Social
+ESTRUCTURA:
+Breve síntesis social: [prosa continua. Iniciar con "Usuaria/Usuario acude por orientación social...". Incluir: motivo, familia, vivienda, economía, salud, riesgos, red]
+Solicitud: [Iniciar con "En virtud de los antecedentes expuestos..." + ayuda EXPLÍCITA + justificación]`
 };
 
 window.onload = function() {
-  const savedKey = localStorage.getItem('rayen_api_key');
-  if (savedKey) mostrarKeyGuardada();
+  if (localStorage.getItem('rayen_api_key')) mostrarKeyGuardada();
 }
 
 function guardarKey() {
@@ -438,19 +532,16 @@ function guardarKey() {
   localStorage.setItem('rayen_api_key', key);
   mostrarKeyGuardada();
 }
-
 function mostrarKeyGuardada() {
   document.getElementById('apiInputArea').style.display = 'none';
   document.getElementById('apiSavedArea').style.display = 'block';
 }
-
 function cambiarKey() {
   localStorage.removeItem('rayen_api_key');
   document.getElementById('apiKey').value = '';
   document.getElementById('apiInputArea').style.display = 'block';
   document.getElementById('apiSavedArea').style.display = 'none';
 }
-
 function toggleKey() {
   const input = document.getElementById('apiKey');
   if (input.type === 'password') { input.type = 'text'; event.target.textContent = 'Ocultar'; }
@@ -461,24 +552,54 @@ function seleccionarTipo(tipo, btn) {
   tipoSeleccionado = tipo;
   document.querySelectorAll('.tipo-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('camposSection').style.display = 'block';
   document.getElementById('seccionBoton').style.display = 'block';
-  ['camposECICEP','camposTribunal','camposReferencia'].forEach(id => {
-    document.getElementById(id).classList.remove('visible');
-  });
-  const mapas = { ecicep: 'camposECICEP', tribunal: 'camposTribunal', referencia: 'camposReferencia' };
-  if (mapas[tipo]) document.getElementById(mapas[tipo]).classList.add('visible');
 
-  const placeholders = {
-    vdi: 'Ej: Visita a usuaria 68a, HTA DM, postrada tras ITU, esposo cuidador 72a sin apoyo, PGU solo ingreso, vivienda propia buen estado, hija visita esporádica, refiere agotamiento del esposo...',
-    consulta: 'Ej: Acude hombre 45a por orientación, accidente laboral hace 1 año, fractura expuesta tobillo, movilidad reducida, esposa e hijos piden jubilación invalidez, AFP tramitado...',
-    ecicep: 'Ej: Mujer 34a cesante desde dic, ansiedad y ánimo bajo, crisis de pánico anteriores, vive con madre y hermanos convivencia tensa, hijo 7a hiperactivo, separada 2 años, duelo hija neonata hace 10 años...',
-    tribunal: 'Ej: Niño 8a al cuidado de tía materna hace 2 años tras fallecimiento de madre, buen rendimiento escolar, controles al día, tía rol protector estable, vivienda adecuada, ingreso AFT próximo...',
-    prlac: 'Ej: AM 78a, ACV 2019 secuela motora, usa andador, vive con hija única 50a trabajadora de casa particular, sin apoyo municipal, PGU única fuente ingreso, hija sobrecargada...',
-    referencia: 'Ej: Madre soltera 2 hijos menores 4 y 7a, uno con TEA 60% discapacidad, cesante, deuda arriendo 3 meses, sin red apoyo, abuelos con alzheimer en el hogar...'
-  };
-  document.getElementById('notasBruto').placeholder = placeholders[tipo] || 'Escribe las notas del caso aquí...';
-  document.getElementById('camposSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (tipo === 'ecicep_planilla') {
+    document.getElementById('camposSection').style.display = 'none';
+    document.getElementById('planillaSection').style.display = 'block';
+  } else {
+    document.getElementById('camposSection').style.display = 'block';
+    document.getElementById('planillaSection').style.display = 'none';
+    ['camposECICEP','camposTribunal','camposReferencia'].forEach(id => {
+      document.getElementById(id).classList.remove('visible');
+    });
+    const mapas = { ecicep: 'camposECICEP', tribunal: 'camposTribunal', referencia: 'camposReferencia' };
+    if (mapas[tipo]) document.getElementById(mapas[tipo]).classList.add('visible');
+  }
+  document.getElementById('seccionBoton').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function construirDatosPlanilla() {
+  const ciclo = document.querySelector('input[name="ciclo"]:checked');
+  const tamizaje = document.querySelector('input[name="tamizaje"]:checked');
+  const comunidad = document.querySelector('input[name="comunidad"]:checked');
+  const habitos = [];
+  if (document.getElementById('h_tabaco').checked) habitos.push('Tabaco');
+  if (document.getElementById('h_alcohol').checked) habitos.push('Alcohol');
+  if (document.getElementById('h_drogas').checked) habitos.push('Drogas');
+  const otroHabito = document.getElementById('h_otro_txt').value.trim();
+  if (document.getElementById('h_otro').checked && otroHabito) habitos.push(otroHabito);
+
+  return `DATOS DE LA PLANILLA ECICEP:
+Con quién vive: ${document.getElementById('p_convive').value || 'No especificado'}
+Enfermedades: ${document.getElementById('p_enfermedades').value || 'No especificado'}
+Motivo de consulta: ${document.getElementById('p_motivo').value || 'No especificado'}
+Estado de ánimo: ${document.getElementById('p_animo').value || 'No especificado'}
+Ciclo vital: ${ciclo ? ciclo.value : 'No especificado'}
+Ocupación: ${document.getElementById('p_ocupacion').value || 'No especificado'}
+Red de apoyo: ${document.getElementById('p_red').value || 'No especificado'}
+Dinámica familiar: ${document.getElementById('p_dinamica').value || 'No especificado'}
+Tamizaje: ${tamizaje ? tamizaje.value : 'No especificado'}
+Otra derivación: ${document.getElementById('p_deriva').value || '-'}
+Escolaridad: ${document.getElementById('p_escolaridad').value || 'No especificado'}
+Situación habitacional: ${document.getElementById('p_vivienda').value || 'No especificado'}
+Actividad física: ${document.getElementById('p_actividad').value || 'No especificado'}
+Alimentación: ${document.getElementById('p_alimentacion').value || 'No especificado'}
+Participación comunitaria: ${comunidad ? comunidad.value : 'No especificado'} — ${document.getElementById('p_comunidad_donde').value || ''}
+Patrón de sueño: ${document.getElementById('p_sueno').value || 'No especificado'}
+H�bitos: ${habitos.length > 0 ? habitos.join(', ') : 'Ninguno seleccionado'}
+Suicidabilidad — Ideación: ${suiciValues.ideacion || 'No seleccionado'} / Intento: ${suiciValues.intento || 'No seleccionado'} / Autolesiones: ${suiciValues.autolesion || 'No seleccionado'}
+Notas adicionales: ${document.getElementById('p_notas').value || 'Ninguna'}`;
 }
 
 async function generarRegistro() {
@@ -489,26 +610,31 @@ async function generarRegistro() {
   if (!apiKey) { errorMsg.textContent = 'Por favor guarda tu API Key primero.'; errorMsg.style.display = 'block'; return; }
   if (!tipoSeleccionado) { errorMsg.textContent = 'Selecciona un tipo de registro.'; errorMsg.style.display = 'block'; return; }
 
-  const notas = document.getElementById('notasBruto').value.trim();
-  if (!notas || notas.length < 20) { errorMsg.textContent = 'Por favor ingresa información del caso (mínimo unas pocas líneas).'; errorMsg.style.display = 'block'; return; }
+  let userPrompt = '';
 
-  let extras = '';
-  if (tipoSeleccionado === 'ecicep') {
-    const etapa = document.getElementById('etapaMotivacional').value;
-    if (etapa) extras = `\nEtapa motivacional indicada: ${etapa}`;
-  } else if (tipoSeleccionado === 'tribunal') {
-    const sol = document.getElementById('solicitudTribunal').value.trim();
-    if (sol) extras = `\nSolicitud al tribunal: ${sol}`;
-  } else if (tipoSeleccionado === 'referencia') {
-    const ayuda = document.getElementById('ayudaSolicitada').value.trim();
-    if (ayuda) extras = `\nAyuda solicitada: ${ayuda}`;
+  if (tipoSeleccionado === 'ecicep_planilla') {
+    const datos = construirDatosPlanilla();
+    if (datos.includes('No especificado') && !document.getElementById('p_motivo').value) {
+      errorMsg.textContent = 'Por favor completa al menos el motivo de consulta.';
+      errorMsg.style.display = 'block'; return;
+    }
+    userPrompt = `Genera el INGRESO ECICEP completo usando estos datos de la planilla:\n\n${datos}\n\nRedacta el registro completo en el estilo y formato indicado. Solo entrega el texto del registro.`;
+  } else {
+    const notas = document.getElementById('notasBruto').value.trim();
+    if (!notas || notas.length < 10) { errorMsg.textContent = 'Por favor ingresa información del caso.'; errorMsg.style.display = 'block'; return; }
+    let extras = '';
+    if (tipoSeleccionado === 'ecicep') {
+      const etapa = document.getElementById('etapaMotivacional').value;
+      if (etapa) extras = `\nEtapa motivacional: ${etapa}`;
+    } else if (tipoSeleccionado === 'tribunal') {
+      const sol = document.getElementById('solicitudTribunal').value.trim();
+      if (sol) extras = `\nSolicitud al tribunal: ${sol}`;
+    } else if (tipoSeleccionado === 'referencia') {
+      const ayuda = document.getElementById('ayudaSolicitada').value.trim();
+      if (ayuda) extras = `\nAyuda solicitada: ${ayuda}`;
+    }
+    userPrompt = `Transforma estas notas en el registro final para RAYEN:\n\n${notas}${extras}\n\nSolo entrega el texto del registro, sin explicaciones.`;
   }
-
-  const userPrompt = `Transforma estas notas en bruto en el registro final para RAYEN:
-
-${notas}${extras}
-
-Redacta el registro completo en el estilo y formato indicado. Solo entrega el texto del registro, sin explicaciones ni comentarios adicionales.`;
 
   const btn = document.getElementById('btnGenerar');
   const spinner = document.getElementById('spinner');
@@ -531,17 +657,14 @@ Redacta el registro completo en el estilo y formato indicado. Solo entrega el te
         messages: [{ role: 'user', content: userPrompt }]
       })
     });
-
     const data = await response.json();
     if (data.error) throw new Error(data.error.message || 'Error al conectar');
-
     const texto = data.content[0].text;
     document.getElementById('resultText').textContent = texto;
     document.getElementById('resultArea').style.display = 'block';
     document.getElementById('resultArea').scrollIntoView({ behavior: 'smooth', block: 'start' });
-
   } catch (err) {
-    errorMsg.textContent = 'Error: ' + (err.message || 'No se pudo conectar. Verifica tu API Key.');
+    errorMsg.textContent = 'Error: ' + (err.message || 'No se pudo conectar.');
     errorMsg.style.display = 'block';
   } finally {
     btn.disabled = false; spinner.style.display = 'none'; btnTexto.textContent = 'Generar Registro';
@@ -549,8 +672,7 @@ Redacta el registro completo en el estilo y formato indicado. Solo entrega el te
 }
 
 function copiarTexto() {
-  const texto = document.getElementById('resultText').textContent;
-  navigator.clipboard.writeText(texto).then(() => {
+  navigator.clipboard.writeText(document.getElementById('resultText').textContent).then(() => {
     const btn = document.getElementById('btnCopy');
     btn.textContent = '✓ Copiado';
     btn.classList.add('copied');
