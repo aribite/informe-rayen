@@ -14,11 +14,11 @@
     --danger: #c0392b; --shadow: 0 2px 12px rgba(0,0,0,0.08);
   }
   body { font-family: 'DM Sans', sans-serif; background: var(--bg); min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 24px 16px; }
-  header { width: 100%; max-width: 760px; display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+  header { width: 100%; max-width: 780px; display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
   .logo { width: 40px; height: 40px; background: var(--accent); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; font-weight: 600; flex-shrink: 0; }
   header h1 { font-size: 18px; font-weight: 600; color: var(--text); letter-spacing: -0.3px; }
   header p { font-size: 12px; color: var(--text3); margin-top: 1px; }
-  .card { background: var(--surface); border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); width: 100%; max-width: 760px; overflow: hidden; }
+  .card { background: var(--surface); border-radius: 16px; border: 1px solid var(--border); box-shadow: var(--shadow); width: 100%; max-width: 780px; overflow: hidden; }
   .card-section { padding: 24px; border-bottom: 1px solid var(--border); }
   .card-section:last-child { border-bottom: none; }
   .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; color: var(--text3); margin-bottom: 16px; }
@@ -66,8 +66,6 @@
   .dynamic-fields.visible { display: block; }
   .hint { font-size: 11px; color: var(--text3); margin-top: 4px; font-style: italic; }
   .footer-note { font-size: 11px; color: var(--text3); text-align: center; margin-top: 16px; }
-
-  /* Planilla styles */
   .planilla-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .planilla-field { display: flex; flex-direction: column; gap: 5px; }
   .planilla-field.span2 { grid-column: span 2; }
@@ -89,10 +87,11 @@
   .suici-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 4px; }
   .suici-item { display: flex; flex-direction: column; gap: 5px; }
   .suici-item .planilla-label { font-size: 11px; }
+  .check-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 4px; }
+  .check-cols label { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text); cursor: pointer; }
 </style>
 </head>
 <body>
-
 <header>
   <div class="logo">TS</div>
   <div>
@@ -100,10 +99,7 @@
     <p>Generación automática de registros clínicos y sociales • María Angélica Gálvez</p>
   </div>
 </header>
-
 <div class="card">
-
-  <!-- API Key -->
   <div class="card-section">
     <div class="section-label">Configuración</div>
     <div id="apiInputArea">
@@ -114,7 +110,7 @@
         </div>
         <button class="api-toggle" onclick="toggleKey()">Mostrar</button>
       </div>
-      <button class="btn-primary" style="margin-top:12px; padding:11px;" onclick="guardarKey()">Guardar clave</button>
+      <button class="btn-primary" style="margin-top:12px;padding:11px;" onclick="guardarKey()">Guardar clave</button>
     </div>
     <div id="apiSavedArea" style="display:none;">
       <div class="api-saved">
@@ -123,27 +119,26 @@
       </div>
     </div>
   </div>
-
-  <!-- Tipo -->
   <div class="card-section">
     <div class="section-label">Tipo de Registro</div>
     <div class="tipo-grid">
-      <button class="tipo-btn" onclick="seleccionarTipo('vdi', this)">🏠 Visita<br>Domiciliaria (VDI)</button>
-      <button class="tipo-btn" onclick="seleccionarTipo('consulta', this)">📋 Consulta<br>Social</button>
-      <button class="tipo-btn" onclick="seleccionarTipo('ecicep', this)">🧠 Ingreso<br>ECICEP</button>
-      <button class="tipo-btn" onclick="seleccionarTipo('ecicep_planilla', this)">📝 ECICEP<br>Planilla</button>
-      <button class="tipo-btn" onclick="seleccionarTipo('tribunal', this)">⚖️ Informe<br>Tribunal</button>
-      <button class="tipo-btn" onclick="seleccionarTipo('prlac', this)">👴 FUD<br>PRLAC</button>
-      <button class="tipo-btn" onclick="seleccionarTipo('referencia', this)">📄 Referencia<br>Social</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('vdi',this)">🏠 Visita<br>Domiciliaria</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('vdi_planilla',this)">📋 VDI<br>Planilla</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('consulta',this)">📋 Consulta<br>Social</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('ecicep',this)">🧠 Ingreso<br>ECICEP</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('ecicep_planilla',this)">📝 ECICEP<br>Planilla</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('tribunal',this)">⚖️ Informe<br>Tribunal</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('prlac',this)">👴 FUD<br>PRLAC</button>
+      <button class="tipo-btn" onclick="seleccionarTipo('referencia',this)">📄 Referencia<br>Social</button>
     </div>
   </div>
 
-  <!-- Campos normales -->
+  <!-- Campos texto libre -->
   <div class="card-section" id="camposSection" style="display:none;">
     <div class="section-label">Datos del Caso</div>
     <div class="field" style="margin-bottom:14px;">
       <label>📝 Notas en bruto / Información del caso</label>
-      <textarea id="notasBruto" style="min-height:140px;" placeholder="Escribe aquí las notas del caso..."></textarea>
+      <textarea id="notasBruto" style="min-height:140px;" placeholder="Escribe aquí las notas del caso en bruto..."></textarea>
       <p class="hint">Puedes escribir mezclado, abreviado o desordenado. La IA lo organiza y redacta.</p>
     </div>
     <div id="camposECICEP" class="dynamic-fields">
@@ -151,12 +146,9 @@
         <label>Etapa motivacional</label>
         <select id="etapaMotivacional">
           <option value="">Seleccionar (opcional)...</option>
-          <option>Precontemplativa</option>
-          <option>Contemplativa</option>
-          <option>Preparación</option>
-          <option>Disposición a la acción</option>
-          <option>Acción</option>
-          <option>Mantención</option>
+          <option>Precontemplativa</option><option>Contemplativa</option>
+          <option>Preparación</option><option>Disposición a la acción</option>
+          <option>Acción</option><option>Mantención</option>
         </select>
       </div>
     </div>
@@ -174,33 +166,190 @@
     </div>
   </div>
 
+  <!-- VDI Planilla -->
+  <div class="card-section" id="vdiPlanillaSection" style="display:none;">
+    <div class="section-label">Pauta VDI</div>
+    <div class="planilla-grid">
+      <div class="planilla-section-title">Datos Generales</div>
+      <div class="planilla-field span2">
+        <div class="planilla-label">1. Situación o integrante que origina la VDI</div>
+        <textarea class="planilla-input" id="v_origen"></textarea>
+      </div>
+      <div class="planilla-field span2">
+        <div class="planilla-label">2. Objetivo de la visita</div>
+        <textarea class="planilla-input" id="v_objetivo"></textarea>
+      </div>
+      <div class="planilla-field span2">
+        <div class="planilla-label">3. Antecedentes de salud (diagnósticos y tratamiento)</div>
+        <textarea class="planilla-input" id="v_salud"></textarea>
+      </div>
+      <div class="planilla-field span2">
+        <div class="planilla-label">4. Adherencia a tratamiento</div>
+        <div class="radio-group">
+          <label><input type="radio" name="v_adh" value="Adecuada"> Adecuada</label>
+          <label><input type="radio" name="v_adh" value="Irregular"> Irregular</label>
+          <label><input type="radio" name="v_adh" value="Baja"> Baja</label>
+        </div>
+        <input type="text" class="planilla-input" id="v_adh_obs" placeholder="Observaciones..." style="margin-top:6px;">
+      </div>
+      <hr class="planilla-divider">
+      <div class="planilla-section-title">5. Caracterización Familiar</div>
+      <div class="planilla-field">
+        <div class="planilla-label">Tipo de familia</div>
+        <div class="check-cols">
+          <label><input type="radio" name="v_familia" value="Nuclear"> Nuclear</label>
+          <label><input type="radio" name="v_familia" value="Monoparental"> Monoparental</label>
+          <label><input type="radio" name="v_familia" value="Extensa"> Extensa</label>
+          <label><input type="radio" name="v_familia" value="Ensamblada"> Ensamblada</label>
+          <label><input type="radio" name="v_familia" value="Persona sola"> Persona sola</label>
+        </div>
+      </div>
+      <div class="planilla-field">
+        <div class="planilla-label">Relaciones familiares</div>
+        <div class="check-cols">
+          <label><input type="radio" name="v_relaciones" value="Adecuadas"> Adecuadas</label>
+          <label><input type="radio" name="v_relaciones" value="Conflictivas"> Conflictivas</label>
+          <label><input type="radio" name="v_relaciones" value="Violencia intrafamiliar"> VIF</label>
+        </div>
+      </div>
+      <div class="planilla-field span2">
+        <div class="planilla-label">Capacidad de cuidado</div>
+        <div class="radio-group">
+          <label><input type="radio" name="v_cuidado" value="Adecuada"> Adecuada</label>
+          <label><input type="radio" name="v_cuidado" value="Insuficiente"> Insuficiente</label>
+          <label><input type="radio" name="v_cuidado" value="Negligencia"> Negligencia</label>
+        </div>
+      </div>
+      <hr class="planilla-divider">
+      <div class="planilla-section-title">Crisis</div>
+      <div class="planilla-field">
+        <div class="planilla-label">6. Crisis normativa</div>
+        <div class="radio-group">
+          <label><input type="radio" name="v_crisis_n" value="No"> No</label>
+          <label><input type="radio" name="v_crisis_n" value="Sí"> Sí</label>
+        </div>
+        <input type="text" class="planilla-input" id="v_crisis_n_obs" placeholder="Observaciones..." style="margin-top:6px;">
+      </div>
+      <div class="planilla-field">
+        <div class="planilla-label">7. Crisis no normativa</div>
+        <div class="radio-group">
+          <label><input type="radio" name="v_crisis_nn" value="No"> No</label>
+          <label><input type="radio" name="v_crisis_nn" value="Sí"> Sí</label>
+        </div>
+        <input type="text" class="planilla-input" id="v_crisis_nn_obs" placeholder="Observaciones..." style="margin-top:6px;">
+      </div>
+      <div class="planilla-field span2">
+        <div class="planilla-label">8. Factores protectores</div>
+        <textarea class="planilla-input" id="v_protectores"></textarea>
+      </div>
+      <div class="planilla-field span2">
+        <div class="planilla-label">9. Factores de riesgo</div>
+        <textarea class="planilla-input" id="v_riesgo"></textarea>
+      </div>
+      <hr class="planilla-divider">
+      <div class="planilla-section-title">10. Vivienda</div>
+      <div class="planilla-field">
+        <div class="planilla-label">Tipo</div>
+        <div class="check-cols">
+          <label><input type="radio" name="v_tipo_viv" value="Casa"> Casa</label>
+          <label><input type="radio" name="v_tipo_viv" value="Departamento"> Departamento</label>
+          <label><input type="radio" name="v_tipo_viv" value="Mediagua"> Mediagua</label>
+          <label><input type="radio" name="v_tipo_viv" value="Pieza"> Pieza</label>
+        </div>
+      </div>
+      <div class="planilla-field">
+        <div class="planilla-label">Tenencia</div>
+        <div class="check-cols">
+          <label><input type="radio" name="v_tenencia" value="Propia"> Propia</label>
+          <label><input type="radio" name="v_tenencia" value="Arriendo"> Arriendo</label>
+          <label><input type="radio" name="v_tenencia" value="Usufructo"> Usufructo</label>
+          <label><input type="radio" name="v_tenencia" value="Allegado"> Allegado</label>
+          <label><input type="radio" name="v_tenencia" value="Residencia"> Residencia</label>
+        </div>
+      </div>
+      <div class="planilla-field">
+        <div class="planilla-label">Condiciones de riesgo</div>
+        <div class="check-cols">
+          <label><input type="checkbox" class="v_riesgo_viv" value="Hacinamiento"> Hacinamiento</label>
+          <label><input type="checkbox" class="v_riesgo_viv" value="Humedad"> Humedad</label>
+          <label><input type="checkbox" class="v_riesgo_viv" value="Mala ventilación"> Mala ventilación</label>
+          <label><input type="checkbox" class="v_riesgo_viv" value="Acopio objetos/desechos"> Acopio</label>
+          <label><input type="checkbox" class="v_riesgo_viv" value="Déficit de aseo y orden"> Déficit aseo</label>
+          <label><input type="checkbox" class="v_riesgo_viv" value="Déficit en equipamiento"> Déficit equipamiento</label>
+          <label><input type="checkbox" class="v_riesgo_viv" value="Problemas estructurales"> Problemas estructurales</label>
+          <label><input type="checkbox" class="v_riesgo_viv" value="Barreras de acceso"> Barreras acceso</label>
+          <label><input type="checkbox" class="v_riesgo_viv" value="Riesgo de caídas"> Riesgo caídas</label>
+          <label><input type="checkbox" class="v_riesgo_viv" value="No se observa"> No se observa</label>
+        </div>
+      </div>
+      <div class="planilla-field">
+        <div class="planilla-label">Condiciones del entorno</div>
+        <div class="check-cols">
+          <label><input type="checkbox" class="v_entorno" value="Seguridad del barrio"> Seguridad barrio</label>
+          <label><input type="checkbox" class="v_entorno" value="Acceso a transporte"> Acceso transporte</label>
+          <label><input type="checkbox" class="v_entorno" value="Acceso a redes comunitarias"> Redes comunitarias</label>
+        </div>
+        <input type="text" class="planilla-input" id="v_viv_obs" placeholder="Observaciones vivienda..." style="margin-top:6px;">
+      </div>
+      <hr class="planilla-divider">
+      <div class="planilla-section-title">Desarrollo e Intervención</div>
+      <div class="planilla-field span2">
+        <div class="planilla-label">11. Desarrollo de la visita (síntesis)</div>
+        <textarea class="planilla-input" id="v_sintesis" style="min-height:100px;"></textarea>
+      </div>
+      <div class="planilla-field span2">
+        <div class="planilla-label">12. Intervención</div>
+        <div class="check-cols">
+          <label><input type="checkbox" class="v_interv" value="Psicoeducación"> Psicoeducación</label>
+          <label><input type="checkbox" class="v_interv" value="Orientación social"> Orientación social</label>
+          <label><input type="checkbox" class="v_interv" value="Consejería individual"> Consejería individual</label>
+          <label><input type="checkbox" class="v_interv" value="Consejería familiar"> Consejería familiar</label>
+          <label><input type="checkbox" class="v_interv" value="Educación en salud"> Educación en salud</label>
+          <label><input type="checkbox" class="v_interv" value="Derivación"> Derivación</label>
+        </div>
+      </div>
+      <div class="planilla-field span2">
+        <div class="planilla-label">13. Acuerdos</div>
+        <textarea class="planilla-input" id="v_acuerdos"></textarea>
+      </div>
+      <div class="planilla-field span2">
+        <div class="planilla-label">14. Plan de acción</div>
+        <div class="check-cols">
+          <label><input type="checkbox" class="v_plan" value="Seguimiento"> Seguimiento</label>
+          <label><input type="checkbox" class="v_plan" value="Derivación interna"> Derivación interna</label>
+          <label><input type="checkbox" class="v_plan" value="Derivación a red"> Derivación a red</label>
+          <label><input type="checkbox" class="v_plan" value="Presentación estudio de caso"> Presentación caso</label>
+        </div>
+        <input type="text" class="planilla-input" id="v_plan_otro" placeholder="Otro..." style="margin-top:6px;">
+      </div>
+      <div class="planilla-field span2">
+        <div class="planilla-label">Notas adicionales</div>
+        <textarea class="planilla-input" id="v_notas"></textarea>
+      </div>
+    </div>
+  </div>
+
   <!-- ECICEP Planilla -->
   <div class="card-section" id="planillaSection" style="display:none;">
     <div class="section-label">Planilla ECICEP</div>
     <div class="planilla-grid">
-
       <div class="planilla-section-title">Antecedentes Generales</div>
-
       <div class="planilla-field span2">
         <div class="planilla-label">Con quién vive</div>
-        <textarea class="planilla-input" id="p_convive" placeholder="Ej: esposo, hijos, vive sola..."></textarea>
+        <textarea class="planilla-input" id="p_convive"></textarea>
       </div>
-
       <div class="planilla-field span2">
         <div class="planilla-label">Enfermedades / Comorbilidades</div>
-        <input type="text" class="planilla-input" id="p_enfermedades" placeholder="Ej: HTA, DM2, artrosis...">
+        <input type="text" class="planilla-input" id="p_enfermedades">
       </div>
-
       <div class="planilla-field span2">
         <div class="planilla-label">Motivo de consulta</div>
-        <textarea class="planilla-input" id="p_motivo" placeholder="¿Por qué consulta hoy?"></textarea>
+        <textarea class="planilla-input" id="p_motivo"></textarea>
       </div>
-
       <div class="planilla-field span2">
         <div class="planilla-label">Estado de ánimo</div>
-        <textarea class="planilla-input" id="p_animo" placeholder="Ej: bajoneada, ansiosa, lábil, estable..."></textarea>
+        <textarea class="planilla-input" id="p_animo"></textarea>
       </div>
-
       <div class="planilla-field">
         <div class="planilla-label">Ciclo vital</div>
         <div class="radio-group">
@@ -210,25 +359,20 @@
           <label><input type="radio" name="ciclo" value="Adulto/a mayor"> Adulto/a mayor</label>
         </div>
       </div>
-
       <div class="planilla-field">
         <div class="planilla-label">Ocupación</div>
-        <input type="text" class="planilla-input" id="p_ocupacion" placeholder="Ej: dueña de casa, cesante, jubilada...">
+        <input type="text" class="planilla-input" id="p_ocupacion">
       </div>
-
       <div class="planilla-field span2">
         <div class="planilla-label">Red de apoyo</div>
-        <input type="text" class="planilla-input" id="p_red" placeholder="Ej: escasa, hija, amistades, ninguna...">
+        <input type="text" class="planilla-input" id="p_red">
       </div>
-
       <div class="planilla-field span2">
         <div class="planilla-label">Dinámica familiar</div>
-        <textarea class="planilla-input" id="p_dinamica" placeholder="Ej: convivencia tensa, buena relación, conflictos..."></textarea>
+        <textarea class="planilla-input" id="p_dinamica"></textarea>
       </div>
-
       <hr class="planilla-divider">
       <div class="planilla-section-title">Derivación</div>
-
       <div class="planilla-field">
         <div class="planilla-label">Tamizaje</div>
         <div class="radio-group">
@@ -236,38 +380,30 @@
           <label><input type="radio" name="tamizaje" value="No"> No</label>
         </div>
       </div>
-
       <div class="planilla-field">
-        <div class="planilla-label">Si no, ¿cuál es la derivación?</div>
-        <input type="text" class="planilla-input" id="p_deriva" placeholder="Ej: médico, matrona, psicólogo...">
+        <div class="planilla-label">Si no, ¿cuál derivación?</div>
+        <input type="text" class="planilla-input" id="p_deriva">
       </div>
-
       <hr class="planilla-divider">
       <div class="planilla-section-title">Contexto Social</div>
-
       <div class="planilla-field">
         <div class="planilla-label">Escolaridad</div>
-        <input type="text" class="planilla-input" id="p_escolaridad" placeholder="Ej: 4° medio, básica incompleta...">
+        <input type="text" class="planilla-input" id="p_escolaridad">
       </div>
-
       <div class="planilla-field">
         <div class="planilla-label">Situación habitacional</div>
-        <input type="text" class="planilla-input" id="p_vivienda" placeholder="Ej: casa propia, arriendo, allegada...">
+        <input type="text" class="planilla-input" id="p_vivienda">
       </div>
-
       <hr class="planilla-divider">
       <div class="planilla-section-title">Funcionalidad</div>
-
       <div class="planilla-field">
         <div class="planilla-label">Actividad física</div>
-        <input type="text" class="planilla-input" id="p_actividad" placeholder="Ej: caminatas, ninguna, gimnasio...">
+        <input type="text" class="planilla-input" id="p_actividad">
       </div>
-
       <div class="planilla-field">
         <div class="planilla-label">Alimentación</div>
-        <input type="text" class="planilla-input" id="p_alimentacion" placeholder="Ej: normal, apetito disminuido, ansiosa...">
+        <input type="text" class="planilla-input" id="p_alimentacion">
       </div>
-
       <div class="planilla-field">
         <div class="planilla-label">Participación comunitaria</div>
         <div class="radio-group">
@@ -275,68 +411,57 @@
           <label><input type="radio" name="comunidad" value="No"> No</label>
         </div>
       </div>
-
       <div class="planilla-field">
-        <div class="planilla-label">¿Dónde participa?</div>
-        <input type="text" class="planilla-input" id="p_comunidad_donde" placeholder="Ej: iglesia, club AM, taller...">
+        <div class="planilla-label">¿Dónde?</div>
+        <input type="text" class="planilla-input" id="p_comunidad_donde">
       </div>
-
       <div class="planilla-field span2">
         <div class="planilla-label">Patrón de sueño</div>
-        <input type="text" class="planilla-input" id="p_sueno" placeholder="Ej: se acuesta 23:00, despertares nocturnos, insomnio...">
+        <input type="text" class="planilla-input" id="p_sueno">
       </div>
-
       <hr class="planilla-divider">
       <div class="planilla-section-title">Hábitos</div>
-
       <div class="planilla-field span2">
-        <div class="planilla-label">Seleccionar hábitos presentes</div>
         <div class="check-group">
           <label><input type="checkbox" id="h_tabaco"> Tabaco</label>
           <label><input type="checkbox" id="h_alcohol"> Alcohol</label>
           <label><input type="checkbox" id="h_drogas"> Drogas</label>
           <label><input type="checkbox" id="h_otro"> Otro:</label>
-          <input type="text" class="planilla-input" id="h_otro_txt" style="width:140px; min-height:unset; padding:6px 10px;" placeholder="especificar">
+          <input type="text" class="planilla-input" id="h_otro_txt" style="width:140px;min-height:unset;padding:6px 10px;" placeholder="especificar">
         </div>
       </div>
-
       <hr class="planilla-divider">
       <div class="planilla-section-title">Suicidabilidad</div>
-
       <div class="planilla-field span2">
         <div class="suici-row">
           <div class="suici-item">
             <div class="planilla-label">Ideación</div>
             <div class="toggle-group">
-              <button class="toggle-btn" onclick="toggleSuici(this, 'ideacion', '+')" id="s_ideacion_pos">+</button>
-              <button class="toggle-btn" onclick="toggleSuici(this, 'ideacion', '-')" id="s_ideacion_neg">−</button>
+              <button class="toggle-btn" onclick="toggleSuici(this,'ideacion','+')" id="s_ideacion_pos">+</button>
+              <button class="toggle-btn" onclick="toggleSuici(this,'ideacion','-')" id="s_ideacion_neg">−</button>
             </div>
           </div>
           <div class="suici-item">
             <div class="planilla-label">Intento</div>
             <div class="toggle-group">
-              <button class="toggle-btn" onclick="toggleSuici(this, 'intento', '+')" id="s_intento_pos">+</button>
-              <button class="toggle-btn" onclick="toggleSuici(this, 'intento', '-')" id="s_intento_neg">−</button>
+              <button class="toggle-btn" onclick="toggleSuici(this,'intento','+')" id="s_intento_pos">+</button>
+              <button class="toggle-btn" onclick="toggleSuici(this,'intento','-')" id="s_intento_neg">−</button>
             </div>
           </div>
           <div class="suici-item">
             <div class="planilla-label">Autolesiones</div>
             <div class="toggle-group">
-              <button class="toggle-btn" onclick="toggleSuici(this, 'autolesion', '+')" id="s_autolesion_pos">+</button>
-              <button class="toggle-btn" onclick="toggleSuici(this, 'autolesion', '-')" id="s_autolesion_neg">−</button>
+              <button class="toggle-btn" onclick="toggleSuici(this,'autolesion','+')" id="s_autolesion_pos">+</button>
+              <button class="toggle-btn" onclick="toggleSuici(this,'autolesion','-')" id="s_autolesion_neg">−</button>
             </div>
           </div>
         </div>
       </div>
-
       <hr class="planilla-divider">
-      <div class="planilla-section-title">Información adicional</div>
-
+      <div class="planilla-section-title">Notas adicionales</div>
       <div class="planilla-field span2">
-        <div class="planilla-label">Notas en bruto (info extra, derivaciones, observaciones)</div>
-        <textarea class="planilla-input" id="p_notas" style="min-height:90px;" placeholder="Cualquier dato adicional, gestiones pendientes, derivaciones, contexto relevante..."></textarea>
+        <textarea class="planilla-input" id="p_notas" style="min-height:90px;" placeholder="Info extra, derivaciones, observaciones..."></textarea>
       </div>
-
     </div>
   </div>
 
@@ -357,326 +482,785 @@
     </div>
     <div class="result-text" id="resultText"></div>
   </div>
-
 </div>
-
 <p class="footer-note">Los datos ingresados no se almacenan. Uso exclusivo interno CESFAM Dr. Alejandro del Río.</p>
 
 <script>
 let tipoSeleccionado = '';
-const suiciValues = { ideacion: '', intento: '', autolesion: '' };
+const suiciValues = {ideacion:'',intento:'',autolesion:''};
 
-function toggleSuici(btn, campo, valor) {
-  const posBtn = document.getElementById('s_' + campo + '_pos');
-  const negBtn = document.getElementById('s_' + campo + '_neg');
-  posBtn.classList.remove('pos'); negBtn.classList.remove('neg');
-  if (suiciValues[campo] === valor) {
-    suiciValues[campo] = '';
-  } else {
-    suiciValues[campo] = valor;
-    if (valor === '+') posBtn.classList.add('pos');
-    else negBtn.classList.add('neg');
-  }
+function toggleSuici(btn,campo,valor){
+  const p=document.getElementById('s_'+campo+'_pos');
+  const n=document.getElementById('s_'+campo+'_neg');
+  p.classList.remove('pos'); n.classList.remove('neg');
+  if(suiciValues[campo]===valor){suiciValues[campo]='';}
+  else{suiciValues[campo]=valor; if(valor==='+')p.classList.add('pos'); else n.classList.add('neg');}
 }
 
-const SYSTEM_BASE = `Eres María Angélica Gálvez, Trabajadora Social del CESFAM Dr. Alejandro del Río, APS Chile.
-Redacción técnica, directa, breve pero completa. Prosa continua. Lenguaje operativo.
-Tercera persona siempre. Abreviaturas: SM, tto, OH, VIF, NNA, IPG, APS, IS, ASI.
+const SYSTEM_BASE=`Eres María Angélica Gálvez, Trabajadora Social del CESFAM Dr. Alejandro del Río, APS Chile.
+Redacción técnica, directa, breve pero completa. Prosa continua. Lenguaje operativo. Tercera persona siempre.
+Abreviaturas: SM, tto, OH, VIF, NNA, IPG, APS, IS, ASI, CESFAM, CASR, CRS, PPF, AFT, PRLAC, COMPIN, TFPA, CAJ.
 NUNCA inventar datos. NUNCA repetir información. NUNCA cambiar datos clínicos o diagnósticos.
 SIEMPRE terminar con acción futura o seguimiento.`;
 
-const PROMPTS = {
-vdi: `${SYSTEM_BASE}
-TIPO: Visita Domiciliaria Integral (VDI)
-ESTRUCTURA:
-Nombre del usuario
-Objetivo de la visita: [frase breve]
-Síntesis: [2-3 párrafos. Iniciar con "Se realiza VDI, atiende...". Integrar: motivo, situación actual, familia, salud, economía, vivienda, red de apoyo]
-Plan de acción:
-– [verbo + acción concreta]
-– [acción]
-– [acción]
-EXPRESIONES: "Refiere que...", "Señala que...", "Actualmente...", "En lo económico...", "Se orienta respecto a...", "Se acuerda..."`,
+const PROMPTS={
 
-consulta: `${SYSTEM_BASE}
-TIPO: Consulta Social
-ESTRUCTURA:
-Objetivo: [frase breve]
-Síntesis: [1 párrafo en prosa integrando: motivo, familia, vivienda, economía, salud. Iniciar con "Acude usuaria/usuario para orientación social..."]
+vdi:`${SYSTEM_BASE}
+TIPO: Visita Domiciliaria Integral (VDI) para RAYEN.
+Eres María Angélica Gálvez. Escribe EXACTAMENTE como ella. Estudia estos ejemplos reales:
+
+=== EJEMPLO 1 ===
+Se realiza VDI, atiende abuela. Refiere que Kevin presenta mayor desregulación del sueño, quedándose dormido en ocasiones a las 8:00 hrs, lo que ha impedido asistencia a control de salud mental. Actualmente se encuentra sin fármacos. Pese a ello, ha mostrado mayor sociabilidad con la familia.
+Plan de acción:
+– Mantener seguimiento en SM.
+– Gestionar hora médica para reingreso a tratamiento farmacológico.
+– Monitorear adherencia a controles.
+
+=== EJEMPLO 2 ===
+Se realiza VDI, atiende tía. Refiere que niño se mantiene estable en su domicilio. Madre dio a luz recientemente a gemelas, encontrándose éstas en seguimiento en CASR y Chile Crece Más. Vínculo con el niño continúa siendo esporádico.
+Plan de acción:
+– Mantener seguimiento proteccional.
+– Coordinar con Chile Crece Más para apoyo a madre.
+– Verificar controles de salud del niño.
+
+=== EJEMPLO 3 ===
+Se realiza VDI, atiende madre. Refiere que Bruno se mantiene en atenciones con TO. Señala que padre aún no regulariza deuda de jardín infantil. Madre continúa en tratamiento de SM, con persistencia de crisis de pánico y mal dormir.
+Plan de acción:
+– Mantener seguimiento a atenciones de TO.
+– Reforzar continuidad de tratamiento de SM de madre.
+– Gestionar resolución de deuda de jardín.
+
+=== EJEMPLO 4 ===
+Se realiza VDI, atiende usuaria. Refiere que convivencia con su madre se mantiene en tensión, aunque la ve menos en el domicilio por inicio de práctica profesional. Mantiene evaluación de trasladarse con su hermana, quien continúa ofreciendo apoyo habitacional.
+Plan de acción:
+– Mantener seguimiento a situación habitacional.
+– Reforzar continuidad de atenciones de SM.
+– Evaluar opciones de traslado con hermana.
+
+=== EJEMPLO 5 ===
+Se realiza VDI, atiende matrimonio. Cónyuge refiere agotamiento por rol de cuidador permanente, sin red formal de apoyo. Señala dificultad para sostener higiene y rutinas de cuidado, especialmente por negativa de usuaria a colaborar.
+Plan de acción:
+– Gestionar apoyo formal de cuidados vía municipio.
+– Derivar a programa PRLAC para evaluación.
+– Coordinar red de apoyo familiar.
+
+=== EJEMPLO 6 ===
+Se realiza VDI, atiende esposo en compañía de hijo. Usuaria con antecedentes crónicos y hospitalización reciente por ITU, posterior a la cual quedó con dependencia y compromiso importante de movilidad. Esposo asume rol de cuidador principal sin apoyo formal.
+Plan de acción:
+– Derivar a PRLAC para evaluación de apoyos.
+– Gestionar ayudas técnicas en CCR.
+– Coordinar con enfermería para seguimiento domiciliario.
+
+=== EJEMPLO 7 ===
+Se realiza VDI acordada. Usuaria refiere encontrarse muy afectada tras fallecimiento reciente de su esposo. Señala llanto frecuente, especialmente nocturno, y dificultades para dormir. Cuenta con apoyo de vecinas e hija. Desea retomar atenciones de SM.
+Plan de acción:
+– Gestionar hora de SM para ingreso.
+– Reforzar red de apoyo presente.
+– Mantener seguimiento domiciliario.
+
+=== EJEMPLO 8 ===
+Se realiza VDI, atiende tía materna. Refiere que cuidado proteccional vence prontamente y desea su continuidad. Niño se mantiene estable, con buen rendimiento escolar y seguimiento regular en PPF. Vivienda en adecuadas condiciones, con dormitorio propio.
+Plan de acción:
+– Elaborar informe para TFPA solicitando prórroga de cuidado proteccional.
+– Coordinar con PPF continuidad del seguimiento.
+– Verificar controles de salud del niño.
+
+=== EJEMPLO 9 ===
+Se realiza VDI, atiende madre. Refiere apoyo eventual de una tía materna, quien quedará a cargo del hermano mayor durante hospitalización del niño menor. Red de apoyo es escasa.
+Plan de acción:
+– Coordinar apoyo durante hospitalización.
+– Gestionar red de apoyo adicional.
+– Mantener seguimiento post alta.
+
+=== EJEMPLO 10 ===
+Se realiza VDI, atiende abuela. Refiere que en control médico se descartó DM, confirmándose colesterol elevado, por lo que fue derivado a nutricionista y se indicó actividad física. Señala que el tío ha mantenido apoyo activo, acompañándolo en bicicleta y actividades recreativas.
+Plan de acción:
+– Reforzar adherencia a controles nutricionales.
+– Mantener seguimiento de SM.
+– Monitorear actividad física.
+
+=== INSTRUCCIÓN FINAL ===
+ESTRUCTURA OBLIGATORIA:
+Nombre del usuario
+Objetivo de la visita: [frase breve y concreta]
+Síntesis: [2-3 párrafos en prosa. INICIAR con "Se realiza VDI, atiende...". Integrar: motivo, situación actual, familia, salud, economía, vivienda, red de apoyo]
+Plan de acción:
+– [acción concreta con verbo]
+– [acción]
+– [acción]`,
+
+vdi_planilla:`${SYSTEM_BASE}
+TIPO: Visita Domiciliaria Integral (VDI) generada desde pauta oficial.
+Usa los datos de la pauta para generar el registro VDI completo para RAYEN.
+NUNCA inventar datos. Si un campo está vacío, omitirlo.
+
+ESTRUCTURA DE SALIDA:
+Nombre / Situación que origina VDI: [desde campo 1]
+Objetivo de la visita: [desde campo 2]
+Síntesis: [construir desde campos 3,4,5,6,7,11 en prosa continua. INICIAR con "Se realiza VDI...". Integrar: salud, adherencia, caracterización familiar, crisis, factores, vivienda]
+Intervención: [desde campo 12 — en prosa]
+Acuerdos: [desde campo 13]
+Plan de acción:
+– [desde campo 14]
+– [acciones concretas]`,
+
+consulta:`${SYSTEM_BASE}
+TIPO: Consulta Social para RAYEN.
+Eres María Angélica Gálvez. Escribe EXACTAMENTE como ella. Estudia estos ejemplos:
+
+=== EJEMPLO 1 ===
+Objetivo: Orientación social por situación habitacional y económica.
+Síntesis: Acude usuaria para orientación social. Refiere encontrarse cesante y con dificultades económicas, manteniendo deuda por arriendo desde agosto de 2025, lo que derivó en demanda por parte de arrendadores. Vive en vivienda arrendada junto a sus dos hijos, uno de ellos con diagnóstico de TEA, con acreditación de discapacidad y en controles en CASR. Señala alta demanda de cuidados asociada al niño, además de dificultades conductuales y uso permanente de pañales. Indica no contar con red de apoyo y haber solicitado ayuda en municipio sin resultados. Se identifica situación de vulnerabilidad socioeconómica y riesgo habitacional.
+Plan de acción:
+– Se orienta solicitar asesoría legal en CAJ por demanda de arriendo.
+– Se acuerda realizar VDI para evaluación sociofamiliar y gestión de apoyos de emergencia.
+
+=== EJEMPLO 2 ===
+Objetivo: Orientación social por situación previsional y accidente laboral.
+Síntesis: Acude esposa del usuario, María Riquelme (55), junto a su hija Sabina, solicitando orientación social para evaluar acceso a jubilación de invalidez. Usuario presenta antecedente de accidente laboral ocurrido hace aprox 1 año y 3 meses, sufriendo caída desde altura cercana a 2 metros, con resultado de fractura expuesta. Fue trasladado a Hospital Barros Luco, con evolución compleja e infección ósea. Actualmente mantiene tutor externo con movilidad reducida, a la espera de cirugía. Antecedentes de HTA. Grupo familiar compuesto por esposa y 4 hijos adultos.
+Plan de acción:
+– Se orienta sobre proceso de solicitud de jubilación de invalidez en AFP correspondiente.
+– Se orienta sobre acceso a ayudas técnicas para personas menores de 65 años en Oficina de Discapacidad.
+– Se sugiere seguimiento social para acompañar proceso previsional.
+
+=== EJEMPLO 3 ===
+Objetivo: Orientación social por proceso de acreditación de discapacidad.
+Síntesis: Acude usuaria visiblemente desorientada, solicita iniciar proceso de acreditación de discapacidad. Refiere trayectoria laboral principalmente en aseo, último trabajo en Hospital Sótero del Río, finalizó hace aprox 10 meses. Actualmente sin trabajo ni ingresos estables. Vive con su hija Fernanda (22). Presenta antecedentes de SM con controles desde hace aproximadamente 10 años, con seguimiento en HLF desde 2017. Antecedentes de DM II no insulino requirente. No recibe pensión ni beneficios.
+Plan de acción:
+– Se orienta sobre el proceso de acreditación de discapacidad y requisitos asociados.
+– Se acuerda apoyar en elaboración de informe social dirigido a COMPIN.
+
+=== EJEMPLO 4 ===
+Objetivo: Orientación social por situación de sobrecarga de cuidado y acceso a beneficios.
+Síntesis: Acude usuaria para orientación social. Refiere sobrecarga asociada a rol de cuidadora principal de ambos padres personas mayores, Oscar Molina y Raquel Muñoz (76 años). Señala como principal dificultad la alta frecuencia de controles de salud propios y de sus padres, lo que dificulta compatibilizar el cuidado con su jornada laboral en farmacia con turnos rotativos extensos. Refiere sentirse colapsada y cuestionada en su trabajo, con impacto en su SM. Presenta antecedente de dislipidemia. Usuaria es hija única, refiere fallecimiento de su hermano, sin redes de apoyo adicionales.
+Plan de acción:
+– Se acuerda VDI para evaluar situación de los padres y apoyos disponibles.
+– Se evaluará derivación a PRLAC municipal.
+– Se orienta sobre gestión de credencial de cuidadora.
+– Se orienta iniciar proceso de acreditación de discapacidad para ambos padres.
+
+=== EJEMPLO 5 ===
+Objetivo: Orientación social por situación habitacional de emergencia.
+Síntesis: Acude usuaria para orientación social. Refiere que se encontraba arrendando pieza mediante subsidio de arriendo, con derecho a uso de cocina. Señala que el arrendatario de manera unilateral decidió poner término al arriendo, acudiendo al banco para finalizar el contrato. No obstante, éste continuó exigiendo el pago de arriendo y actualmente le solicita dos meses adeudados, además de exigir desalojo. Acudió a Alcaldía solicitando apoyo, donde le indicaron que se gestionaría una solución habitacional, proceso que podría demorar algunos meses. Refiere no contar con red de apoyo cercana, es soltera, sin hijos, y su único hermano reside en el norte del país.
+Plan de acción:
+– Se deriva al Departamento de Vivienda del municipio para apoyar y acelerar proceso de solución habitacional.
+– Se orienta sobre búsqueda de alternativas habitacionales transitorias.
+
+=== INSTRUCCIÓN FINAL ===
+ESTRUCTURA OBLIGATORIA:
+Objetivo: [frase breve con el motivo]
+Síntesis: [1-2 párrafos en prosa. INICIAR con "Acude usuaria/usuario para orientación social...". Integrar: motivo, familia, vivienda, economía, salud, problema principal]
 Plan de acción:
 – Se orienta / Se deriva / Se acuerda [acción concreta]
 – [máx 3-4 acciones]`,
 
-ecicep: `${SYSTEM_BASE}
-TIPO: Ingreso ECICEP
+ecicep:`${SYSTEM_BASE}
+TIPO: Ingreso ECICEP para SM.
+Eres María Angélica Gálvez. Escribe EXACTAMENTE como ella. Estudia estos 10 ejemplos reales completos:
 
-FORMATO EXACTO:
+=== EJEMPLO 1 ===
+MC: Derivada desde tamizaje de SM.
+Identificación: Adulta, 4° medio, oficio maestro de cocina autodidacta. Actualmente cesante desde dic/2025. Dueña de casa y cuidadora principal de su hijo Máximo (7 años). Separada hace 2 años.
+Comorbilidades: (-)
+Historia del problema: Refiere ánimo bajo, ansiedad, cansancio y preocupación constante. Malestar asociado a cesantía y pérdida de rutina diaria. Presenta antecedentes de crisis de pánico en el pasado (temor intenso, agitación, sudoración y temblor). Señala tendencia a sobrepensar y temor a morir. Refiere además duelo por fallecimiento de su hija neonata al momento de nacer hace aproximadamente 10 años, situación que se reactiva en fechas de aniversario. Antecedentes de VIF entre sus padres durante la infancia.
+Sintomatología:
+Cognitiva: rumiación y preocupación constante.
+Emocional: ansiedad, ánimo bajo.
+Física: síntomas ansiosos/crisis de pánico.
+Conductual: pérdida de rutinas y sedentarismo.
+Etapa motivacional: Contemplativa.
+RECURSOS: Motivación por mejorar situación personal y laboral. Vínculo con su hijo.
+Factores de riesgo: cesantía, conflictos familiares.
+Factores protectores: rol materno, interés en retomar actividades.
+ANTECEDENTES FAMILIARES
+Vive con su madre Sandra (56, trabaja en aseo formal), sus hermanos Camilo (29, sin trabajo por accidente) y Benjamín (18, estudia 2x1), además de su hijo Máximo (7). Refiere convivencia familiar tensa, con discusiones frecuentes y percepción de trato desigual. Mantiene relación con el padre de su hijo actualmente más distante; se encuentra en proceso de demanda por pensión de alimentos (06/04).
+FUNCIONALIDAD
+Apetito: aumentado en contexto de ansiedad, con mayor consumo de pan y dulces.
+Sueño: alterado, dificultad para conciliar y mantener el sueño; se acuesta aprox. 23:00 hrs, conciliación tardía y despertares nocturnos.
+Actividad física: caminatas asociadas al traslado de su hijo al colegio.
+H�BITOS
+Tabaco (+) 2–3 cigarrillos diarios desde los 15 años. OH (-). Drogas (-).
+SUICIDABILIDAD
+Ideación (-). Intentos (-). Autolesiones (-).
+II. PLAN CONSENSUADO
+Problema priorizado: ansiedad y ánimo bajo asociado a cesantía, conflictos familiares y pérdida de rutinas.
+Etapa motivacional: Contemplativa.
+Objetivo: mejorar regulación emocional y retomar rutinas laborales y de autocuidado durante el presente mes.
+Opciones ofrecidas: IPG Abordaje de Ansiedad, orientación laboral Puente Impulsa, talleres municipales.
+Acuerdos: Se acuerda consensuadamente con usuaria:
+– Usuaria se compromete a consultar e inscribirse en programa de apresto laboral Puente Impulsa durante el presente mes.
+– Usuaria realizará gestión en municipio para participación en taller de cocina/repostería durante el presente mes.
+– Usuaria incorporará actividad física al menos 2 veces por semana desde esta semana.
+– Usuaria disminuirá consumo de cigarrillos a máximo 1 diario.
+III. PLAN TÉCNICO
+Indicaciones: Se realiza consejería breve y psicoeducación en manejo de ansiedad y activación conductual. Se orienta sobre subsidio habitacional y subsidio de arriendo.
+Derivaciones: IPG Abordaje de Ansiedad.
+Seguimiento: Control con T. Social según evolución.
+
+=== EJEMPLO 2 ===
+MC: Derivada desde tamizaje de SM por ánimo bajo.
+Identificación: Adulta, dueña de casa, 4° medio. Separada de hecho tras 37 años de matrimonio. Vive en casa propia.
+Comorbilidades: HTA. DM2. Dislipidemia. Tto depresivo moderado (extrasistema).
+Historia del problema: Refiere antecedente de tto depresivo moderado posterior a separación conyugal ocurrida en junio/2025, luego de que su esposo reconociera infidelidades. Presentó mayor descompensación emocional en diciembre de 2025, con síntomas de ansiedad, llanto frecuente y crisis. Durante ese periodo se aislaba y presentó conductas de autolesión (rasguños). Desde diciembre se encuentra en tratamiento psicológico y psiquiátrico en extrasistema a través de red de apoyo de su iglesia, con buena adherencia. Actualmente refiere sentirse más tranquila, con mayor estabilidad emocional y proyecciones personales.
+Sintomatología:
+Cognitiva: pensamientos reflexivos respecto al proceso de separación.
+Emocional: ánimo estable actualmente, con antecedentes recientes de tristeza y ansiedad.
+Física: sin quejas actuales relevantes.
+Conductual: mantiene rutina doméstica y actividades de autocuidado.
+Etapa motivacional: Preparación.
+RECURSOS: Apoyo significativo de sus hijos. Adherencia a tto psicológico y psiquiátrico.
+Factores de riesgo: antec. reciente de proceso de separación conyugal.
+Factores protectores: red familiar cercana, tto activo en SM y motivación por retomar proyectos personales.
+ANTECEDENTES FAMILIARES
+Estuvo casada durante 37 años. Mantiene apoyo significativo de sus 3 hijos adultos (37, 35 y 30 años). Reside en casa propia junto a su hija menor Valentina Briones (30), su yerno Jorge González (30) y su nieta Isidora (3), con quienes mantiene convivencia estable.
+FUNCIONALIDAD
+Apetito: conservado.
+Sueño: adecuado con tto farmacológico, duerme aprox. 8 horas diarias.
+Actividad física: bicicleta estática aproximadamente 2 horas diarias.
+H�BITOS
+Tabaco (-). OH (-). Drogas (-).
+SUICIDABILIDAD
+Ideación (-). Intentos (-). Autolesiones (-).
+II. PLAN CONSENSUADO
+Problema priorizado: proceso de adaptación emocional posterior a separación conyugal.
+Etapa motivacional: Preparación.
+Objetivo: mantener estabilidad emocional y fortalecer proyectos personales durante el presente año.
+Opciones ofrecidas: psicoterapia individual, IPG y estrategias de autocuidado.
+Acuerdos: Se acuerda consensuadamente con usuaria:
+– Usuaria mantendrá continuidad de tto con psicología y psiquiatría en extrasistema, asistiendo a todos los controles programados.
+– Usuaria participará en cursos municipales de interés personal (repostería u otros) durante el presente año.
+– Usuaria mantendrá rutina de autocuidado y actividad física regular.
+III. PLAN TÉCNICO
+Indicaciones: Se realiza contención emocional y refuerzo de estrategias de afrontamiento.
+Derivaciones: Continuidad de tto en extrasistema.
+Seguimiento: Se ofrece seguimiento por T. Social en caso de requerir acompañamiento adicional.
+
+=== EJEMPLO 3 ===
+MC: Derivada desde tamizaje de SM para evaluación de estado emocional.
+Identificación: Usuaria persona mayor, casada, jubilada.
+Comorbilidades: Trasplante hepático (3 años), fibromialgia, HTA, DM2, artrosis de rodilla, neuropatía diabética en estudio.
+Historia del problema: Usuaria solicita atención por ánimo bajo, ansiedad persistente y sobrecarga emocional. Refiere deterioro del bienestar emocional asociado a múltiples enfermedades crónicas y dificultades de convivencia con esposo con patología cardíaca severa, con antecedentes de maltrato verbal desde hace 3 años. Asume además rol de cuidado de nieta. Estuvo previamente en atención de SM en CRS, con leve mejoría.
+Sintomatología:
+Cognitiva: olvidos frecuentes, dificultades atencionales.
+Emocional: angustia, llanto fácil, irritabilidad, ansiedad.
+Física: fatiga, dolor crónico, alteración del sueño.
+Conductual: sobrecarga, retraimiento.
+Etapa motivacional: Disposición a la acción.
+RECURSOS: Jubilación por invalidez + PGU. Ingresos complementarios por venta de pan amasado. Casa propia.
+Factores protectores: Hijos como red de apoyo a distancia, adherencia a tto médico.
+Factores de riesgo: Enfermedad crónica compleja, alteración del sueño, estrés conyugal, red presencial limitada.
+ANTECEDENTES FAMILIARES
+Vive con esposo José Velásquez (71) con cardiopatía severa y nieta de 10 años. Hijos residen fuera de la comuna, acuden en emergencias. Principal red de apoyo una de sus hijas.
+FUNCIONALIDAD
+Apetito: Disminuido.
+Sueño: Alterado (conciliación tarde 00–01am hrs, despierta 05:30 hrs, no reparador).
+H�BITOS
+Tabaco (+) ocasional (1 cigarrillo por ansiedad). OH (-). Drogas (-).
+SUICIDABILIDAD
+Ideación (-). Intento (-). Autolesiones (-).
+II. PLAN CONSENSUADO
+Problema priorizado: sintomatología ansiosa asociada a enfermedad crónica y convivencia con marido.
+Etapa motivacional: Disposición a la acción.
+Objetivo: disminuir ansiedad asociada a enfermedad y fortalecer autocuidado durante el próximo mes.
+Opciones ofrecidas: IPG Autoconocimiento y gestión emocional. Ingreso con médico de SM.
+Acuerdos: Se acuerda consensuadamente con usuaria:
+– Usuaria acepta ingresar a IPG, comprometiéndose a asistir al menos al 80% de las sesiones programadas.
+– Usuaria ingresa a médico de SM para evaluar apoyo por alteración del sueño y sintomatología ansiosa.
+III. PLAN TÉCNICO
+Indicaciones: Psicoeducación en ansiedad y enfermedad crónica.
+Derivaciones: IPG Autoconocimiento y gestión emocional. Ingreso médico de SM.
+Seguimiento: Coordinar equipo SM sector morado.
+
+=== EJEMPLO 4 ===
+MC: Derivada desde tamizaje de salud mental.
+Identificación: adulta joven, casada desde 2019. Vive como allegada en domicilio materno junto a su esposo y su hijo.
+Comorbilidades: No refiere patologías crónicas.
+Historia del problema: Presenta estado emocional frágil asociado al fallecimiento de su padre ocurrido en 4/2025, quien padecía enfermedad renal crónica y se encontraba en diálisis, fallecimiento fue repentino. Refiere tristeza porque su padre no pudo conocer ni ver crecer a su nieto. Se trata de su primer hijo, concebido tras proceso de fertilidad. Refiere sintomatología depresiva, llanto frecuente y tristeza persistente en contexto de crianza y duelo. Señala sobrecarga emocional por convivencia familiar y relación de pareja con conflictos frecuentes.
+Sintomatología:
+Cognitiva: rumiación asociada a duelo y dinámica familiar.
+Emocional: tristeza, llanto frecuente, ánimo bajo, fragilidad emocional.
+Física: dolor estomacal, cefaleas.
+Conductual: hipoactividad, alimentación irregular, sueño en estado de alerta por cuidado del hijo.
+Etapa motivacional: Disposición a la acción.
+RECURSOS: Vínculo con su hijo, apoyo de madre, pertenencia a comunidad religiosa.
+Factores de riesgo: Duelo, sintomatología depresiva, conflictos familiares.
+Factores protectores: apoyo familiar, vínculo con hijo.
+ANTECEDENTES FAMILIARES
+Convive con su esposo Rubén (29), relación con conflictos frecuentes. Vive con su madre Marlene Santander Vergara (60), con sintomatología depresiva y problemas de salud.
+FUNCIONALIDAD
+Apetito: irregular, con ingestas a saltos y consumo de comida rápida.
+Sueño: parcialmente conservado, problemas de mantención y estado de alerta.
+H�BITOS
+Tabaco (-). Drogas (-). OH (-).
+SUICIDABILIDAD
+Ideación (-). Intento (-). Autolesiones (-).
+II. PLAN CONSENSUADO
+Problema priorizado: sintomatología depresiva en contexto de duelo reciente y posparto.
+Etapa motivacional: Disposición a la acción.
+Objetivo: acompañar proceso de duelo y disminuir sintomatología depresiva durante las próximas semanas.
+Opciones ofrecidas: Ingreso a atención psicológica individual.
+Acuerdos: Se acuerda consensuadamente con usuaria:
+– Usuaria acepta derivación a atención psicológica para acompañamiento en proceso de duelo y contención emocional.
+III. PLAN TÉCNICO
+Indicaciones: Se realiza consejería breve y psicoeducación inicial sobre duelo, reforzando autocuidado.
+Derivaciones: Derivación a atención psicológica.
+Seguimiento: según evolución clínica.
+
+=== EJEMPLO 5 ===
+MC: Derivada desde tamizaje de SM.
+Identificación: Adulta, dueña de casa. Escolaridad 4° medio.
+Comorbilidades: Migraña y lumbago.
+Historia del problema: Desde octubre 2025 pierde el cuidado personal de su hijo de 7 años, quedando éste a cargo del padre. Refiere impacto emocional significativo asociado a esta resolución. Contacto telefónico con el niño 1 vez por semana. No existe acuerdo formal respecto a visitas ni pensión de alimentos. Mediación frustrada, acudió a CAJ para solicitar regulación de visitas. Antecedentes de VIF con expareja (maltrato psicológico).
+Sintomatología:
+Cognitiva: preocupación constante por situación judicial y bienestar de su hijo.
+Emocional: ánimo bajo, tristeza persistente, ansiedad.
+Física: insomnio severo, migraña, lumbago.
+Conductual: hipervigilancia.
+Etapa motivacional: Disposición a la acción.
+RECURSOS: Pareja actual como principal apoyo. Convivencia estable.
+Factores de riesgo: Duelo por pérdida del CP. Insomnio severo. Antecedente de VIF.
+Factores protectores: Pareja actual estable.
+ANTECEDENTES FAMILIARES
+Vive con su pareja Diego (32), mecánico, con quien convive hace 4 años, y sus hijos Daniel (3 años) e Isabela (16 meses). Vivienda en arriendo. Relación distante con padres y hermanos.
+FUNCIONALIDAD
+Apetito: conservado.
+Sueño: severamente alterado (3 horas promedio, conciliación tardía 3 am).
+Actividad física: (-).
+H�BITOS
+Tabaco (-). OH (-). Drogas (-).
+SUICIDABILIDAD
+Ideación (-). Intento (-). Autolesiones (-).
+II. PLAN CONSENSUADO
+Problema priorizado: sintomatología ansiosa reactiva a pérdida de cuidado de hijo, con insomnio severo.
+Etapa motivacional: Disposición a la acción.
+Objetivo: disminuir intensidad de ansiedad y favorecer vínculo con hijo mediante intervención psicosocial durante el próximo mes.
+Opciones ofrecidas: IPG habilidades parentales.
+Acuerdos: Se acuerda consensuadamente con usuaria:
+– Usuaria acepta derivación a IPG de habilidades parentales.
+– Usuaria intentará implementar rutina de higiene del sueño desde esta semana (horario fijo y reducción de pantallas nocturnas).
+III. PLAN TÉCNICO
+Indicaciones: Se realiza contención emocional y se orienta sobre proceso judicial.
+Derivaciones: IPG habilidades parentales.
+Seguimiento: Control con T. Social según evolución.
+
+=== EJEMPLO 6 ===
+MC: Seguimiento por sintomatología depresiva en contexto de conflicto familiar y sobrecarga de cuidados.
+Identificación: Adulta, dueña de casa.
+Comorbilidades: DM, HTA, Asma. Artrosis de rodilla bilateral (operada rodilla izq junio/2025, pendiente rodilla derecha).
+Historia del problema: Usuaria refiere ánimo deprimido y fluctuante, con dolor osteoarticular crónico que interfiere en su descanso nocturno. Asocia el malestar principalmente a conflicto con sobrina (Katherine), a quien crió como hija, quien abandona estudios y se embaraza, retirándose del hogar hace aprox un año, generando decepción profunda y duelo por expectativas frustradas. Refiere historia prolongada de postergación personal por cuidado de otros. Antecedente de hospitalización psiquiátrica años atrás en contexto de crisis conyugal por infidelidad.
+Sintomatología:
+Cognitiva: rumiación persistente.
+Emocional: ánimo deprimido, labilidad, angustia.
+Física: dolor crónico, fatiga, náuseas.
+Conductual: insomnio, sobrecarga por cuidado de otros.
+Etapa motivacional: Disposición inicial a la acción.
+RECURSOS: Red familiar presente, vínculo laboral positivo.
+Factores de riesgo: Depresión, dolor crónico, sobrecarga de cuidados.
+Factores protectores: Red de apoyo familiar, participación religiosa.
+ANTECEDENTES FAMILIARES
+Convive con su esposo Manuel Ureta (71), conductor de colectivo, convivencia buena. Dos hijos adultos: Roberto (48, electricista) y María Jesús (40, prof de educación física). Nietos: Diego (13), Lucas (17) y Mateo (8). Vivienda propia pagada.
+FUNCIONALIDAD
+Apetito: regular con náuseas ocasionales.
+Sueño: no reparador; conciliación tardía (02–03 hrs), despertares precoces.
+Actividad física: (-).
+H�BITOS
+Tabaco (-). OH (-). Drogas (-).
+SUICIDABILIDAD
+Ideación suicida pasada (+), sin ideación ni intención actual. Intentos (-).
+II. PLAN CONSENSUADO
+Problema priorizado: sintomatología depresiva reactiva a conflicto familiar.
+Etapa motivacional: Disposición inicial a la acción.
+Objetivo: mejorar regulación emocional y calidad del sueño durante el próximo mes.
+Opciones ofrecidas: IPG, evaluación por médico de SM.
+Acuerdos: Se acuerda consensuadamente con usuaria:
+– Usuaria acepta ingreso a IPG.
+– Usuaria acepta evaluación por médico de SM.
+– Usuaria reforzará límites en rol de cuidado y autocuidado.
+III. PLAN TÉCNICO
+Indicaciones: Consejería breve y psicoeducación en depresión, sobrecarga de cuidados e higiene del sueño.
+Derivaciones: IPG. Evaluación por médico de SM.
+Seguimiento: Control con T. Social según evolución.
+
+=== EJEMPLO 7 ===
+MC: Reingreso a SM.
+Identificación: Usuario joven, 4° medio completo. Vive con su abuela paterna.
+Comorbilidades: Fractura de pelvis dic/2025 por accidente automovilístico.
+Historia del problema: Sintomatología ansiosa desde hace 2 años, con crisis 1–2 veces por semana y evitación de salir por miedo a crisis. No presenta crisis cuando realiza eventos donde canta y anima. Antecedente significativo de duelo a los 17 años por fallecimiento de ex polola en contexto de consumo de coc. Antecedentes de intentos de suicidio a los 17 y 18 años. Episodio de autolesiones con cortes en antebrazos. Actualmente refiere que los pensamientos de hacerse daño han disminuido en intensidad desde inicio de tratamiento farmacológico. Consumo de THC aprox 1 gr diario.
+Sintomatología:
+Cognitiva: rumiación y preocupación anticipatoria.
+Emocional: ansiedad persistente.
+Física: crisis de ansiedad recurrentes.
+Conductual: aislamiento parcial, evitación de espacios públicos.
+Etapa motivacional: Precontemplativa.
+RECURSOS: Interés en continuar tratamiento, participación en actividades creativas y eventos.
+Factores de riesgo: antecedentes de IS, consumo de sustancias.
+Factores protectores: proyecto vocacional, actividades artísticas, búsqueda de apoyo.
+ANTECEDENTES FAMILIARES
+Vive con abuela paterna (67), dueña de casa, PGU + pensión de viudez. Padres separados antes de su nacimiento, sin contacto con madre. Padre con contacto ocasional. Refiere roces de convivencia con abuela.
+FUNCIONALIDAD
+Apetito: conservado.
+Sueño: requiere mejorar la higiene del sueño.
+Actividad física: boxeo en casa/MMA ocasional.
+H�BITOS
+Tabaco (-). OH (-). Drogas (+) THC.
+SUICIDABILIDAD
+Ideación (-). Intentos (+). Autolesiones (+) sin ideación actual.
+II. PLAN CONSENSUADO
+Problema priorizado: ansiedad con antecedente de suicidalidad.
+Etapa motivacional: Precontemplativa.
+Objetivo: disminuir crisis ansiosas y fortalecer autocuidado durante los próximos 2 meses.
+Opciones ofrecidas: Psicoterapia, tratamiento farmacológico.
+Acuerdos: Se acuerda consensuadamente con usuario:
+– Usuario reducirá consumo de marihuana a máximo 1 cigarro diario durante el próximo mes.
+– Usuario incorporará actividades recreativas de autocuidado (pintar, dibujar, cocinar) al menos 3 veces por semana.
+– Usuario adherirá a proceso psicoterapéutico y farmacológico, asistiendo a todas las sesiones programadas.
+III. PLAN TÉCNICO
+Indicaciones: Psicoeducación en ansiedad y autocuidado.
+Derivaciones: Se coordina caso con psicólogo Danilo R. Horas agendadas 12/03 y control 26/03.
+Seguimiento: Control con T. Social en 1 mes.
+
+=== EJEMPLO 8 ===
+MC: Derivada desde tamizaje de SM por malestar emocional en contexto de conflicto conyugal no resuelto.
+Identificación: Adulta, casada hace 26 años. Trabaja de niñera.
+Comorbilidades: Sospecha de fibromialgia, túnel carpiano y hernia lumbar. Antecedente de cirugía vesícula.
+Historia del problema: Hace 3 años esposo confiesa infidelidad de 4 meses. Posterior a ello presenta desregulación emocional importante, con crisis de ira y llanto persistente por aprox un año. Intentaron separarse, pero no se concretó. Refiere que la situación reactivó trauma infantil asociado a VIF (madre ejercía violencia hacia padre). Mantiene ambivalencia afectiva hacia esposo, desconfianza persistente y sensación de estar dividida en dos. Señala alta carga mental y emocional. Insomnio crónico (hasta 04:00 am, duerme 2–4 horas).
+Sintomatología:
+Cognitiva: rumiación constante, inseguridad, fallas de memoria.
+Emocional: tristeza persistente, ira contenida, desconfianza, ambivalencia afectiva.
+Física: insomnio crónico, molestias gastrointestinales, sensación de opresión en garganta.
+Conductual: aislamiento.
+Etapa motivacional: Contemplativa.
+RECURSOS: Vivienda estable. Trabajo formal. Vínculo con hijos.
+Factores de riesgo: conflicto conyugal no resuelto, insomnio crónico, red de apoyo limitada.
+Factores protectores: estabilidad laboral, interés en retomar baile como autocuidado.
+ANTECEDENTES FAMILIARES
+Convive con marido Francisco Menares (49), maestro independiente, y sus dos hijos: Michell (25, téc. en ed. parvularia) y Said (19, ingresará a estudiar marketing). Vivienda estable.
+FUNCIONALIDAD
+Apetito: disminuido, problemas con consumo de azúcar.
+Sueño: alterado; conciliación tardía (hasta 04:00 am), duerme 2–4 horas, no reparador.
+Actividad física: (-).
+H�BITOS
+Tabaco (-). OH (-). Drogas (-).
+SUICIDABILIDAD
+Ideación (-). Intento (-). Autolesiones (-).
+II. PLAN CONSENSUADO
+Problema priorizado: sintomatología ansiosa asociada a conflicto conyugal.
+Etapa motivacional: Contemplativa.
+Objetivo: disminuir ansiedad e insomnio durante el próximo mes.
+Opciones ofrecidas: Control con médico de SM. Lista de espera psicoterapia.
+Acuerdos: Se acuerda consensuadamente con usuaria:
+– Usuaria acepta control con médico de SM para evaluación farmacológica.
+– Usuaria acepta ingreso a lista de espera para psicoterapia individual.
+– Usuaria se compromete a retomar actividad de autocuidado (idealmente baile) al menos 1 vez por semana.
+III. PLAN TÉCNICO
+Indicaciones: Consejería individual sobre ansiedad e higiene del sueño.
+Derivaciones: Médico de SM. Lista de espera psicoterapia.
+Seguimiento: Control con T. Social según evolución.
+
+=== EJEMPLO 9 ===
+MC: Derivada desde tamizaje de SM.
+Identificación: adulta mayor, jubilada, dueña de casa. Escolaridad hasta 4°–5° básico. Viuda hace 4 años.
+Comorbilidades: Coxartrosis. Dislipidemia. Hiperglicemia. Hipotiroidismo.
+Historia del problema: Refiere antecedentes de atención en SM en años previos, con tto farmacológico suspendido hace más de un año por efectos adversos gastrointestinales. Señala episodio depresivo hace años. Actualmente refiere ánimo bajo ocasional, sensación de soledad y temor a que ocurran cosas negativas, lo que afecta principalmente su descanso nocturno. Antecedente de matrimonio marcado por VIF; en los últimos años de vida del esposo la convivencia fue más tranquila. Esposo falleció por complicaciones cardíacas. Mantiene ritual de visita al cementerio los sábados.
+Sintomatología:
+Cognitiva: preocupación y temor a eventos negativos.
+Emocional: sensación de soledad, ánimo bajo ocasional.
+Física: cansancio asociado a insomnio.
+Conductual: baja motivación para actividades.
+Etapa motivacional: Precontemplativa.
+RECURSOS: Apoyo familiar cercano (hijas). Participación religiosa (iglesia).
+Factores de riesgo: insomnio, antecedentes de VIF.
+Factores protectores: red familiar estable, estabilidad habitacional.
+ANTECEDENTES FAMILIARES
+Vive con sus dos hijas adultas y cinco nietos en el mismo domicilio. Hija Cony González (35, téc. en párvulos), madre de Johan (15). Hija Faridy (30, téc. en párvulos), madre de Madeleine (13), Pascal (11) y Amaral (5). Refiere buena relación y convivencia estable.
+FUNCIONALIDAD
+Apetito: aumentado en contexto de ansiedad, con ingesta nocturna.
+Sueño: alterado; conciliación tardía (2–3 am), sueño no reparador.
+Actividad física: caminatas asociadas a traslado de nietos.
+H�BITOS
+Tabaco (-). OH (+) ocasional en celebraciones. Drogas (-).
+SUICIDABILIDAD
+Ideación (-). Intentos (-). Autolesiones (-).
+II. PLAN CONSENSUADO
+Problema priorizado: insomnio y sensación de ansiedad nocturna.
+Etapa motivacional: Precontemplativa.
+Objetivo: mejorar calidad del sueño y disminuir ansiedad nocturna durante el próximo mes.
+Opciones ofrecidas: Higiene del sueño, estrategias de autocuidado.
+Acuerdos: Se acuerda consensuadamente con usuaria:
+– Usuaria implementará rutina de higiene del sueño diaria (disminuir estímulos nocturnos, horario regular de descanso) desde esta semana.
+– Usuaria realizará actividad física ligera (caminatas) al menos 3 veces por semana durante 20–30 minutos.
+– Usuaria mantendrá participación en actividades significativas (iglesia y visitas al cementerio) como espacio de autocuidado.
+III. PLAN TÉCNICO
+Indicaciones: Se realiza orientación en higiene del sueño y medidas de autocuidado. Usuaria no desea iniciar psicoterapia en este momento.
+Derivaciones: Sin derivaciones activas.
+Seguimiento: Se sugiere seguimiento con T. Social si lo desea.
+
+=== EJEMPLO 10 ===
+MC: Seguimiento posterior a ingreso a SM por sintomatología ansiosa en contexto de estrés laboral.
+Identificación: Adulta, secretaria en CASR. Divorciada hace 10 años.
+Comorbilidades: Disección arterial cerebral. Hospitalizada entre 22 y 27 de diciembre. Con LM hasta 11/02.
+Historia del problema: Refiere inicio de malestar en 07/2025 con dolor cervical persistente, automedicándose inicialmente. Posteriormente presenta evento vascular cerebral con hospitalización. Desde entonces refiere sensación de inseguridad, ansiedad y miedo asociados a su estado de salud. Identifica estrés laboral importante en su trabajo como secretaria en CASR, con ambiente de alta presión y urgencias constantes. Ha evaluado posibilidad de cambio de unidad con su jefatura. Actualmente refiere mayor estabilidad emocional tras periodo de vacaciones.
+Sintomatología:
+Cognitiva: sobrepensamiento nocturno.
+Emocional: ansiedad, sensación de inseguridad.
+Física: dificultad en conciliación del sueño.
+Conductual: preocupación asociada al trabajo.
+Etapa motivacional: Contemplativa.
+RECURSOS: Apoyo familiar (hija y hermana). Adherencia a tto farmacológico. Actividad física regular.
+Factores de riesgo: estrés laboral.
+Factores protectores: red familiar cercana, adherencia a tratamiento.
+ANTECEDENTES FAMILIARES
+Vive con su hija Florencia González (22, lic. en arte, en búsqueda laboral) y su hermana Verónica (45, secretaría CASR, soltera). Residen en propiedad familiar. Hijo de 28 años vive en Iquique (FFAA).
+FUNCIONALIDAD
+Apetito: aumentado en contexto de ansiedad, con mayor consumo de dulces.
+Sueño: dificultad en conciliación (se acuesta 22:00 hrs, concilia aprox. 03:00–03:30 hrs).
+Actividad física: ejercicios 2 veces por semana con rutinas de YouTube junto a su hija.
+H�BITOS
+Tabaco (-). OH (-). Drogas (-).
+SUICIDABILIDAD
+Ideación (-). Intento (-). Autolesiones (-).
+II. PLAN CONSENSUADO
+Problema priorizado: ansiedad asociada a estrés laboral y recuperación post evento vascular.
+Etapa motivacional: Contemplativa.
+Objetivo: disminuir ansiedad y mejorar autocuidado durante el próximo mes.
+Opciones ofrecidas: Médico de SM, IPG según compatibilidad horaria.
+Acuerdos: Se acuerda consensuadamente con usuaria:
+– Usuaria implementará medidas de higiene del sueño (rutina nocturna, reducir estímulos antes de dormir) desde esta semana.
+– Usuaria mantendrá actividad física al menos 2 veces por semana.
+– Usuaria evaluará participación en IPG según compatibilidad con horario laboral.
+III. PLAN TÉCNICO
+Indicaciones: Consejería y psicoeducación en manejo de ansiedad e higiene del sueño.
+Derivaciones: Derivación a médico de SM para evaluación farmacológica.
+Seguimiento: Control con T. Social en 1 mes.
+
+=== INSTRUCCIÓN FINAL ===
+FORMATO OBLIGATORIO — RÉPLICA EXACTA DEL ESTILO DE LOS EJEMPLOS:
 INGRESO ECICEP
 MC: [1 frase breve]
-Identificación: [edad/etapa, ocupación, situación laboral, rol en hogar, estado civil — en una línea]
+Identificación: [edad/etapa, ocupación, rol en hogar, estado civil — una línea]
 Comorbilidades: [diagnósticos o (-)]
-Historia del problema: [1-2 párrafos. Natural, fluido, tono APS. NO clínico ni extenso. Incluir: malestar, contexto, antecedentes, estado actual]
+Historia del problema: [1-2 párrafos naturales, fluidos, tono APS]
 Sintomatología:
 Cognitiva: [frase breve]
 Emocional: [frase breve]
-Física: [incluir dolor, cansancio, síntomas somáticos]
+Física: [síntomas físicos reales]
 Conductual: [frase breve]
-Etapa motivacional: [coherente con comportamiento del usuario]
-RECURSOS: [motivaciones, vínculos]
+Etapa motivacional: [coherente con comportamiento]
+RECURSOS: [motivaciones, vínculos positivos]
 Factores de riesgo: [breve]
 Factores protectores: [breve]
 ANTECEDENTES FAMILIARES
-[prosa organizada: quién vive, nombres, edades, dinámica]
+[prosa organizada]
 FUNCIONALIDAD
 Apetito: [estado]
-Sueño: [horario concreto: acostarse, conciliación, despertares]
+Sueño: [horario concreto]
 Actividad física: [tipo, frecuencia]
 H�BITOS
 Tabaco ([+/-]). OH ([+/-]). Drogas ([+/-]).
 SUICIDABILIDAD
 Ideación ([+/-]). Intentos ([+/-]). Autolesiones ([+/-]).
-
 II. PLAN CONSENSUADO
-Problema priorizado: [1 problema concreto]
-Etapa motivacional: [coincidir con la declarada]
-Objetivo: [SMART: quién + qué + cómo + tiempo. Ej: "Que usuaria mantenga estabilidad emocional durante el próximo mes a través de autocuidado y adherencia a tratamiento."]
-Opciones ofrecidas: [listar opciones presentadas]
-Acuerdos: Se acuerda consensuadamente con [usuario/a]:
-– [Usuaria/Usuario] [QUÉ acción concreta] [CÓMO] [CUÁNDO — frecuencia o plazo específico].
-– [acuerdo 2]
-– [acuerdo 3, máx 4]
-
-III. PLAN TÉCNICO
-Indicaciones: [qué se hizo: consejería, psicoeducación, contención, orientación]
-Derivaciones: [nombre específico del programa o profesional]
-Seguimiento: [próximo control + profesional + mes aproximado]`,
-
-ecicep_planilla: `${SYSTEM_BASE}
-TIPO: Ingreso ECICEP generado desde planilla de datos
-
-Usa los datos entregados para generar el INGRESO ECICEP completo en el formato estándar.
-NUNCA inventar datos. Si un campo está vacío, omitirlo o usar (-).
-
-FORMATO EXACTO IGUAL AL ECICEP NORMAL:
-INGRESO ECICEP
-MC: [derivar desde los datos de tamizaje/derivación + motivo de consulta]
-Identificación: [ciclo vital, ocupación, estado civil, situación laboral]
-Comorbilidades: [enfermedades registradas o (-)]
-Historia del problema: [construir desde: motivo consulta + estado de ánimo + dinámica familiar + contexto]
-Sintomatología:
-Cognitiva: [inferir desde estado de ánimo y notas]
-Emocional: [desde estado de ánimo]
-Física: [desde enfermedades + sueño + alimentación]
-Conductual: [desde actividad física + participación + hábitos]
-Etapa motivacional: [inferir desde datos]
-RECURSOS: [desde red de apoyo + participación comunitaria]
-Factores de riesgo: [desde hábitos + dinámica + situación]
-Factores protectores: [desde red + recursos]
-ANTECEDENTES FAMILIARES
-[desde "con quién vive" + dinámica familiar]
-FUNCIONALIDAD
-Apetito: [desde alimentación]
-Sueño: [desde patrón de sueño]
-Actividad física: [desde actividad física]
-H�BITOS
-Tabaco ([según selección]). OH ([según selección]). Drogas ([según selección]).
-SUICIDABILIDAD
-Ideación ([según selección]). Intentos ([según selección]). Autolesiones ([según selección]).
-
-II. PLAN CONSENSUADO
-Problema priorizado: [1 problema principal identificado]
+Problema priorizado: [1 problema]
 Etapa motivacional: [coincidir]
-Objetivo: [SMART con tiempo determinado]
-Opciones ofrecidas: [según derivaciones en notas]
+Objetivo: [SMART con tiempo — quién + qué + cómo + cuándo]
+Opciones ofrecidas: [listar]
 Acuerdos: Se acuerda consensuadamente con [usuario/a]:
 – [QUIÉN + QUÉ + CÓMO + CUÁNDO]
 – [acuerdo 2]
 – [acuerdo 3, máx 4]
-
 III. PLAN TÉCNICO
-Indicaciones: [según intervención]
-Derivaciones: [según notas]
+Indicaciones: [intervención realizada]
+Derivaciones: [programa o profesional específico]
 Seguimiento: [próximo control + profesional + mes]`,
 
-tribunal: `${SYSTEM_BASE}
-TIPO: Informe Social para Tribunal de Familia
-ESTRUCTURA: Encabezado / I. Datos usuario / II. Adultos responsables / III. Antecedentes (dinámica, educación, salud, habitacional, programas) / IV. Solicitud / V. Causa judicial
+ecicep_planilla:`${SYSTEM_BASE}
+TIPO: Ingreso ECICEP generado desde planilla.
+Usa los datos entregados para generar el INGRESO ECICEP completo.
+NUNCA inventar datos. Si un campo está vacío, omitirlo o usar (-).
+Usa el mismo formato y estilo que el ECICEP normal con Plan Consensuado SMART completo.`,
+
+tribunal:`${SYSTEM_BASE}
+TIPO: Informe Social para Tribunal de Familia.
+ESTRUCTURA: Encabezado (CESFAM Dr. Alejandro del Río / TS. María Angélica Gálvez / Fecha / Dirigido a Tribunal) / I. Datos usuario / II. Adultos responsables / III. Antecedentes (dinámica, educación, salud, habitacional, programas) / IV. Solicitud / V. Causa judicial.
 ESTILO: "Se informa que...", "Se constata que...", "Se observa que..."
 Solicitud: "Se sugiere respetuosamente a su Usía evaluar..."
 SIEMPRE destacar figura protectora, estabilidad del niño, redes activas.`,
 
-prlac: `${SYSTEM_BASE}
-TIPO: Ficha FUD PRLAC
+prlac:`${SYSTEM_BASE}
+TIPO: Ficha FUD PRLAC.
 4-6 párrafos en prosa:
 1. Contexto general (edad, con quién vive, vivienda, red)
 2. Condición de salud + evento gatillante
-3. Funcionalidad y dependencia
+3. Funcionalidad y dependencia (movilidad, AVD)
 4. Red de apoyo y cuidador (sobrecarga)
 5. Condición socioeconómica
-6. OBLIGATORIO: "Se solicita evaluación para eventual incorporación al Programa Red Local de Apoyos y Cuidados, considerando..."`,
+6. OBLIGATORIO: "Se solicita evaluación para eventual incorporación al Programa Red Local de Apoyos y Cuidados, considerando [dependencia + sobrecarga + escasa red + limitación económica]."`,
 
-referencia: `${SYSTEM_BASE}
-TIPO: Referencia Social
+referencia:`${SYSTEM_BASE}
+TIPO: Referencia Social para gestión municipal.
 ESTRUCTURA:
-Breve síntesis social: [prosa continua. Iniciar con "Usuaria/Usuario acude por orientación social...". Incluir: motivo, familia, vivienda, economía, salud, riesgos, red]
-Solicitud: [Iniciar con "En virtud de los antecedentes expuestos..." + ayuda EXPLÍCITA + justificación]`
+Breve síntesis social: [prosa continua. Iniciar con "Usuaria/Usuario acude por orientación social..." o "Sra./Sr. [nombre] acude...". Incluir: motivo, familia, vivienda, economía, salud, riesgos, red. "Económicamente subsiste principalmente con..."]
+Solicitud: [Iniciar con "En virtud de los antecedentes expuestos..." + ayuda EXPLÍCITA (alimentos, vale de gas, pañales, materiales, apoyo emergencia) + justificación concreta]
+REGLA: Legible en menos de 1 minuto. Completa para que el municipio entienda por qué otorgar la ayuda.`
 };
 
-window.onload = function() {
-  if (localStorage.getItem('rayen_api_key')) mostrarKeyGuardada();
-}
+window.onload=function(){if(localStorage.getItem('rayen_api_key'))mostrarKeyGuardada();}
 
-function guardarKey() {
-  const key = document.getElementById('apiKey').value.trim();
-  if (!key || !key.startsWith('sk-ant-')) { alert('API Key inválida. Debe comenzar con sk-ant-'); return; }
-  localStorage.setItem('rayen_api_key', key);
-  mostrarKeyGuardada();
+function guardarKey(){
+  const key=document.getElementById('apiKey').value.trim();
+  if(!key||!key.startsWith('sk-ant-')){alert('API Key inválida. Debe comenzar con sk-ant-');return;}
+  localStorage.setItem('rayen_api_key',key); mostrarKeyGuardada();
 }
-function mostrarKeyGuardada() {
-  document.getElementById('apiInputArea').style.display = 'none';
-  document.getElementById('apiSavedArea').style.display = 'block';
+function mostrarKeyGuardada(){
+  document.getElementById('apiInputArea').style.display='none';
+  document.getElementById('apiSavedArea').style.display='block';
 }
-function cambiarKey() {
+function cambiarKey(){
   localStorage.removeItem('rayen_api_key');
-  document.getElementById('apiKey').value = '';
-  document.getElementById('apiInputArea').style.display = 'block';
-  document.getElementById('apiSavedArea').style.display = 'none';
+  document.getElementById('apiKey').value='';
+  document.getElementById('apiInputArea').style.display='block';
+  document.getElementById('apiSavedArea').style.display='none';
 }
-function toggleKey() {
-  const input = document.getElementById('apiKey');
-  if (input.type === 'password') { input.type = 'text'; event.target.textContent = 'Ocultar'; }
-  else { input.type = 'password'; event.target.textContent = 'Mostrar'; }
+function toggleKey(){
+  const input=document.getElementById('apiKey');
+  if(input.type==='password'){input.type='text';event.target.textContent='Ocultar';}
+  else{input.type='password';event.target.textContent='Mostrar';}
 }
 
-function seleccionarTipo(tipo, btn) {
-  tipoSeleccionado = tipo;
-  document.querySelectorAll('.tipo-btn').forEach(b => b.classList.remove('active'));
+function seleccionarTipo(tipo,btn){
+  tipoSeleccionado=tipo;
+  document.querySelectorAll('.tipo-btn').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
-  document.getElementById('seccionBoton').style.display = 'block';
-
-  if (tipo === 'ecicep_planilla') {
-    document.getElementById('camposSection').style.display = 'none';
-    document.getElementById('planillaSection').style.display = 'block';
+  document.getElementById('seccionBoton').style.display='block';
+  document.getElementById('camposSection').style.display='none';
+  document.getElementById('vdiPlanillaSection').style.display='none';
+  document.getElementById('planillaSection').style.display='none';
+  if(tipo==='vdi_planilla'){
+    document.getElementById('vdiPlanillaSection').style.display='block';
+  } else if(tipo==='ecicep_planilla'){
+    document.getElementById('planillaSection').style.display='block';
   } else {
-    document.getElementById('camposSection').style.display = 'block';
-    document.getElementById('planillaSection').style.display = 'none';
-    ['camposECICEP','camposTribunal','camposReferencia'].forEach(id => {
+    document.getElementById('camposSection').style.display='block';
+    ['camposECICEP','camposTribunal','camposReferencia'].forEach(id=>{
       document.getElementById(id).classList.remove('visible');
     });
-    const mapas = { ecicep: 'camposECICEP', tribunal: 'camposTribunal', referencia: 'camposReferencia' };
-    if (mapas[tipo]) document.getElementById(mapas[tipo]).classList.add('visible');
+    const mapas={ecicep:'camposECICEP',tribunal:'camposTribunal',referencia:'camposReferencia'};
+    if(mapas[tipo])document.getElementById(mapas[tipo]).classList.add('visible');
   }
-  document.getElementById('seccionBoton').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  document.getElementById('seccionBoton').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
-function construirDatosPlanilla() {
-  const ciclo = document.querySelector('input[name="ciclo"]:checked');
-  const tamizaje = document.querySelector('input[name="tamizaje"]:checked');
-  const comunidad = document.querySelector('input[name="comunidad"]:checked');
-  const habitos = [];
-  if (document.getElementById('h_tabaco').checked) habitos.push('Tabaco');
-  if (document.getElementById('h_alcohol').checked) habitos.push('Alcohol');
-  if (document.getElementById('h_drogas').checked) habitos.push('Drogas');
-  const otroHabito = document.getElementById('h_otro_txt').value.trim();
-  if (document.getElementById('h_otro').checked && otroHabito) habitos.push(otroHabito);
-
-  return `DATOS DE LA PLANILLA ECICEP:
-Con quién vive: ${document.getElementById('p_convive').value || 'No especificado'}
-Enfermedades: ${document.getElementById('p_enfermedades').value || 'No especificado'}
-Motivo de consulta: ${document.getElementById('p_motivo').value || 'No especificado'}
-Estado de ánimo: ${document.getElementById('p_animo').value || 'No especificado'}
-Ciclo vital: ${ciclo ? ciclo.value : 'No especificado'}
-Ocupación: ${document.getElementById('p_ocupacion').value || 'No especificado'}
-Red de apoyo: ${document.getElementById('p_red').value || 'No especificado'}
-Dinámica familiar: ${document.getElementById('p_dinamica').value || 'No especificado'}
-Tamizaje: ${tamizaje ? tamizaje.value : 'No especificado'}
-Otra derivación: ${document.getElementById('p_deriva').value || '-'}
-Escolaridad: ${document.getElementById('p_escolaridad').value || 'No especificado'}
-Situación habitacional: ${document.getElementById('p_vivienda').value || 'No especificado'}
-Actividad física: ${document.getElementById('p_actividad').value || 'No especificado'}
-Alimentación: ${document.getElementById('p_alimentacion').value || 'No especificado'}
-Participación comunitaria: ${comunidad ? comunidad.value : 'No especificado'} — ${document.getElementById('p_comunidad_donde').value || ''}
-Patrón de sueño: ${document.getElementById('p_sueno').value || 'No especificado'}
-H�bitos: ${habitos.length > 0 ? habitos.join(', ') : 'Ninguno seleccionado'}
-Suicidabilidad — Ideación: ${suiciValues.ideacion || 'No seleccionado'} / Intento: ${suiciValues.intento || 'No seleccionado'} / Autolesiones: ${suiciValues.autolesion || 'No seleccionado'}
-Notas adicionales: ${document.getElementById('p_notas').value || 'Ninguna'}`;
+function getChecked(cls){
+  return Array.from(document.querySelectorAll('.'+cls+':checked')).map(e=>e.value).join(', ')||'-';
+}
+function getCheckboxes(cls){
+  return Array.from(document.querySelectorAll('.'+cls+':checked')).map(e=>e.value).join(', ')||'No se observa';
+}
+function getRadio(name){
+  const el=document.querySelector('input[name="'+name+'"]:checked');
+  return el?el.value:'No especificado';
 }
 
-async function generarRegistro() {
-  const apiKey = localStorage.getItem('rayen_api_key');
-  const errorMsg = document.getElementById('errorMsg');
-  errorMsg.style.display = 'none';
+function construirDatosVDIPlanilla(){
+  return `PAUTA VDI:
+1. Situación que origina VDI: ${document.getElementById('v_origen').value||'-'}
+2. Objetivo: ${document.getElementById('v_objetivo').value||'-'}
+3. Antecedentes de salud: ${document.getElementById('v_salud').value||'-'}
+4. Adherencia a tratamiento: ${getRadio('v_adh')} — ${document.getElementById('v_adh_obs').value||''}
+5. Tipo de familia: ${getRadio('v_familia')} | Relaciones: ${getRadio('v_relaciones')} | Capacidad de cuidado: ${getRadio('v_cuidado')}
+6. Crisis normativa: ${getRadio('v_crisis_n')} — ${document.getElementById('v_crisis_n_obs').value||''}
+7. Crisis no normativa: ${getRadio('v_crisis_nn')} — ${document.getElementById('v_crisis_nn_obs').value||''}
+8. Factores protectores: ${document.getElementById('v_protectores').value||'-'}
+9. Factores de riesgo: ${document.getElementById('v_riesgo').value||'-'}
+10. Vivienda — Tipo: ${getRadio('v_tipo_viv')} | Tenencia: ${getRadio('v_tenencia')} | Condiciones riesgo: ${getCheckboxes('v_riesgo_viv')} | Entorno: ${getCheckboxes('v_entorno')} | Obs: ${document.getElementById('v_viv_obs').value||''}
+11. Síntesis desarrollo visita: ${document.getElementById('v_sintesis').value||'-'}
+12. Intervención: ${getCheckboxes('v_interv')}
+13. Acuerdos: ${document.getElementById('v_acuerdos').value||'-'}
+14. Plan de acción: ${getCheckboxes('v_plan')} ${document.getElementById('v_plan_otro').value||''}
+Notas adicionales: ${document.getElementById('v_notas').value||''}`;
+}
 
-  if (!apiKey) { errorMsg.textContent = 'Por favor guarda tu API Key primero.'; errorMsg.style.display = 'block'; return; }
-  if (!tipoSeleccionado) { errorMsg.textContent = 'Selecciona un tipo de registro.'; errorMsg.style.display = 'block'; return; }
+function construirDatosPlanilla(){
+  const habitos=[];
+  if(document.getElementById('h_tabaco').checked)habitos.push('Tabaco');
+  if(document.getElementById('h_alcohol').checked)habitos.push('Alcohol');
+  if(document.getElementById('h_drogas').checked)habitos.push('Drogas');
+  const otroHabito=document.getElementById('h_otro_txt').value.trim();
+  if(document.getElementById('h_otro').checked&&otroHabito)habitos.push(otroHabito);
+  return `DATOS PLANILLA ECICEP:
+Con quién vive: ${document.getElementById('p_convive').value||'-'}
+Enfermedades: ${document.getElementById('p_enfermedades').value||'-'}
+Motivo de consulta: ${document.getElementById('p_motivo').value||'-'}
+Estado de ánimo: ${document.getElementById('p_animo').value||'-'}
+Ciclo vital: ${getRadio('ciclo')}
+Ocupación: ${document.getElementById('p_ocupacion').value||'-'}
+Red de apoyo: ${document.getElementById('p_red').value||'-'}
+Dinámica familiar: ${document.getElementById('p_dinamica').value||'-'}
+Tamizaje: ${getRadio('tamizaje')} | Otra derivación: ${document.getElementById('p_deriva').value||'-'}
+Escolaridad: ${document.getElementById('p_escolaridad').value||'-'}
+Vivienda: ${document.getElementById('p_vivienda').value||'-'}
+Actividad física: ${document.getElementById('p_actividad').value||'-'}
+Alimentación: ${document.getElementById('p_alimentacion').value||'-'}
+Participación comunitaria: ${getRadio('comunidad')} — ${document.getElementById('p_comunidad_donde').value||''}
+Sueño: ${document.getElementById('p_sueno').value||'-'}
+H�bitos: ${habitos.length>0?habitos.join(', '):'Ninguno'}
+Suicidabilidad — Ideación: ${suiciValues.ideacion||'-'} / Intento: ${suiciValues.intento||'-'} / Autolesiones: ${suiciValues.autolesion||'-'}
+Notas adicionales: ${document.getElementById('p_notas').value||''}`;
+}
 
-  let userPrompt = '';
+async function generarRegistro(){
+  const apiKey=localStorage.getItem('rayen_api_key');
+  const errorMsg=document.getElementById('errorMsg');
+  errorMsg.style.display='none';
+  if(!apiKey){errorMsg.textContent='Por favor guarda tu API Key primero.';errorMsg.style.display='block';return;}
+  if(!tipoSeleccionado){errorMsg.textContent='Selecciona un tipo de registro.';errorMsg.style.display='block';return;}
 
-  if (tipoSeleccionado === 'ecicep_planilla') {
-    const datos = construirDatosPlanilla();
-    if (datos.includes('No especificado') && !document.getElementById('p_motivo').value) {
-      errorMsg.textContent = 'Por favor completa al menos el motivo de consulta.';
-      errorMsg.style.display = 'block'; return;
-    }
-    userPrompt = `Genera el INGRESO ECICEP completo usando estos datos de la planilla:\n\n${datos}\n\nRedacta el registro completo en el estilo y formato indicado. Solo entrega el texto del registro.`;
+  let userPrompt='';
+  if(tipoSeleccionado==='vdi_planilla'){
+    userPrompt=`Genera el registro VDI completo para RAYEN usando estos datos de la pauta:\n\n${construirDatosVDIPlanilla()}\n\nSolo entrega el texto del registro.`;
+  } else if(tipoSeleccionado==='ecicep_planilla'){
+    const datos=construirDatosPlanilla();
+    if(!document.getElementById('p_motivo').value){errorMsg.textContent='Por favor completa al menos el motivo de consulta.';errorMsg.style.display='block';return;}
+    userPrompt=`Genera el INGRESO ECICEP completo usando estos datos:\n\n${datos}\n\nSolo entrega el texto del registro.`;
   } else {
-    const notas = document.getElementById('notasBruto').value.trim();
-    if (!notas || notas.length < 10) { errorMsg.textContent = 'Por favor ingresa información del caso.'; errorMsg.style.display = 'block'; return; }
-    let extras = '';
-    if (tipoSeleccionado === 'ecicep') {
-      const etapa = document.getElementById('etapaMotivacional').value;
-      if (etapa) extras = `\nEtapa motivacional: ${etapa}`;
-    } else if (tipoSeleccionado === 'tribunal') {
-      const sol = document.getElementById('solicitudTribunal').value.trim();
-      if (sol) extras = `\nSolicitud al tribunal: ${sol}`;
-    } else if (tipoSeleccionado === 'referencia') {
-      const ayuda = document.getElementById('ayudaSolicitada').value.trim();
-      if (ayuda) extras = `\nAyuda solicitada: ${ayuda}`;
-    }
-    userPrompt = `Transforma estas notas en el registro final para RAYEN:\n\n${notas}${extras}\n\nSolo entrega el texto del registro, sin explicaciones.`;
+    const notas=document.getElementById('notasBruto').value.trim();
+    if(!notas||notas.length<10){errorMsg.textContent='Por favor ingresa información del caso.';errorMsg.style.display='block';return;}
+    let extras='';
+    if(tipoSeleccionado==='ecicep'){const etapa=document.getElementById('etapaMotivacional').value;if(etapa)extras=`\nEtapa motivacional: ${etapa}`;}
+    else if(tipoSeleccionado==='tribunal'){const sol=document.getElementById('solicitudTribunal').value.trim();if(sol)extras=`\nSolicitud al tribunal: ${sol}`;}
+    else if(tipoSeleccionado==='referencia'){const ayuda=document.getElementById('ayudaSolicitada').value.trim();if(ayuda)extras=`\nAyuda solicitada: ${ayuda}`;}
+    userPrompt=`Transforma estas notas en el registro final para RAYEN:\n\n${notas}${extras}\n\nSolo entrega el texto del registro.`;
   }
 
-  const btn = document.getElementById('btnGenerar');
-  const spinner = document.getElementById('spinner');
-  const btnTexto = document.getElementById('btnTexto');
-  btn.disabled = true; spinner.style.display = 'block'; btnTexto.textContent = 'Generando...';
-
-  try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 2000,
-        system: PROMPTS[tipoSeleccionado],
-        messages: [{ role: 'user', content: userPrompt }]
-      })
+  const btn=document.getElementById('btnGenerar');
+  const spinner=document.getElementById('spinner');
+  const btnTexto=document.getElementById('btnTexto');
+  btn.disabled=true; spinner.style.display='block'; btnTexto.textContent='Generando...';
+  try{
+    const response=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:2500,system:PROMPTS[tipoSeleccionado],messages:[{role:'user',content:userPrompt}]})
     });
-    const data = await response.json();
-    if (data.error) throw new Error(data.error.message || 'Error al conectar');
-    const texto = data.content[0].text;
-    document.getElementById('resultText').textContent = texto;
-    document.getElementById('resultArea').style.display = 'block';
-    document.getElementById('resultArea').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } catch (err) {
-    errorMsg.textContent = 'Error: ' + (err.message || 'No se pudo conectar.');
-    errorMsg.style.display = 'block';
-  } finally {
-    btn.disabled = false; spinner.style.display = 'none'; btnTexto.textContent = 'Generar Registro';
+    const data=await response.json();
+    if(data.error)throw new Error(data.error.message||'Error al conectar');
+    const texto=data.content[0].text;
+    document.getElementById('resultText').textContent=texto;
+    document.getElementById('resultArea').style.display='block';
+    document.getElementById('resultArea').scrollIntoView({behavior:'smooth',block:'start'});
+  }catch(err){
+    errorMsg.textContent='Error: '+(err.message||'No se pudo conectar.');
+    errorMsg.style.display='block';
+  }finally{
+    btn.disabled=false; spinner.style.display='none'; btnTexto.textContent='Generar Registro';
   }
 }
 
-function copiarTexto() {
-  navigator.clipboard.writeText(document.getElementById('resultText').textContent).then(() => {
-    const btn = document.getElementById('btnCopy');
-    btn.textContent = '✓ Copiado';
-    btn.classList.add('copied');
-    setTimeout(() => { btn.textContent = '📋 Copiar para RAYEN'; btn.classList.remove('copied'); }, 2000);
+function copiarTexto(){
+  navigator.clipboard.writeText(document.getElementById('resultText').textContent).then(()=>{
+    const btn=document.getElementById('btnCopy');
+    btn.textContent='✓ Copiado'; btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='📋 Copiar para RAYEN';btn.classList.remove('copied');},2000);
   });
 }
 </script>
