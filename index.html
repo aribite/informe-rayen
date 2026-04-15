@@ -125,6 +125,7 @@
       <button class="tipo-btn" onclick="sel('tribunal',this)">&#9878; Informe<br>Tribunal</button>
       <button class="tipo-btn" onclick="sel('prlac',this)">&#128116; FUD<br>PRLAC</button>
       <button class="tipo-btn" onclick="sel('referencia',this)">&#128196; Referencia<br>Social</button>
+      <button class="tipo-btn" onclick="sel('ges90',this)">&#128682; GES 90<br>Tabaquismo</button>
     </div>
   </div>
 
@@ -507,6 +508,140 @@
     </div>
   </div>
 
+  <!-- GES 90 Tabaquismo -->
+  <div class="card-section" id="ges90Section" style="display:none;">
+    <div class="section-label">GES 90 – Control Tabaquismo</div>
+    <div class="pg">
+      <div class="ptit">Identificación y Contexto</div>
+      <div class="pf"><div class="pl">Nombre</div><input type="text" class="pi" id="g_nom"></div>
+      <div class="pf"><div class="pl">Edad</div><input type="text" class="pi" id="g_edad"></div>
+      <div class="pf s2"><div class="pl">Con quién vive / dinámica familiar</div><input type="text" class="pi" id="g_fam" placeholder="Ej: vive con hija, convivencia adecuada..."></div>
+      <div class="pf"><div class="pl">Trabajo / ingresos</div><input type="text" class="pi" id="g_trab" placeholder="Ej: jubilada, dueña de casa..."></div>
+      <div class="pf"><div class="pl">Red de apoyo</div><input type="text" class="pi" id="g_red" placeholder="Ej: hija, escasa..."></div>
+
+      <hr class="pdiv"><div class="ptit">Comorbilidades</div>
+      <div class="pf s2"><input type="text" class="pi" id="g_comor" placeholder="Ej: HTA, DM2, EPOC, depresión..."></div>
+
+      <hr class="pdiv"><div class="ptit">Patrón de Consumo</div>
+      <div class="pf"><div class="pl">Años fumando</div><input type="text" class="pi" id="g_anos" placeholder="Ej: 35 años"></div>
+      <div class="pf"><div class="pl">Cigarrillos por día</div><input type="text" class="pi" id="g_cig" placeholder="Ej: 6-8 diarios"></div>
+      <div class="pf"><div class="pl">Contexto de consumo</div><input type="text" class="pi" id="g_ctx" placeholder="Ej: estrés, hábito, social, ansied..."></div>
+      <div class="pf"><div class="pl">Intentos previos de cesación</div><input type="text" class="pi" id="g_int" placeholder="Ej: 1 intento hace 3 años, recaída..."></div>
+      <div class="pf"><div class="pl">Consumo OH / otras sustancias</div><input type="text" class="pi" id="g_oh" placeholder="Ej: OH ocasional, niega otras..."></div>
+      <div class="pf">
+        <div class="pl">Etapa motivacional</div>
+        <div class="rg">
+          <label><input type="radio" name="g_etapa" value="Precontemplación"> Precontemplación</label>
+          <label><input type="radio" name="g_etapa" value="Contemplación"> Contemplación</label>
+          <label><input type="radio" name="g_etapa" value="Preparación"> Preparación</label>
+          <label><input type="radio" name="g_etapa" value="Acción"> Acción</label>
+        </div>
+      </div>
+
+      <hr class="pdiv"><div class="ptit">Test de Richmond (Motivación)</div>
+      <div class="pf s2"><div class="pl">¿Le gustaría dejar de fumar si pudiera hacerlo fácilmente?</div>
+        <div class="rg">
+          <label><input type="radio" name="r1" value="0"> No (0)</label>
+          <label><input type="radio" name="r1" value="1"> Sí (1)</label>
+        </div>
+      </div>
+      <div class="pf s2"><div class="pl">¿Cuánto interés tiene en dejar de fumar?</div>
+        <div class="rg">
+          <label><input type="radio" name="r2" value="0"> Ninguno (0)</label>
+          <label><input type="radio" name="r2" value="1"> Poco (1)</label>
+          <label><input type="radio" name="r2" value="2"> Bastante (2)</label>
+          <label><input type="radio" name="r2" value="3"> Mucho (3)</label>
+        </div>
+      </div>
+      <div class="pf s2"><div class="pl">¿Intentará dejar de fumar en las próximas 2 semanas?</div>
+        <div class="rg">
+          <label><input type="radio" name="r3" value="0"> Definitivamente no (0)</label>
+          <label><input type="radio" name="r3" value="1"> Quizás (1)</label>
+          <label><input type="radio" name="r3" value="2"> Sí (2)</label>
+          <label><input type="radio" name="r3" value="3"> Definitivamente sí (3)</label>
+        </div>
+      </div>
+      <div class="pf s2"><div class="pl">¿Cree que en 6 meses no fumará?</div>
+        <div class="rg">
+          <label><input type="radio" name="r4" value="0"> Definitivamente no (0)</label>
+          <label><input type="radio" name="r4" value="1"> Quizás (1)</label>
+          <label><input type="radio" name="r4" value="2"> Sí (2)</label>
+          <label><input type="radio" name="r4" value="3"> Definitivamente sí (3)</label>
+        </div>
+      </div>
+
+      <hr class="pdiv"><div class="ptit">Test de Fagerström (Dependencia)</div>
+      <div class="pf s2"><div class="pl">¿Cuánto tarda en fumar el primer cigarrillo tras despertar?</div>
+        <div class="rg">
+          <label><input type="radio" name="f1" value="3"> Menos de 5 min (3)</label>
+          <label><input type="radio" name="f1" value="2"> 6-30 min (2)</label>
+          <label><input type="radio" name="f1" value="1"> 31-60 min (1)</label>
+          <label><input type="radio" name="f1" value="0"> Más de 60 min (0)</label>
+        </div>
+      </div>
+      <div class="pf s2"><div class="pl">¿Le resulta difícil no fumar en lugares prohibidos?</div>
+        <div class="rg">
+          <label><input type="radio" name="f2" value="1"> Sí (1)</label>
+          <label><input type="radio" name="f2" value="0"> No (0)</label>
+        </div>
+      </div>
+      <div class="pf s2"><div class="pl">¿Qué cigarrillo le costaría más renunciar?</div>
+        <div class="rg">
+          <label><input type="radio" name="f3" value="1"> El primero de la mañana (1)</label>
+          <label><input type="radio" name="f3" value="0"> Cualquier otro (0)</label>
+        </div>
+      </div>
+      <div class="pf s2"><div class="pl">¿Cuántos cigarrillos fuma al día?</div>
+        <div class="rg">
+          <label><input type="radio" name="f4" value="0"> 10 o menos (0)</label>
+          <label><input type="radio" name="f4" value="1"> 11-20 (1)</label>
+          <label><input type="radio" name="f4" value="2"> 21-30 (2)</label>
+          <label><input type="radio" name="f4" value="3"> 31 o más (3)</label>
+        </div>
+      </div>
+      <div class="pf s2"><div class="pl">¿Fuma más en las primeras horas del día?</div>
+        <div class="rg">
+          <label><input type="radio" name="f5" value="1"> Sí (1)</label>
+          <label><input type="radio" name="f5" value="0"> No (0)</label>
+        </div>
+      </div>
+      <div class="pf s2"><div class="pl">¿Fuma aunque esté enfermo en cama?</div>
+        <div class="rg">
+          <label><input type="radio" name="f6" value="1"> Sí (1)</label>
+          <label><input type="radio" name="f6" value="0"> No (0)</label>
+        </div>
+      </div>
+
+      <hr class="pdiv"><div class="ptit">Test Por Qué Fuma (marcar los que aplican)</div>
+      <div class="pf s2">
+        <div class="cc">
+          <label><input type="checkbox" class="g_pq" value="Manejo de tensión"> Manejo de tensión</label>
+          <label><input type="checkbox" class="g_pq" value="Hábito automático"> Hábito automático</label>
+          <label><input type="checkbox" class="g_pq" value="Adicción"> Adicción</label>
+          <label><input type="checkbox" class="g_pq" value="Placer"> Placer</label>
+          <label><input type="checkbox" class="g_pq" value="Consumo social"> Consumo social</label>
+          <label><input type="checkbox" class="g_pq" value="Regulación emocional"> Regulación emocional</label>
+          <label><input type="checkbox" class="g_pq" value="Estimulación"> Estimulación</label>
+        </div>
+      </div>
+
+      <hr class="pdiv"><div class="ptit">Plan</div>
+      <div class="pf s2"><div class="pl">Día D (fecha acordada para dejar de fumar)</div><input type="text" class="pi" id="g_diad" placeholder="Ej: 20/04/2026"></div>
+      <div class="pf s2">
+        <div class="pl">Intervenciones realizadas</div>
+        <div class="cc">
+          <label><input type="checkbox" class="g_interv" value="Refuerzo motivacional"> Refuerzo motivacional</label>
+          <label><input type="checkbox" class="g_interv" value="Educación en salud"> Educación en salud</label>
+          <label><input type="checkbox" class="g_interv" value="Registro de consumo"> Registro de consumo</label>
+          <label><input type="checkbox" class="g_interv" value="Farmacoterapia"> Farmacoterapia</label>
+          <label><input type="checkbox" class="g_interv" value="Derivación SM"> Derivación SM</label>
+          <label><input type="checkbox" class="g_interv" value="Control próximo"> Control próximo</label>
+        </div>
+      </div>
+      <div class="pf s2"><div class="pl">Notas adicionales</div><textarea class="pi" id="g_notas" placeholder="Observaciones relevantes..."></textarea></div>
+    </div>
+  </div>
+
   <!-- Boton -->
   <div class="card-section" id="btnSection" style="display:none;">
     <button class="btn-primary" id="btnGen" onclick="generar()">
@@ -540,11 +675,12 @@ function tS(btn,c,v){
 function gR(name){const e=document.querySelector('input[name="'+name+'"]:checked');return e?e.value:'-';}
 function gCB(cls){return Array.from(document.querySelectorAll('.'+cls+':checked')).map(e=>e.value).join(', ')||'No se observa';}
 
-const SB=`Eres Maria Angelica Galvez, Trabajadora Social del CESFAM Dr. Alejandro del Rio, APS Chile.
-Redaccion tecnica, directa, breve pero completa. Prosa continua. Lenguaje operativo. Tercera persona.
+const SB=`Eres Maria Angélica Gálvez, Trabajadora Social del CESFAM Dr. Alejandro del Río, APS Chile.
+Escribe SIEMPRE con ortografía perfecta en español chileno: tildes, ñ y puntuación correctas.
+Redacción técnica, directa, breve pero completa. Prosa continua. Lenguaje operativo. Tercera persona.
 Abreviaturas: SM, tto, OH, VIF, NNA, IPG, APS, IS, ASI, CESFAM, CASR, CRS, PPF, AFT, PRLAC, COMPIN, TFPA, CAJ.
-NUNCA inventar datos. NUNCA repetir informacion. NUNCA cambiar datos clinicos.
-SIEMPRE terminar con accion futura o seguimiento.`;
+NUNCA inventar datos. NUNCA repetir información. NUNCA cambiar datos clínicos.
+SIEMPRE terminar con acción futura o seguimiento.`;
 
 const PR={
 vdi:`${SB}
@@ -935,6 +1071,39 @@ Identificacion breve + vinculo con agresor + tipo de VIF + historia breve + ulti
 OBSERVACIONES: etapa de cambio + dependencia emocional + factores de riesgo + solicitud ingreso Neyun.
 ESTILO NEYUN: "Usuaria, madre de X hijos, refiere relacion con pareja con antecedentes de VIF [tipo]... Se observa [riesgo]. Usuaria manifiesta [disposicion]."`,
 
+ges90:`${SB}
+TIPO: Control GES 90 — Tabaquismo. Programa de Cesación Tabáquica APS.
+Escribe exactamente como María Angélica Gálvez: prosa breve, clínica, sin relleno.
+
+ESTRUCTURA OBLIGATORIA DE SALIDA:
+1. Identificación y contexto: [1 línea — edad, con quién vive, dinámica, trabajo]
+2. Comorbilidades: [solo diagnósticos en línea]
+3. Patrón de consumo: [años, cigarrillos/día, contexto, intentos previos, OH]
+4. Evaluación clínica:
+   Test de Richmond: ___ puntos (Motivación: Baja / Moderada / Alta)
+   Test de Fagerström: ___ puntos (Dependencia: Muy baja / Baja / Moderada / Alta / Muy alta)
+   Test de los por qué: Predominan ___
+5. Intervención: [refuerzo motivacional + educación, 1-2 líneas]
+6. Plan: [día D + registro de consumo + control + farmacoterapia si aplica]
+
+REGLAS:
+- Prosa breve, 1-2 líneas por ítem
+- Sin relleno ni repetición
+- Lenguaje clínico simple APS
+- NO copiar textual, SÍ traducir a lenguaje clínico
+  Ej: "fuma cuando está nerviosa" → "consumo asociado a manejo de tensión"
+
+EJEMPLOS REALES:
+CASO 1: Usuaria adulta, en control GES 90 derivada desde sala ERA. Vive con hija, convivencia adecuada con dificultades de rutina con hijos cesantes. Comorbilidades: DM2, obesidad, dislipidemia, trastorno adaptativo. Refiere consumo de 35 años, 6–8 cig/día, asociado a estrés y hábito. Etapa contemplación. Test de Richmond: 7–8 puntos (Motivación: Moderada). Test de Fagerström: 1 punto (Dependencia: Muy baja). Test de los por qué: Predominan manejo de tensión y hábito automático. Se realiza refuerzo motivacional y educación. Se indica registro de consumo y control.
+
+CASO 2: Usuaria adulta mayor, derivada por médico. Vive con hija con consumo problemático, dinámica conflictiva. Comorbilidades: EPOC, HTA, ACV, ERC. Consumo 15–20 cig/día + OH habitual. Ideación suicida reciente. Richmond: Moderada. Fagerström: Alta. Predomina adicción y tensión. Se realiza contención, educación y derivación médica.
+
+CASO 3: Usuaria 60 años, vive con hijo fumador, ambiente facilitador. Consumo mayor a 30 años, 20 cig/día, intento previo fallido. Richmond: 9 puntos (Alta). Fagerström: 5 puntos (Moderada). Predomina placer y tensión. Se entrega educación y se indica día D.
+
+CASO 4: Usuario adulto, consumo 25 cig/día. Richmond: 6 puntos (Baja). Fagerström: 8 puntos (Muy alta). Predomina adicción. Se sugiere intervención intensiva y farmacoterapia.
+
+CASO 5: Usuaria adulta, consumo 8 cig/día asociado a ansiedad. Richmond: 7 puntos (Moderada). Fagerström: 3 puntos (Baja). Predomina tensión. Se realiza contención emocional y educación en salud.`,
+
 referencia:`${SB}
 TIPO: Referencia Social para gestion municipal.
 Eres Maria Angelica Galvez. Escribe EXACTAMENTE como ella.
@@ -1004,11 +1173,14 @@ function sel(t,btn){
   document.getElementById('ecicepPlanilla').style.display='none';
   document.getElementById('referenciaPlanilla').style.display='none';
   document.getElementById('prlacPlanilla').style.display='none';
+  document.getElementById('ges90Section').style.display='none';
   document.getElementById('btnSection').style.display='block';
   if(t==='vdi_planilla') document.getElementById('vdiPlanilla').style.display='block';
   else if(t==='ecicep_planilla') document.getElementById('ecicepPlanilla').style.display='block';
   else if(t==='referencia'){
     document.getElementById('referenciaPlanilla').style.display='block';
+  } else if(t==='ges90'){
+    document.getElementById('ges90Section').style.display='block';
   } else if(t==='prlac'){
     document.getElementById('prlacPlanilla').style.display='block';
   } else {
@@ -1047,6 +1219,33 @@ async function generar(){
     +'Situaciones relevantes: '+(document.getElementById('r_sit').value||'-')+'\n'
     +'Gestiones realizadas: '+(document.getElementById('r_ges').value||'-')+'\n'
     +'Apoyo requerido: '+ap+' '+(document.getElementById('r_ao').value||'')+'\n\nSolo entrega el texto del registro.';
+  }
+  else if(tipo==='ges90'){
+    const r1=parseInt(gR('r1')||0),r2=parseInt(gR('r2')||0),r3=parseInt(gR('r3')||0),r4=parseInt(gR('r4')||0);
+    const richmond=r1+r2+r3+r4;
+    const richClass=richmond<=4?'Baja':richmond<=6?'Moderada':'Alta';
+    const f1=parseInt(gR('f1')||0),f2=parseInt(gR('f2')||0),f3=parseInt(gR('f3')||0),f4=parseInt(gR('f4')||0),f5=parseInt(gR('f5')||0),f6=parseInt(gR('f6')||0);
+    const fager=f1+f2+f3+f4+f5+f6;
+    const fagerClass=fager<=2?'Muy baja':fager<=4?'Baja':fager<=6?'Moderada':fager<=8?'Alta':'Muy alta';
+    const pqArr=Array.from(document.querySelectorAll('.g_pq:checked')).map(e=>e.value);
+    const intervArr=Array.from(document.querySelectorAll('.g_interv:checked')).map(e=>e.value);
+    if(!document.getElementById('g_cig').value){err.textContent='Completa al menos los cigarrillos por día.';err.style.display='block';return;}
+    prompt='Genera registro GES 90 Tabaquismo con estos datos:\n\n'
+    +'Nombre: '+document.getElementById('g_nom').value+' | Edad: '+document.getElementById('g_edad').value+'\n'
+    +'Con quién vive: '+document.getElementById('g_fam').value+'\n'
+    +'Trabajo/ingresos: '+document.getElementById('g_trab').value+' | Red de apoyo: '+document.getElementById('g_red').value+'\n'
+    +'Comorbilidades: '+document.getElementById('g_comor').value+'\n'
+    +'Años fumando: '+document.getElementById('g_anos').value+' | Cigarrillos/día: '+document.getElementById('g_cig').value+'\n'
+    +'Contexto consumo: '+document.getElementById('g_ctx').value+'\n'
+    +'Intentos previos: '+document.getElementById('g_int').value+'\n'
+    +'OH/otras sustancias: '+document.getElementById('g_oh').value+'\n'
+    +'Etapa motivacional: '+gR('g_etapa')+'\n'
+    +'TEST RICHMOND: '+richmond+' puntos → Motivación: '+richClass+'\n'
+    +'TEST FAGERSTRÖM: '+fager+' puntos → Dependencia: '+fagerClass+'\n'
+    +'TEST POR QUÉ FUMA: '+(pqArr.join(', ')||'No especificado')+'\n'
+    +'Día D: '+document.getElementById('g_diad').value+'\n'
+    +'Intervenciones: '+(intervArr.join(', ')||'No especificado')+'\n'
+    +'Notas: '+document.getElementById('g_notas').value+'\n\nSolo entrega el texto del registro.';
   }
   else if(tipo==='prlac'){
     if(!document.getElementById('prl_diag').value){err.textContent='Completa al menos el diagnostico principal.';err.style.display='block';return;}
